@@ -100,7 +100,7 @@ button:disabled{cursor:default}
 .keys{font-size:12px;color:var(--muted);text-align:center}
 @media (hover:none){.keys{display:none}}
 /* resultado / evolução */
-.score{font-size:44px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.score{font-size:64px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
 .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .kpi{background:var(--soft);border-radius:10px;padding:10px;text-align:center}
 .kpi b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
@@ -760,7 +760,7 @@ function qview(){const id=quiz.ids[quiz.i],q=QS[id],P=TOPICS[q[0]];
 
 function result(){const n=quiz.ids.length,p=Math.round(quiz.ok/n*100);
  const errs=quiz.wrongs.map(i=>QS[i]);
- return `<div class="card" style="align-items:center;text-align:center"><span class="muted small">${esc(tname(quiz.t))}</span><div class="score">${quiz.ok}/${n}</div><p class="muted">${p}% de respostas certas</p></div>
+ return `<div class="card" style="align-items:center;text-align:center"><span class="muted small">${esc(tname(quiz.t))}</span><div class="score">${p}%</div><p class="muted" style="font-size:18px;font-weight:600">${quiz.ok}/${n} certas</p></div>
  ${errs.length?`<div class="card"><h3>Para rever (${errs.length})</h3>${errs.map(q=>`<div class="err"><span>${esc(q[2])}</span><span class="a">${esc(q[3])}</span></div>`).join('')}</div>`:''}
  <button class="big" onclick="start('${quiz.t}')">Nova ronda</button>
  ${S.wrong.filter(inCur).length?`<button class="ghost" onclick="start('${ERR()}')">Rever os meus erros (${S.wrong.filter(inCur).length})</button>`:''}

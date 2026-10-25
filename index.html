@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Estudo 10.º</title>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-title" content="Estudo 10.º">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1d2b44">
+<script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{})</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Sóbrio, uma coluna, pensado para telemóvel. Tema claro e escuro. */
+:root{
+  --bg:#f4f5f7; --card:#ffffff; --ink:#18202e; --muted:#5d6676; --line:#e1e4ea; --soft:#eef1f5;
+  --accent:#1d2b44; --accent-ink:#ffffff; --accent-soft:#e6ebf3;
+  --ok:#1b7f4b; --ok-soft:#e5f3eb; --bad:#c0392b; --bad-soft:#fbeae8;
+  --font:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f141c; --card:#171e29; --ink:#e7eaf0; --muted:#98a1b1; --line:#283244; --soft:#1e2734;
+  --accent:#8fb0e8; --accent-ink:#0f141c; --accent-soft:#1f2b3e;
+  --ok:#4cc38a; --ok-soft:#14291f; --bad:#ef7a6c; --bad-soft:#31191a; color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.app{max-width:560px;margin:0 auto;padding-block:max(16px,env(safe-area-inset-top,0px)) 48px;display:flex;flex-direction:column;gap:14px}
+h1,h2,h3{margin:0;line-height:1.2;text-wrap:balance;font-weight:700}
+h1{font-size:26px} h2{font-size:20px} h3{font-size:16px}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;text-align:left}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{cursor:default}
+.muted{color:var(--muted)} .small{font-size:13px}
+.top{display:flex;align-items:center;gap:12px;min-height:40px}
+.top h2{min-width:0;flex:1}
+.back{width:40px;height:40px;border-radius:10px;background:var(--card);border:1px solid var(--line);font-size:20px;display:grid;place-items:center;flex:none;text-align:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.hello h1{font-size:24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.subj{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:104px}
+.subj .ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px}
+.subj h3{font-size:15px}
+.subj .tag{font-size:12px;color:var(--muted)}
+.subj.off{opacity:.5}
+.subj.on:hover{border-color:var(--muted)}
+.testcard{background:var(--accent);color:var(--accent-ink);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:4px}
+.testcard .t{font-size:19px;font-weight:700}
+.testcard .k{font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.cd{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-weight:600}
+.cd b{min-width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:18px;font-variant-numeric:tabular-nums}
+.cd.hot{border-color:var(--bad)} .cd.hot b{background:var(--bad);color:#fff}
+.list{display:flex;flex-direction:column;gap:8px}
+.topic{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:12px;padding:12px 14px;width:100%}
+.topic>div{flex:1;min-width:0}
+.topic .n{font-weight:600}
+.topic .s{font-size:13px;color:var(--muted)}
+.topic .best{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.35}
+.topic .best b{color:var(--ink);font-size:14px}
+.cov{display:flex;align-items:center;gap:8px;margin-top:6px}
+.cov span{font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.bar{flex:1;height:6px;border-radius:6px;background:var(--soft);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c,var(--accent))}
+.row{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.seg{display:flex;gap:4px;background:var(--soft);border-radius:10px;padding:3px}
+.seg button{min-width:48px;padding:6px 10px;border-radius:8px;font-weight:600;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.pill2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pill2 button{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;font-weight:600;text-align:center}
+.pill2 button span{display:block;font-size:12px;color:var(--muted);font-weight:500}
+.pill2 button:disabled{opacity:.45}
+.prep .pp{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.prep .bar{height:8px}
+/* quiz */
+.qtop{display:flex;align-items:center;gap:10px}
+.prog{flex:1;height:8px;border-radius:8px;background:var(--line);overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);transition:width .25s}
+.count{font-weight:600;font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted)}
+.bm{width:40px;height:40px;border-radius:10px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);flex:none}
+.bm.on{color:var(--accent);border-color:var(--accent)}
+.qchip{align-self:flex-start;font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 10px}
+.qtext{font-size:19px;font-weight:600;line-height:1.4}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-weight:500;display:flex;gap:12px;align-items:center;width:100%}
+.opt .l{width:26px;height:26px;border-radius:7px;border:1.5px solid var(--line);background:var(--card);display:grid;place-items:center;font-size:13px;font-weight:700;flex:none;color:var(--muted)}
+.opt:not(:disabled):hover{border-color:var(--muted)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok)} .opt.right .l{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)} .opt.wrong .l{background:var(--bad);border-color:var(--bad);color:#fff}
+.fb{border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:4px;border:1.5px solid}
+.fb.ok{background:var(--ok-soft);border-color:var(--ok)} .fb.no{background:var(--bad-soft);border-color:var(--bad)}
+.fb h3{font-size:16px} .fb.ok h3{color:var(--ok)} .fb.no h3{color:var(--bad)}
+.big{width:100%;background:var(--accent);color:var(--accent-ink);border-radius:12px;padding:14px;font-weight:700;font-size:17px;text-align:center}
+.ghost{width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px;font-weight:600;text-align:center}
+.keys{font-size:12px;color:var(--muted);text-align:center}
+@media (hover:none){.keys{display:none}}
+/* resultado / evolução */
+.score{font-size:44px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi{background:var(--soft);border-radius:10px;padding:10px;text-align:center}
+.kpi b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12px;color:var(--muted)}
+.trow{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center}
+.trow .bar{grid-column:1/-1;height:8px}
+.trow .nm{font-weight:600;font-size:14px;min-width:0}
+.trow .v{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.wk{display:flex;justify-content:space-between;gap:8px;background:var(--bad-soft);border-radius:10px;padding:10px 12px;font-size:14px;font-weight:500;width:100%}
+.wk span:last-child{white-space:nowrap;color:var(--bad);font-weight:600}
+.err{border-top:1px solid var(--line);padding-top:10px;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.err:first-of-type{border-top:0;padding-top:0}
+.err .a{color:var(--ok);font-weight:600}
+.chart svg{width:100%;height:auto;display:block}
+.empty{text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script>
+// Português — 1.º teste (10.º ano). Fonte: matriz do teste (poesia trovadoresca / cantiga de amigo; processos fonológicos) e ficha informativa 2 do manual.
+// [tópico, subtópico, pergunta, resposta certa, [erradas], explicação]
+const QS_PT = [
+// ---------- P1 · A LÍRICA TROVADORESCA (contexto) ----------
+['p1','epoca','A poesia trovadoresca galego-portuguesa desenvolveu-se aproximadamente entre…','finais do século XII e meados do século XIV',['o século X e o século XI','o século XV e o século XVI','meados do século XIV e o século XV'],'Período trovadoresco: de finais do séc. XII a meados do séc. XIV.'],
+['p1','epoca','As cantigas trovadorescas foram escritas em…','galego-português',['latim','português moderno','provençal'],'A língua comum da Galiza e do norte de Portugal na época: o galego-português.'],
+['p1','epoca','A lírica trovadoresca tem uma forte influência da poesia…','provençal (sul de França)',['italiana do Renascimento','castelhana do século XVI','árabe do Oriente'],'Os trovadores provençais influenciaram a poesia da Península; as peregrinações a Santiago e as cortes ajudaram a difundi-la.'],
+['p1','epoca','Um dos caminhos por onde a poesia provençal chegou à Península Ibérica foi…','as peregrinações a Santiago de Compostela',['as viagens marítimas para a Índia','a imprensa','as universidades do século XVI'],'Peregrinos, jograis e nobres circulavam pelo Caminho de Santiago e levavam a poesia de corte em corte.'],
+['p1','epoca','Um rei português que foi também trovador é…','D. Dinis',['D. Afonso Henriques','D. Manuel I','D. João II'],'D. Dinis (séc. XIII–XIV) é um dos trovadores mais importantes, com cantigas de amor e de amigo.'],
+['p1','canc','As cantigas chegaram até nós sobretudo através de…','cancioneiros (coletâneas manuscritas)',['livros impressos da época','gravações orais','crónicas dos reis'],'Os cancioneiros reuniram as cantigas: Cancioneiro da Ajuda, da Biblioteca Nacional e da Vaticana.'],
+['p1','canc','Qual destes NÃO é um cancioneiro da lírica galego-portuguesa?','Cancioneiro Geral',['Cancioneiro da Ajuda','Cancioneiro da Vaticana','Cancioneiro da Biblioteca Nacional'],'O Cancioneiro Geral (Garcia de Resende, 1516) é posterior e não pertence à lírica trovadoresca.'],
+['p1','canc','O Cancioneiro da Ajuda reúne quase só…','cantigas de amor',['cantigas de amigo','cantigas de escárnio','romances'],'O da Ajuda tem sobretudo cantigas de amor; as cantigas de amigo estão nos da Vaticana e da Biblioteca Nacional.'],
+['p1','canc','Os Cancioneiros da Vaticana e da Biblioteca Nacional são…','cópias feitas em Itália no século XVI',['originais escritos pelos trovadores','livros impressos em Lisboa','cópias feitas no século XX'],'Ambos foram copiados em Itália no séc. XVI e preservam cantigas de amigo, de amor e satíricas.'],
+['p1','autores','Na época, as cantigas eram feitas para ser…','cantadas, com acompanhamento musical',['lidas em silêncio','apenas escritas em cancioneiros','declamadas sem música'],'Cantiga = texto para cantar. Poesia e música eram inseparáveis.'],
+['p1','autores','O trovador era, geralmente…','um nobre que compunha cantigas',['um músico pago que só tocava instrumentos','um monge copista','um camponês que cantava nas feiras'],'Trovador: autor de condição nobre, que compunha letra e música.'],
+['p1','autores','O jogral era…','um intérprete de condição social inferior, que cantava e tocava (e por vezes compunha)',['um nobre que só compunha','o rei que protegia os trovadores','o copista dos cancioneiros'],'Jogral: executante, de origem popular, que atuava a troco de pagamento.'],
+['p1','autores','Os géneros da poesia trovadoresca são…','lírica (cantigas de amor e de amigo) e satírica (escárnio e maldizer)',['épica e dramática','apenas cantigas de amigo','sonetos e éclogas'],'Lírica: amor e amigo. Satírica: escárnio e maldizer.'],
+['p1','autores','A cantiga de amigo tem origem…','numa tradição peninsular antiga (autóctone) de canções em voz feminina',['exclusivamente na poesia provençal','na poesia latina clássica','nos romances do século XVI'],'A cantiga de amor segue o modelo provençal; a de amigo vem de uma tradição peninsular mais antiga.'],
+['p1','autores','Quem escrevia as cantigas de amigo?','trovadores (homens) que davam voz a uma donzela',['mulheres da corte','apenas jograis anónimos','monges'],'O autor é um homem, mas o sujeito poético é feminino.'],
+['p1','amor','Na cantiga de AMOR, o sujeito poético é…','um homem que se dirige à "senhor"',['uma donzela que fala do amigo','a mãe da donzela','a natureza personificada'],'Cantiga de amor: voz masculina, dirige-se à "mia senhor" — é o contrário da cantiga de amigo.'],
+['p1','amor','O ambiente típico da cantiga de amor é…','cortês, aristocrático',['rural e popular','marítimo','religioso'],'Amor: ambiente da corte. Amigo: ambiente rural/natural, mais popular.'],
+['p1','amor','Na cantiga de amor, a "coita" é…','o sofrimento amoroso',['a alegria do encontro','a dança','o nome da amada'],'Coita = sofrimento por amor. Também aparece na cantiga de amigo, causada pela ausência do amigo.'],
+
+// ---------- P2 · A CANTIGA DE AMIGO ----------
+['p2','suj','Na cantiga de amigo, o sujeito poético é…','uma donzela',['um cavaleiro','um trovador que fala de si','um rei'],'Voz feminina: a donzela (jovem apaixonada) fala do seu "amigo".'],
+['p2','suj','Na cantiga de amigo, a palavra "amigo" significa…','namorado, amado',['colega','irmão','senhor feudal'],'"Amigo" = namorado. Variantes nas cantigas: "amado", "meu amigo".'],
+['p2','suj','A quem se pode dirigir a donzela nas cantigas de amigo?','à mãe, às amigas, à irmã, ao amigo ou a elementos da natureza',['apenas ao rei','apenas a Deus','apenas à "senhor"'],'Interlocutores frequentes: mãe, amigas, irmã, o amigo, e a natureza (ondas, flores, aves…).'],
+['p2','suj','O interlocutor é…','a entidade a quem o sujeito poético se dirige',['o autor da cantiga','o jogral que a canta','o título da cantiga'],'Sujeito poético = quem fala; interlocutor = a quem fala.'],
+['p2','suj','Quando a donzela fala com as ondas ou as flores, estes elementos funcionam como…','confidentes',['obstáculos','inimigos','narradores'],'A natureza personificada é confidente: ouve os desabafos e às vezes responde.'],
+['p2','suj','Ao falar com as ondas como se fossem pessoas, a donzela recorre à…','personificação (e à apóstrofe)',['hipérbole','comparação','ironia'],'Personificação: atribuir características humanas a seres não humanos. Apóstrofe: interpelar diretamente.'],
+['p2','suj','A apóstrofe é…','a interpelação direta de alguém ou de algo',['a repetição de palavras no início dos versos','um exagero','uma comparação com "como"'],'Ex.: "Ondas do mar de Vigo, / se vistes meu amigo?" — a donzela chama as ondas.'],
+['p2','sent','O tema mais frequente nas cantigas de amigo é…','a ausência do amigo e a saudade',['a guerra entre reinos','a crítica a pessoas da corte','o elogio da senhor'],'Temas: ausência, saudade, espera, ansiedade, alegria do encontro, ciúme, zanga.'],
+['p2','sent','Qual destes sentimentos é típico da donzela na cantiga de amigo?','saudade e ansiedade pela espera',['desprezo pelo amigo','indiferença','ódio à natureza'],'A donzela sofre com a ausência (coita), espera, receia que ele não volte.'],
+['p2','sent','A "coita" da donzela é causada, normalmente, por…','a ausência ou o afastamento do amigo',['a pobreza','a doença do rei','uma guerra perdida'],'O amigo partiu (para o mar, para o fossado, para longe) e ela sofre.'],
+['p2','sent','Para além da tristeza, a cantiga de amigo pode exprimir…','alegria, por exemplo pela notícia do regresso do amigo',['apenas raiva','apenas medo da morte','apenas devoção religiosa'],'Há cantigas alegres: a donzela feliz porque o amigo volta ou porque vai ao seu encontro.'],
+['p2','esp','O espaço típico das cantigas de amigo é…','natural e campestre (fontes, rios, mar, campos)',['o palácio','a cidade grande','a igreja apenas'],'Ambiente rural, ao ar livre: fonte, rio, mar, campos, ermidas.'],
+['p2','esp','A linguagem das cantigas de amigo é…','simples, com muitas repetições',['erudita e cheia de latinismos','muito complexa e difícil','técnica'],'Linguagem simples, popular, com repetições — fácil de memorizar e de cantar.'],
+['p2','esp','As cantigas de amigo são, em geral…','curtas, com estrofes de dois ou três versos e refrão',['longas, com centenas de versos','escritas em prosa','sonetos de 14 versos'],'Estrofes breves (dísticos, muitas vezes) + refrão.'],
+['p2','doc','Dizer que uma cantiga tem "valor documental" significa que…','dá informação sobre a vida e os costumes da época',['é um documento oficial do rei','foi escrita num papel especial','conta factos inventados'],'As cantigas mostram costumes, espaços, festas, trabalhos e a condição da mulher na Idade Média.'],
+['p2','doc','As cantigas de romaria documentam…','as festas e peregrinações a santuários',['as batalhas navais','as leis do reino','a vida nos mosteiros'],'Romarias eram ocasiões de convívio e de encontro entre namorados.'],
+['p2','doc','As cantigas em que o amigo partiu para o "fossado" mostram…','que os homens partiam em expedições militares ao serviço do rei',['que os homens iam estudar para a universidade','que as mulheres iam à guerra','que havia muitas viagens de lazer'],'Fossado = expedição militar. A cantiga documenta a vida das mulheres que ficavam à espera.'],
+['p2','doc','A referência a lugares reais (Vigo, San Simón, Lisboa) contribui para…','o valor documental da cantiga',['a rima da cantiga','o refrão','a sátira'],'Lugares concretos ligam a cantiga à realidade geográfica e social da época.'],
+['p2','doc','As cantigas de amigo mostram a mulher medieval muitas vezes…','dependente da autorização da mãe e à espera do amigo',['a governar o reino','a partir para a guerra','a viajar sozinha pelo mundo'],'A mãe aparece como figura de autoridade que autoriza ou proíbe o encontro.'],
+['p2','tipos','Uma cantiga de amigo passada junto ao mar chama-se…','barcarola ou marinha',['bailia','alba','pastorela'],'Barcarola/marinha: o mar e as ondas como cenário e confidentes.'],
+['p2','tipos','Uma cantiga de amigo em que as donzelas dançam chama-se…','bailia',['barcarola','alba','cantiga de romaria'],'Bailia ou bailada: convite à dança.'],
+['p2','tipos','Uma cantiga de amigo passada ao amanhecer chama-se…','alba ou alvorada',['bailia','barcarola','cantiga de romaria'],'Alba/alvorada: o raiar do dia, muitas vezes a separação dos namorados.'],
+['p2','tipos','Uma cantiga de amigo em que a donzela vai a um santuário chama-se…','cantiga de romaria',['barcarola','alba','bailia'],'Romaria: ida a uma igreja/ermida em festa, ocasião para ver o amigo.'],
+['p2','tipos','"Bailemos nós ja todas tres, ai amigas" é o início de uma…','bailia',['barcarola','alba','cantiga de amor'],'O convite à dança ("bailemos") identifica a bailia.'],
+
+// ---------- P3 · PARALELISMO, REFRÃO E PROGRESSÃO ----------
+['p3','par','O paralelismo consiste em…','repetir ideias e versos de estrofe para estrofe, com pequenas variações',['usar rimas diferentes em cada estrofe','contar uma história longa','evitar repetições'],'Paralelismo: estrofes aos pares que dizem quase o mesmo, mudando poucas palavras.'],
+['p3','par','No paralelismo, as estrofes organizam-se muitas vezes…','aos pares, a segunda repetindo a primeira com outra palavra final',['de forma totalmente diferente','em quadras soltas','sem qualquer relação'],'Ex.: "amigo" / "amado"; "Vigo" / "levado".'],
+['p3','par','Em "se vistes meu amigo?" / "se vistes meu amado?", a troca de "amigo" por "amado" é um exemplo de…','paralelismo',['leixa-pren','refrão','hipérbole'],'Mesma frase, palavra final diferente (sinónima) — paralelismo.'],
+['p3','par','O leixa-pren ("deixa-prende") consiste em…','retomar o 2.º verso de uma estrofe como 1.º verso de uma estrofe seguinte',['repetir o refrão no início','acabar todas as estrofes com a mesma rima','mudar de interlocutor'],'O verso "deixado" numa estrofe é "prendido" mais à frente.'],
+['p3','par','Em "Ondas do mar de Vigo", o verso "se vistes meu amigo?" (estrofe 1) reaparece no início da estrofe 3. Isto é…','leixa-pren',['refrão','rima interna','apóstrofe'],'2.º verso da estrofe 1 → 1.º verso da estrofe 3: leixa-pren.'],
+['p3','par','Qual é o efeito principal do paralelismo?','dar musicalidade e insistir na ideia, que avança devagar',['tornar a cantiga mais curta','esconder o sentimento','criar suspense policial'],'A repetição com variação cria ritmo, facilita a memorização e intensifica o sentimento.'],
+['p3','par','A repetição dos mesmos versos ajudava também a…','memorizar a cantiga, que circulava sobretudo oralmente',['imprimir a cantiga','traduzi-la para latim','encurtar o texto'],'Numa cultura oral, a repetição facilitava a memória de quem cantava e de quem ouvia.'],
+['p3','ref','O refrão é…','um verso ou conjunto de versos repetidos no fim de cada estrofe',['o primeiro verso da cantiga','o título','a última estrofe'],'Refrão: repetição fixa no fim das estrofes.'],
+['p3','ref','Em "Ondas do mar de Vigo", o refrão é…','"E ai Deus, se verrá cedo!"',['"Ondas do mar de Vigo"','"se vistes meu amigo?"','"por que ei gran cuidado?"'],'O verso repetido no fim de todas as estrofes.'],
+['p3','ref','Em "Ai flores, ai flores do verde pino", o refrão é…','"Ai Deus, e u é?"',['"se sabedes novas do meu amigo"','"Ai flores, ai flores do verde ramo"','"que é san\' e vivo"'],'"e u é?" = "e onde está?"'],
+['p3','ref','Uma função habitual do refrão é…','sintetizar e intensificar o sentimento dominante',['introduzir uma personagem nova','contar o desfecho da história','mudar o tema'],'O refrão concentra o estado de espírito (ansiedade, saudade) e reforça-o pela repetição.'],
+['p3','ref','A interjeição "ai" no refrão exprime…','emoção (lamento, ansiedade)',['indiferença','uma ordem','uma comparação'],'"Ai" é marca de emotividade: dor, ansiedade, desejo.'],
+['p3','ref','O sentido do refrão pode mudar ao longo da cantiga porque…','os versos à sua volta mudam o contexto (ex.: da espera à aflição)',['as palavras do refrão mudam sempre','o refrão é lido de trás para a frente','depende do jogral'],'As palavras são iguais, mas a situação muda — por isso o refrão ganha novos sentidos.'],
+['p3','prog','Progressão temática é…','a forma como o assunto e o sentimento evoluem ao longo da cantiga',['a numeração das estrofes','a mudança de autor','a passagem do latim ao português'],'Apesar das repetições, a cantiga avança: a situação e o sentimento mudam.'],
+['p3','prog','Na cantiga "Sedia-m\' eu na ermida de Sam Simiom", a progressão vai…','da espera tranquila do amigo à certeza da morte no mar',['da tristeza à alegria do casamento','do riso à zanga','da dança à oração'],'Espera → cerco das ondas → sem barqueiro → "morrerei fremosa no mar maior".'],
+['p3','prog','Na cantiga "Sedia-m\' eu na ermida…", os tempos verbais mostram a progressão porque passam…','do passado ao presente e ao futuro',['do futuro ao passado','sempre no presente','do imperativo ao conjuntivo'],'"cercarom" (passado) → "nom ei" (presente) → "morrerei" (futuro).'],
+['p3','prog','Em "Ai flores, ai flores do verde pino", a progressão vai…','das perguntas ansiosas da donzela à resposta tranquilizadora das flores',['da alegria à morte','da dança à zanga','do elogio à crítica'],'1.ª parte: pergunta e queixa; 2.ª parte: as flores respondem que ele está "san\' e vivo".'],
+['p3','prog','Mesmo depois da resposta das flores, o refrão "Ai Deus, e u é?" mostra que…','a dúvida e a saudade da donzela persistem',['a donzela já não se interessa','o amigo morreu','a cantiga acabou mal'],'O refrão mantém a pergunta até ao fim: ela só sossega quando o vir.'],
+
+// ---------- P4 · LER CANTIGAS ----------
+['p4','ondas','"Ondas do mar de Vigo, / se vistes meu amigo?" — quem fala?','uma donzela',['as ondas','o amigo','a mãe'],'"meu amigo" → voz feminina: a donzela.'],
+['p4','ondas','"Ondas do mar de Vigo, / se vistes meu amigo?" — a quem se dirige?','às ondas do mar',['ao amigo','a Deus','à mãe'],'A donzela interpela as ondas (apóstrofe/personificação).'],
+['p4','ondas','Quem é o autor de "Ondas do mar de Vigo"?','Martim Codax',['D. Dinis','Meendinho','Pero Meogo'],'Martim Codax, jogral galego; as suas cantigas estão no Pergaminho Vindel, com música.'],
+['p4','ondas','"Ondas do mar levado" — "levado" significa…','agitado, encapelado',['calmo','distante','gelado'],'Mar levado = mar alto, agitado.'],
+['p4','ondas','"por que ei gran cuidado" exprime…','preocupação',['alegria','desprezo','cansaço'],'"cuidado" = preocupação, inquietação.'],
+['p4','ondas','"o por que eu sospiro" exprime…','saudade e amor',['raiva','medo do mar','arrependimento'],'Suspirar pelo amigo = sentir a falta dele.'],
+['p4','ondas','"Ondas do mar de Vigo" é uma barcarola porque…','o mar é o cenário e o confidente',['fala de uma dança','se passa ao amanhecer','se passa numa romaria'],'Barcarola/marinha: o mar como espaço e confidente.'],
+['p4','ondas','No refrão "E ai Deus, se verrá cedo!", "verrá" significa…','virá',['verá','voltará a partir','vencerá'],'Forma antiga do futuro de "vir".'],
+['p4','flores','"Ai flores, ai flores do verde pino" — "pino" é…','pinheiro',['pino de bowling','pinho cortado','monte'],'Verde pino = pinheiro verde.'],
+['p4','flores','"se sabedes novas do meu amigo" — "novas" significa…','notícias',['coisas novas','roupas','flores novas'],'Novas = notícias.'],
+['p4','flores','Quem é o autor de "Ai flores, ai flores do verde pino"?','D. Dinis',['Martim Codax','Meendinho','Airas Nunes'],'Cantiga de amigo de D. Dinis.'],
+['p4','flores','"aquel que mentiu do que pôs comigo" mostra que a donzela…','se queixa porque o amigo não cumpriu o que combinou',['acha que o amigo é muito honesto','esqueceu o amigo','quer casar com outro'],'Ele faltou ao combinado (não apareceu no prazo).'],
+['p4','flores','"Vós me preguntades polo voss\' amigo?" — quem fala neste verso?','as flores',['a donzela','o amigo','a mãe'],'A partir da 5.ª estrofe são as flores que respondem: estrutura dialogada.'],
+['p4','flores','"e seerá vosc\' ant\' o prazo saído" significa que o amigo…','estará com ela antes de terminar o prazo',['morreu antes do prazo','nunca mais voltará','partiu com outra'],'"seerá vosc\'" = estará convosco; "ant\' o prazo saído" = antes de acabar o prazo.'],
+['p4','flores','A cantiga "Ai flores…" tem uma estrutura dialogada porque…','há perguntas da donzela e respostas das flores',['tem dois autores','tem duas línguas','é cantada por dois jograis'],'Diálogo: donzela (estrofes 1–4) e flores (estrofes 5–8).'],
+['p4','ermida','"Sedia-m\' eu na ermida de Sam Simiom" — "ermida" é…','uma pequena igreja em lugar isolado',['uma casa de pescadores','um castelo','uma ilha deserta'],'Ermida: capela isolada. San Simón é uma ilha na ria de Vigo.'],
+['p4','ermida','Quem é o autor de "Sedia-m\' eu na ermida de Sam Simiom"?','Meendinho',['D. Dinis','Martim Codax','João Zorro'],'Meendinho: a única cantiga que se conhece dele.'],
+['p4','ermida','"Sedia-m\' eu" significa…','estava eu (sentada)',['saí eu','sofria eu','dormia eu'],'Do verbo "seer/sedere": estar sentado.'],
+['p4','ermida','"eu atendend\' o meu amigo!" — "atendendo" significa…','esperando',['ouvindo','tratando','servindo'],'"Atender" no galego-português = esperar.'],
+['p4','ermida','"nom ei [i] barqueiro, nem sei remar" exprime…','isolamento e impotência',['alegria e liberdade','orgulho','cansaço'],'Ela está cercada pelo mar sem forma de sair.'],
+['p4','ermida','"morrerei [eu] fremosa no mar maior" — o adjetivo "fremosa" revela que a donzela…','tem consciência da sua beleza',['está doente','é velha','se acha feia'],'Mesmo perante a morte, refere a sua beleza: traço típico da donzela.'],
+['p4','outras','"Mia irmana fremosa, treides comigo / a la igreja de Vig\', u é o mar salido" — a interlocutora é…','a irmã',['a mãe','o amigo','as ondas'],'"Mia irmana" — a donzela convida a irmã para ir à igreja de Vigo (romaria).'],
+['p4','outras','"treides comigo / a la igreja de Vig\'" é um…','convite (vinde comigo)',['pedido de desculpas','lamento pela morte','insulto'],'"treides" = vinde. Convite para a romaria.'],
+['p4','outras','"Digades, filha, mia filha velida, / porque tardastes na fontana fria?" — quem fala?','a mãe',['a donzela','o amigo','as amigas'],'A mãe pergunta à filha porque se atrasou na fonte (Pero Meogo).'],
+['p4','outras','Na cantiga de Pero Meogo, a "fontana fria" simboliza…','o lugar do encontro amoroso',['a doença da donzela','a morte do amigo','a pobreza'],'A fonte é espaço de encontro dos namorados.'],
+['p4','outras','"Levantou-s\' a velida, / levantou-s\' alva" (D. Dinis) — o cenário é…','o amanhecer (alba)',['a noite de tempestade','uma dança na corte','uma batalha'],'"alva" = madrugada: cantiga de tipo alba.'],
+['p4','outras','"velida" significa…','bela, formosa',['velha','vestida','vencida'],'Velida = bela. É frequente nas cantigas de amigo.'],
+['p4','outras','Em "Bailemos nós ja todas tres, ai amigas", a donzela dirige-se…','às amigas',['ao amigo','à mãe','ao mar'],'"ai amigas" — interpelação às amigas (bailia de Airas Nunes).'],
+
+// ---------- P5 · PROCESSOS FONOLÓGICOS: CONCEITOS ----------
+['p5','ins','A prótese é…','a inserção de um som no início da palavra',['a inserção de um som no final','a queda de um som no início','a troca de posição de sons'],'Prótese: + início. Ex.: scutu- > escudo.'],
+['p5','ins','A epêntese é…','a inserção de um som no interior da palavra',['a inserção de um som no início','a queda de um som no interior','a fusão de duas vogais'],'Epêntese: + interior. Ex.: creo > creio.'],
+['p5','ins','A paragoge é…','a inserção de um som no final da palavra',['a queda de um som no final','a inserção de um som no início','a troca de sílabas'],'Paragoge: + final. Ex.: ante > antes.'],
+['p5','sup','A aférese é…','a supressão de um som no início da palavra',['a supressão no final','a inserção no início','a supressão no interior'],'Aférese: − início. Ex.: attonitu- > tonto.'],
+['p5','sup','A síncope é…','a supressão de um som no interior da palavra',['a supressão no início','a supressão no final','a inserção no interior'],'Síncope: − interior. Ex.: legale- > leal.'],
+['p5','sup','A apócope é…','a supressão de um som no final da palavra',['a supressão no interior','a inserção no final','a supressão no início'],'Apócope: − final. Ex.: male- > mal.'],
+['p5','alt','A metátese é…','a deslocação de sons ou sílabas dentro da palavra',['a perda de um som','a fusão de duas vogais','a passagem de surda a sonora'],'Metátese: muda de lugar. Ex.: feria- > feira.'],
+['p5','alt','A assimilação é…','a mudança de um som por influência de outro próximo, tornando-o igual ou semelhante',['a passagem de dois sons iguais a diferentes','a passagem de consoante a vogal','a queda de um som'],'Assimilação: aproxima. Ex.: persona- > pessoa (rs > ss).'],
+['p5','alt','A dissimilação é…','a diferenciação de dois sons iguais ou semelhantes',['a igualização de dois sons próximos','a inserção de um som','a queda de uma vogal'],'Dissimilação: afasta. Ex.: liliu- > lírio (l…l > l…r).'],
+['p5','alt','A sonorização é…','a passagem de uma consoante surda a sonora',['a passagem de sonora a surda','a passagem de consoante a vogal','a queda de uma consoante'],'p > b, t > d, c > g. Ex.: lupu- > lobo.'],
+['p5','alt','A vocalização é…','a passagem de uma consoante a vogal (semivogal)',['a passagem de vogal a consoante','a queda de uma vogal','a passagem de surda a sonora'],'Ex.: octo > oito (c > i).'],
+['p5','alt','A palatalização é…','a evolução de um som ou grupo para um som palatal (ch, lh, nh, j)',['a passagem de consoante a vogal','a queda de um som','a fusão de vogais'],'Ex.: clamare > chamar; folia- > folha.'],
+['p5','alt','A crase é…','a fusão de duas vogais (iguais) numa só',['a passagem de duas vogais a ditongo','a inserção de uma vogal','a troca de duas vogais'],'Ex.: pala- > paa > pá.'],
+['p5','alt','A sinérese é…','a passagem de duas vogais em hiato a um ditongo',['a fusão de duas vogais numa só','a queda de uma vogal','a inserção de uma vogal'],'Ex.: ego > eo > eu.'],
+['p5','alt','A crase e a sinérese são dois tipos de…','contração',['inserção','supressão','metátese'],'Contração: as vogais juntam-se (numa só = crase; num ditongo = sinérese).'],
+['p5','alt','A redução vocálica é…','o enfraquecimento de uma vogal em posição átona',['a queda de uma vogal tónica','a passagem de vogal a consoante','a fusão de duas vogais'],'Ex.: v[ɔ]to / v[u]tação: a vogal átona é pronunciada mais fechada.'],
+['p5','alt','Prótese, epêntese e paragoge são processos de…','inserção',['supressão','alteração','contração'],'Inserção (+): início, interior, final.'],
+['p5','alt','Aférese, síncope e apócope são processos de…','supressão',['inserção','alteração','palatalização'],'Supressão (−): início, interior, final.'],
+['p5','alt','Sonorização, vocalização e palatalização são processos de…','alteração',['inserção','supressão','apenas contração'],'Alteração (≠): o som muda, mas não é acrescentado nem eliminado.'],
+['p5','alt','Segundo a nota do manual, a grafia…','nem sempre mostra todas as mudanças que já ocorreram na pronúncia',['mostra sempre a pronúncia exata','muda sempre ao mesmo tempo que a pronúncia','nunca muda'],'Há grafias conservadoras que não refletem mudanças já ocorridas.'],
+['p5','alt','Em "voto / votação", a vogal destacada "o" de votação…','é pronunciada [u] por estar em posição átona',['é pronunciada [ɔ] como em voto','desaparece','passa a ditongo'],'Redução vocálica: na sílaba átona, a vogal enfraquece.'],
+['p5','alt','A redução vocálica explica a pronúncia de…','"candidatura" em comparação com "candidato"',['"escudo" em comparação com "scutu-"','"lobo" em comparação com "lupu-"','"chave" em comparação com "clave"'],'Nas formas derivadas, a vogal que fica átona enfraquece.'],
+
+// ---------- P6 · IDENTIFICAR O PROCESSO ----------
+['p6','ins','scutu- > escudo: no início da palavra ocorreu…','prótese',['epêntese','paragoge','aférese'],'Acrescentou-se e- no início.'],
+['p6','ins','scala- > escala:','prótese',['aférese','epêntese','metátese'],'e- acrescentado no início.'],
+['p6','ins','stare > estar: no início da palavra ocorreu…','prótese',['paragoge','epêntese','assimilação'],'e- acrescentado no início (e queda do -e final: apócope).'],
+['p6','ins','spatha- > espada: no início da palavra ocorreu…','prótese',['aférese','epêntese','síncope'],'e- inicial acrescentado (e t > d: sonorização).'],
+['p6','ins','stella- > estrela: no início da palavra ocorreu…','prótese',['paragoge','aférese','síncope'],'e- inicial acrescentado.'],
+['p6','ins','creo > creio:','epêntese',['prótese','paragoge','sinérese'],'Acrescentou-se i no interior.'],
+['p6','ins','umeru- > omro > ombro: na passagem de omro a ombro ocorreu…','epêntese',['prótese','paragoge','assimilação'],'Acrescentou-se b no interior.'],
+['p6','ins','humile- > humilde: o d resulta de…','epêntese',['paragoge','prótese','sonorização'],'d acrescentado no interior.'],
+['p6','ins','arena > area > areia: na passagem de area a areia ocorreu…','epêntese',['síncope','crase','prótese'],'Acrescentou-se i no interior.'],
+['p6','ins','ante > antes:','paragoge',['prótese','epêntese','apócope'],'Acrescentou-se -s no final.'],
+['p6','sup','attonitu- > tonto: no início da palavra ocorreu…','aférese',['síncope','apócope','prótese'],'Caiu o a- inicial.'],
+['p6','sup','episcopu- > bispo: no início da palavra ocorreu…','aférese',['apócope','síncope','prótese'],'Caiu o e- inicial.'],
+['p6','sup','inamorare > namorar: no início da palavra ocorreu…','aférese',['síncope','prótese','metátese'],'Caiu o i- inicial.'],
+['p6','sup','legale- > leal:','síncope',['apócope','aférese','crase'],'Caiu o g interior.'],
+['p6','sup','nuda- > nua:','síncope',['apócope','aférese','sinérese'],'Caiu o d interior.'],
+['p6','sup','luna- > lua:','síncope',['apócope','aférese','assimilação'],'Caiu o n interior (a vogal nasalou-se e depois desnasalou).'],
+['p6','sup','salire > sair: o desaparecimento do l é…','síncope',['aférese','apócope','dissimilação'],'Caiu o l interior.'],
+['p6','sup','viride- > verde: o desaparecimento do i interior é…','síncope',['apócope','aférese','crase'],'Caiu uma vogal no interior.'],
+['p6','sup','male- > mal:','apócope',['síncope','aférese','crase'],'Caiu o -e final.'],
+['p6','sup','et > e:','apócope',['aférese','síncope','assimilação'],'Caiu o -t final.'],
+['p6','sup','mare- > mar:','apócope',['síncope','paragoge','aférese'],'Caiu o -e final.'],
+['p6','sup','sole- > sol:','apócope',['síncope','aférese','crase'],'Caiu o -e final.'],
+['p6','alt','feria- > feira:','metátese',['assimilação','epêntese','vocalização'],'O i mudou de posição.'],
+['p6','alt','inter > entre:','metátese',['epêntese','paragoge','dissimilação'],'O r mudou de posição (er > re).'],
+['p6','alt','semper > sempre:','metátese',['paragoge','epêntese','apócope'],'er > re: mudança de posição.'],
+['p6','alt','preguntar > perguntar:','metátese',['assimilação','epêntese','síncope'],'re > er: o r mudou de posição.'],
+['p6','alt','persona- > pessoa: a passagem de rs a ss é…','assimilação',['dissimilação','metátese','síncope'],'O r tornou-se igual ao s vizinho.'],
+['p6','alt','nostru- > nosso: a passagem de st a ss é…','assimilação',['dissimilação','sonorização','palatalização'],'O t tornou-se igual ao s.'],
+['p6','alt','ipsu- > isso: a passagem de ps a ss é…','assimilação',['dissimilação','metátese','vocalização'],'O p assimilou-se ao s.'],
+['p6','alt','calamellu- > caramelo: a passagem do primeiro l a r é…','dissimilação',['assimilação','metátese','sonorização'],'l…l > r…l: os dois sons iguais tornaram-se diferentes.'],
+['p6','alt','liliu- > lírio:','dissimilação',['assimilação','palatalização','metátese'],'l…l > l…r: diferenciação.'],
+['p6','alt','anima > anma > alma: a passagem de anma a alma é…','dissimilação',['assimilação','síncope','metátese'],'n e m (ambas nasais) diferenciaram-se: n > l.'],
+['p6','alt','lupu- > lobo: a passagem de p a b é…','sonorização',['vocalização','palatalização','assimilação'],'p (surda) > b (sonora).'],
+['p6','alt','libertate- > liberdade: a passagem de t a d é…','sonorização',['dissimilação','vocalização','metátese'],'t (surda) > d (sonora).'],
+['p6','alt','amicu- > amigo: a passagem de c a g é…','sonorização',['palatalização','assimilação','vocalização'],'c [k] surda > g sonora.'],
+['p6','alt','acutu- > agudo:','sonorização',['vocalização','palatalização','síncope'],'c > g e t > d: surdas a sonoras.'],
+['p6','alt','lacu- > lago: a passagem de c a g é…','sonorização',['palatalização','vocalização','dissimilação'],'Surda > sonora.'],
+['p6','alt','sapere > saber: a passagem de p a b é…','sonorização',['vocalização','assimilação','metátese'],'p > b.'],
+['p6','alt','cito > cedo: a passagem de t a d é…','sonorização',['vocalização','palatalização','dissimilação'],'t > d.'],
+['p6','alt','octo > oito: a passagem de c a i é…','vocalização',['palatalização','sonorização','síncope'],'Consoante (c) > semivogal (i).'],
+['p6','alt','actu- > auto: a passagem de c a u é…','vocalização',['sonorização','palatalização','assimilação'],'c > u (semivogal).'],
+['p6','alt','nocte- > noite: a passagem de c a i é…','vocalização',['palatalização','sonorização','epêntese'],'c > i.'],
+['p6','alt','lacte- > leite: a passagem de c a i é…','vocalização',['palatalização','síncope','sonorização'],'c > i.'],
+['p6','alt','factu- > feito: a passagem de c a i é…','vocalização',['palatalização','sonorização','assimilação'],'c > i.'],
+['p6','alt','clamare > chamar: a passagem de cl a ch é…','palatalização',['vocalização','assimilação','metátese'],'cl > ch (som palatal).'],
+['p6','alt','plorare > chorar: a passagem de pl a ch é…','palatalização',['vocalização','sonorização','dissimilação'],'pl > ch.'],
+['p6','alt','inflare > inchar: a passagem de fl a ch é…','palatalização',['vocalização','síncope','assimilação'],'fl > ch.'],
+['p6','alt','folia- > folha: a passagem de li a lh é…','palatalização',['vocalização','metátese','assimilação'],'li > lh.'],
+['p6','alt','ciconia- > cegonha: a passagem de ni a nh é…','palatalização',['vocalização','metátese','dissimilação'],'ni > nh.'],
+['p6','alt','hodie > hoje: a passagem de di a j é…','palatalização',['sonorização','vocalização','síncope'],'di > j.'],
+['p6','alt','clave- > chave:','palatalização',['vocalização','sonorização','assimilação'],'cl > ch.'],
+['p6','alt','pluvia- > chuva: a passagem de pl a ch é…','palatalização',['vocalização','metátese','sonorização'],'pl > ch.'],
+['p6','alt','filiu- > filho: a passagem de li a lh é…','palatalização',['vocalização','dissimilação','síncope'],'li > lh.'],
+['p6','alt','vinea- > vinha: a passagem de ne a nh é…','palatalização',['vocalização','síncope','metátese'],'ne/ni + vogal > nh.'],
+['p6','con','sedere > seer > ser: a passagem de seer a ser é…','crase',['sinérese','síncope','apócope'],'ee > e: duas vogais iguais numa só.'],
+['p6','con','pala- > paa > pá: a passagem de paa a pá é…','crase',['sinérese','apócope','síncope'],'aa > a.'],
+['p6','con','pede > pee > pé: a passagem de pee a pé é…','crase',['sinérese','apócope','aférese'],'ee > e.'],
+['p6','con','coor > cor:','crase',['sinérese','síncope','apócope'],'oo > o.'],
+['p6','con','ego > eo > eu: a passagem de eo a eu é…','sinérese',['crase','vocalização','síncope'],'Hiato e-o > ditongo eu.'],
+['p6','con','rege- > ree > rei: a passagem de ree a rei é…','sinérese',['crase','epêntese','apócope'],'Hiato e-e > ditongo ei.'],
+['p6','con','malu- > mao > mau: a passagem de mao a mau é…','sinérese',['crase','vocalização','síncope'],'Hiato a-o > ditongo au.'],
+['p6','dois','pede > pee > pé: na passagem de pede a pee ocorreu…','síncope',['apócope','aférese','sonorização'],'Caiu o d interior.'],
+['p6','dois','dolore > dolor: ocorreu…','apócope',['síncope','aférese','crase'],'Caiu o -e final.'],
+['p6','dois','dolor > door: ocorreu…','síncope',['apócope','crase','assimilação'],'Caiu o l interior.'],
+['p6','dois','vedere > veer > ver: na passagem de vedere a veer ocorreram…','síncope (do d) e apócope (do e final)',['crase e sinérese','prótese e paragoge','sonorização e metátese'],'d interior cai (síncope); e final cai (apócope).'],
+['p6','dois','scutu- > escudo: ocorreram…','prótese e sonorização',['prótese e vocalização','aférese e sonorização','epêntese e palatalização'],'e- inicial (prótese); t > d (sonorização).'],
+['p6','dois','anima > anma: ocorreu…','síncope',['apócope','aférese','dissimilação'],'Caiu o i interior.'],
+['p6','dois','spatha- > espada: ocorreram…','prótese e sonorização',['epêntese e sonorização','prótese e assimilação','aférese e vocalização'],'e- inicial + t > d.'],
+['p6','dois','sapere > saber: ocorreram…','sonorização e apócope',['vocalização e síncope','sonorização e paragoge','palatalização e apócope'],'p > b; cai o -e final.'],
+
+// ---------- P7 · DISTINGUIR PROCESSOS PARECIDOS ----------
+['p7','pos','O que distingue a prótese, a epêntese e a paragoge?','o lugar onde o som é acrescentado (início, interior, final)',['o tipo de som que cai','o facto de serem vogais ou consoantes','a época em que ocorreram'],'Todas acrescentam; muda o sítio.'],
+['p7','pos','O que distingue a aférese, a síncope e a apócope?','o lugar onde o som é suprimido (início, interior, final)',['o número de sílabas acrescentadas','o tipo de vogal que se junta','a posição do acento'],'Todas suprimem; muda o sítio.'],
+['p7','pos','luna > lua e mare > mar são supressões. A diferença é que…','em lua cai um som interior (síncope) e em mar cai o final (apócope)',['ambas são apócopes','ambas são síncopes','em lua há aférese'],'Interior = síncope; final = apócope.'],
+['p7','pos','stare > estar e ante > antes são inserções. A diferença é que…','em estar o som entra no início (prótese) e em antes no final (paragoge)',['ambas são próteses','ambas são paragoges','em antes há epêntese'],'Início = prótese; final = paragoge.'],
+['p7','pos','attonitu- > tonto e male- > mal: qual o par certo?','aférese / apócope',['apócope / aférese','síncope / apócope','aférese / síncope'],'tonto: cai no início; mal: cai no fim.'],
+['p7','ass','A diferença entre assimilação e dissimilação é que…','na assimilação os sons ficam iguais/semelhantes e na dissimilação ficam diferentes',['na assimilação os sons caem e na dissimilação acrescentam-se','são a mesma coisa','a dissimilação só afeta vogais'],'Assimilação aproxima; dissimilação afasta.'],
+['p7','ass','ipsu- > isso e liliu- > lírio: qual o par certo?','assimilação / dissimilação',['dissimilação / assimilação','assimilação / assimilação','metátese / dissimilação'],'ps > ss (iguala); l…l > l…r (diferencia).'],
+['p7','ass','Qual destas evoluções é uma metátese e NÃO uma assimilação?','feria- > feira',['persona- > pessoa','nostru- > nosso','ipsu- > isso'],'Em feira o i muda de lugar; nas outras um som iguala-se ao vizinho.'],
+['p7','con','A diferença entre crase e sinérese é que…','na crase as vogais fundem-se numa só e na sinérese formam um ditongo',['na crase forma-se um ditongo e na sinérese uma só vogal','a crase acrescenta uma vogal','a sinérese elimina consoantes'],'paa > pá (crase); eo > eu (sinérese).'],
+['p7','con','coor > cor e mao > mau: qual o par certo?','crase / sinérese',['sinérese / crase','crase / crase','síncope / sinérese'],'oo > o (crase); ao > au (ditongo: sinérese).'],
+['p7','voc','A diferença entre vocalização e palatalização é que…','na vocalização uma consoante passa a vogal; na palatalização surge um som palatal (ch, lh, nh, j)',['são o mesmo processo','a vocalização acrescenta uma consoante','a palatalização elimina uma vogal'],'octo > oito (vocalização); clave > chave (palatalização).'],
+['p7','voc','nocte- > noite e plorare > chorar: qual o par certo?','vocalização / palatalização',['palatalização / vocalização','vocalização / sonorização','sonorização / palatalização'],'c > i (vocalização); pl > ch (palatalização).'],
+['p7','voc','A diferença entre sonorização e vocalização é que…','na sonorização a consoante continua consoante (passa a sonora); na vocalização passa a vogal',['na sonorização a consoante passa a vogal','são iguais','na vocalização a consoante cai'],'lupu > lobo (p > b) vs octo > oito (c > i).'],
+['p7','voc','Em amicu- > amigo, porque NÃO há palatalização?','porque g não é um som palatal: houve sonorização (c > g)',['porque não houve mudança','porque o c caiu','porque é uma metátese'],'Palatal = ch, lh, nh, j. g é sonora, não palatal.'],
+['p7','voc','Em creo > creio, porque é epêntese e NÃO sinérese?','porque se acrescentou um som (i) no interior',['porque duas vogais se fundiram','porque caiu uma vogal','porque o e passou a i'],'Inserção no interior = epêntese.'],
+['p7','voc','Em umeru- > omro, o que aconteceu ao e interior?','caiu (síncope)',['foi acrescentado (epêntese)','mudou de lugar (metátese)','passou a ditongo (sinérese)'],'umeru > om(e)ro: o e interior caiu.'],
+
+// ---------- P8 · DO LATIM AO PORTUGUÊS ----------
+['p8','lin','O português resulta sobretudo da evolução do…','latim vulgar (falado)',['latim clássico escrito','grego','árabe'],'A língua falada pelo povo romano na Península evoluiu para o galego-português.'],
+['p8','lin','O galego-português era falado…','na Galiza e no norte de Portugal',['em todo o território que é hoje Espanha','apenas em Lisboa','apenas na corte de França'],'Só mais tarde galego e português se separaram.'],
+['p8','lin','Na época das cantigas, a forma "fremosa" corresponde à atual…','formosa',['fermentada','firme','famosa'],'A diferença está na posição do r: fre- / for- (metátese).'],
+['p8','lin','Formas como "sabedes", "preguntades" e "querede" mostram que, no galego-português, a 2.ª pessoa do plural…','mantinha o -d- que mais tarde caiu (síncope)',['não existia','terminava sempre em -ais','era igual à 1.ª pessoa'],'sabedes > sabees > sabeis: o -d- caiu.'],
+['p8','lin','Na passagem de "sabedes" a "sabees", ocorreu…','síncope',['apócope','metátese','prótese'],'Caiu o d interior.'],
+['p8','lin','Formas como "virom", "cercarom" correspondem às atuais…','viram, cercaram',['virão, cercarão','vimos, cercámos','vir, cercar'],'A terminação -om da 3.ª pessoa do plural deu -am.'],
+['p8','lin','Nas cantigas, "senhor" é usado também para o feminino ("mia senhor") porque…','os nomes em -or tinham uma só forma para os dois géneros',['era um erro dos copistas','a senhora era um homem','era uma forma latina'],'Só mais tarde surgiu "senhora".'],
+['p8','lin','"nom" e "non" nas cantigas correspondem a…','não',['nome','nunca','nem'],'Forma antiga do advérbio de negação.'],
+['p8','lin','"u" em "e u é?" significa…','onde',['ou','um','eu'],'"u" = onde (do latim ubi).'],
+];
+
+
+// ===================== CONFIGURAÇÃO =====================
+// Disciplinas: on=true quando houver perguntas. Para acrescentar, criar o banco de perguntas, os TOPICS e um teste em TESTS.
+const SUBJ=[
+ {k:'pt',n:'Português',ic:'Pt',c:'#a23b4c'},
+ {k:'ma',n:'Matemática A',ic:'Ma',c:'#2d5fa8'},
+ {k:'ec',n:'Economia A',ic:'Ec',c:'#2f7d5b'},
+ {k:'fi',n:'Filosofia',ic:'Fi',c:'#6b4fa0'},
+ {k:'ge',n:'Geografia A',ic:'Ge',c:'#1f7f86'},
+ {k:'in',n:'Inglês',ic:'In',c:'#b5651d'},
+ {k:'ef',n:'Educação Física',ic:'EF',c:'#5b6577'},
+];
+const TOPICS={
+ p1:{n:'A lírica trovadoresca',s:'Época, língua, cancioneiros, trovadores e jograis',c:'#8a5a2b'},
+ p2:{n:'A cantiga de amigo',s:'Sujeito poético, interlocutores, sentimentos, valor documental',c:'#a23b4c'},
+ p3:{n:'Paralelismo, refrão e progressão',s:'Leixa-pren, função do refrão, progressão temática',c:'#6b4fa0'},
+ p4:{n:'Ler cantigas',s:'Perguntas sobre versos de cantigas concretas',c:'#2d5fa8'},
+ p5:{n:'Processos fonológicos: conceitos',s:'Inserção, supressão, alteração',c:'#1f7f86'},
+ p6:{n:'Processos fonológicos: identificar',s:'Do latim ao português, palavra a palavra',c:'#2f7d5b'},
+ p7:{n:'Processos parecidos',s:'Síncope ou apócope? Crase ou sinérese?',c:'#b5651d'},
+ p8:{n:'Do latim ao português antigo',s:'Marcas do galego-português nas cantigas',c:'#5b6577'},
+};
+const SUBN={'p1:epoca':'Época e língua','p1:canc':'Cancioneiros','p1:autores':'Trovadores, jograis e géneros','p1:amor':'Amigo vs. amor',
+ 'p2:suj':'Sujeito poético e interlocutor','p2:sent':'Temas e sentimentos','p2:esp':'Espaço e linguagem','p2:doc':'Valor documental','p2:tipos':'Tipos de cantiga de amigo',
+ 'p3:par':'Paralelismo e leixa-pren','p3:ref':'O refrão','p3:prog':'Progressão temática',
+ 'p4:ondas':'"Ondas do mar de Vigo"','p4:flores':'"Ai flores, ai flores do verde pino"','p4:ermida':'"Sedia-m\' eu na ermida"','p4:outras':'Outras cantigas',
+ 'p5:ins':'Conceitos: inserção','p5:sup':'Conceitos: supressão','p5:alt':'Conceitos: alteração e contração',
+ 'p6:ins':'Identificar: inserção','p6:sup':'Identificar: supressão','p6:alt':'Identificar: alteração','p6:con':'Identificar: crase e sinérese','p6:dois':'Evoluções com vários passos',
+ 'p7:pos':'Início, interior ou final?','p7:ass':'Assimilação vs. dissimilação','p7:con':'Crase vs. sinérese','p7:voc':'Vocalização, palatalização, sonorização',
+ 'p8:lin':'Galego-português'};
+// when: 'AAAA-MM-DD' ou null (data por definir)
+const TESTS={
+ pt1:{subj:'pt',title:'1.º Teste',name:'Poesia trovadoresca e processos fonológicos',when:null,keys:['p1','p2','p3','p4','p5','p6','p7','p8']},
+};
+const QS=[...QS_PT];
+const KEY='estudo10-v1';
+
+// ===================== ESTADO =====================
+let S=load(), cur=null, quiz=null, view={name:'home'}, subjCur=null;
+function blank(){return {history:[],wrong:[],saved:[],sub:{},seen:{},rec:{},time:{},tday:null,size:20,updated:0}}
+function load(){try{const r=localStorage.getItem(KEY);if(r)return Object.assign(blank(),JSON.parse(r))}catch(e){}return blank()}
+function save(){S.updated=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const T_=()=>TESTS[cur];
+const ALL=()=>'all:'+cur, ERR=()=>'err:'+cur, SAV=()=>'sav:'+cur;
+const inCur=i=>QS[i]&&T_().keys.includes(QS[i][0]);
+const size=()=>[10,20,30].includes(S.size)?S.size:20;
+
+const $=s=>document.querySelector(s);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const idsOf=k=>QS.map((q,i)=>q[0]===k?i:-1).filter(i=>i>=0);
+
+function stratified(ids,n){const g={};shuffle(ids).forEach(i=>{const k=QS[i][1];(g[k]=g[k]||[]).push(i)});
+ const keys=shuffle(Object.keys(g)),out=[];let r=0;
+ while(out.length<n&&keys.some(k=>g[k].length>r)){keys.forEach(k=>{if(out.length<n&&g[k][r]!==undefined)out.push(g[k][r])});r++}
+ return shuffle(out)}
+function fresh(ids,n){const un=ids.filter(i=>!S.seen[i]);if(un.length>=n)return stratified(un,n);return shuffle(un.concat(stratified(ids.filter(i=>S.seen[i]),n-un.length)))}
+function cover(k){const ids=idsOf(k);const s=ids.filter(i=>S.seen[i]).length;return {s,n:ids.length,p:ids.length?Math.round(s/ids.length*100):0}}
+function build(t){
+ if(t.startsWith('sub:')){const key=t.slice(4);return fresh(QS.map((q,i)=>(q[0]+':'+q[1])===key?i:-1).filter(i=>i>=0),size())}
+ if(t===SAV())return shuffle(S.saved.filter(inCur)).slice(0,size());
+ if(t===ERR())return shuffle(S.wrong.filter(inCur)).slice(0,size());
+ if(t===ALL()){const ks=T_().keys,n=size();let o=[];ks.forEach((k,j)=>{const per=Math.floor(n/ks.length)+(j<n%ks.length?1:0);o=o.concat(fresh(idsOf(k),per))});return shuffle(o)}
+ return fresh(idsOf(t),size())}
+function tname(t){if(t.startsWith('sub:'))return SUBN[t.slice(4)]||'Treino';if(t.startsWith('all:'))return 'Mistura (como no teste)';if(t.startsWith('err:'))return 'Os meus erros';if(t.startsWith('sav:'))return 'Guardadas';return TOPICS[t].n}
+
+function daysTo(d){if(!d)return null;const t=new Date();t.setHours(0,0,0,0);return Math.round((new Date(d+'T00:00:00')-t)/864e5)}
+function fmtDate(d){return new Date(d+'T00:00:00').toLocaleDateString('pt-PT',{day:'numeric',month:'long'})}
+function cdBox(T){const n=daysTo(T.when);if(n===null||n<0)return '';
+ const txt=n===0?'O teste é hoje.':n===1?'O teste é amanhã.':`Faltam ${n} dias para o teste (${fmtDate(T.when)}).`;
+ return `<div class="cd ${n<=2?'hot':''}"><b>${n}</b><span>${txt}</span></div>`}
+function tagFor(k){const L=Object.entries(TESTS).filter(([,T])=>T.subj===k);if(!L.length)return 'Em breve';
+ const up=L.map(([,T])=>daysTo(T.when)).filter(n=>n!==null&&n>=0).sort((a,b)=>a-b);
+ if(up.length)return up[0]===0?'Teste hoje':up[0]===1?'Teste amanhã':`Teste daqui a ${up[0]} dias`;
+ return L.length===1?'1 teste para treinar':`${L.length} testes para treinar`}
+
+let lastAct=0;
+function tick(){const now=Date.now();if(view.name==='quiz'&&lastAct&&cur){const d=Math.min((now-lastAct)/1000,120);S.time[cur]=(S.time[cur]||0)+d;
+ const day=new Date().toISOString().slice(0,10);if(!S.tday||S.tday.d!==day)S.tday={d:day};S.tday[cur]=(S.tday[cur]||0)+d}lastAct=now}
+function fmtT(s){s=Math.round(s/60);if(s<1)return 'menos de 1 min';const h=Math.floor(s/60),m=s%60;return h?`${h} h ${m} min`:`${m} min`}
+function recAdd(k,good){const r=S.rec[k]=S.rec[k]||[];r.push(good?1:0);if(r.length>20)r.shift()}
+function prep(){const ks=T_().keys;let tot=0,weak=null,ws=2;ks.forEach(k=>{const cv=cover(k).p/100;const r=S.rec[k]||[];const acc=r.length?r.reduce((a,b)=>a+b,0)/r.length:0;const conf=Math.min(r.length/10,1);const sc=0.4*cv+0.6*acc*conf;tot+=sc;if(sc<ws){ws=sc;weak=TOPICS[k].n}});return {p:Math.round(tot/ks.length*100),weak}}
+function stats(t){const h=S.history.filter(x=>x.t===t);if(!h.length)return null;const p=h.map(x=>Math.round(x.c/x.n*100));return {n:h.length,last:p[p.length-1],best:Math.max(...p),avg:Math.round(p.reduce((a,b)=>a+b,0)/p.length),prev:p.length>1?p[p.length-2]:null}}
+
+// ===================== AÇÕES =====================
+function go(n){view={name:n};render();window.scrollTo(0,0)}
+function openSubj(k){subjCur=k;const L=Object.keys(TESTS).filter(t=>TESTS[t].subj===k);if(L.length===1){cur=L[0];go('test')}else go('subj')}
+function openTest(t){cur=t;go('test')}
+function setSize(n){S.size=n;save();render()}
+function start(t){const ids=build(t);if(!ids.length)return;quiz={t,ids,i:0,ok:0,answered:null,opts:null,wrongs:[]};view={name:'quiz'};lastAct=Date.now();render();window.scrollTo(0,0)}
+function answer(j){if(!quiz||quiz.answered!==null)return;const id=quiz.ids[quiz.i],q=QS[id],choice=quiz.opts[j],good=choice===q[3];
+ tick();recAdd(q[0],good);quiz.answered=j;S.seen[id]=1;const k=q[0]+':'+q[1];const st=S.sub[k]||[0,0];st[1]++;if(good)st[0]++;S.sub[k]=st;
+ if(good){quiz.ok++;if(quiz.t===ERR())S.wrong=S.wrong.filter(x=>x!==id)}else{quiz.wrongs.push(id);if(!S.wrong.includes(id))S.wrong.push(id)}
+ save();render();setTimeout(()=>{const f=$('#fb');if(f)f.scrollIntoView({behavior:'smooth',block:'nearest'})},40)}
+function next(){if(!quiz||quiz.answered===null)return;tick();quiz.i++;quiz.answered=null;quiz.opts=null;
+ if(quiz.i>=quiz.ids.length){S.history.push({d:Date.now(),t:quiz.t,c:quiz.ok,n:quiz.ids.length});if(S.history.length>500)S.history=S.history.slice(-500);save();view={name:'result'}}
+ render();window.scrollTo(0,0)}
+function toggleSave(){const id=quiz.ids[quiz.i];const k=S.saved.indexOf(id);if(k>=0)S.saved.splice(k,1);else S.saved.push(id);save();render()}
+function resetTest(){if(!confirmReset){confirmReset=true;render();return}
+ const ids=new Set(QS.map((q,i)=>inCur(i)?i:-1).filter(i=>i>=0));
+ T_().keys.forEach(k=>{delete S.rec[k];Object.keys(S.sub).forEach(s=>{if(s.startsWith(k+':'))delete S.sub[s]})});
+ ids.forEach(i=>delete S.seen[i]);S.wrong=S.wrong.filter(i=>!ids.has(i));S.saved=S.saved.filter(i=>!ids.has(i));
+ S.history=S.history.filter(x=>!(T_().keys.includes(x.t)||[ALL(),ERR(),SAV()].includes(x.t)||(x.t.startsWith('sub:')&&T_().keys.includes(x.t.slice(4).split(':')[0]))));
+ delete S.time[cur];confirmReset=false;save();go('test')}
+let confirmReset=false;
+document.addEventListener('keydown',e=>{if(view.name!=='quiz'||!quiz)return;
+ if(quiz.answered===null){const n='1234abcd'.indexOf(e.key.toLowerCase());if(n>=0){answer(n%4);e.preventDefault()}}
+ else if(e.key==='Enter'||e.key===' '){next();e.preventDefault()}});
+
+// ===================== ECRÃS =====================
+function header(back,title){return `<div class="top">${back?`<button class="back" aria-label="Voltar" onclick="${back}">‹</button>`:''}<h2>${title}</h2></div>`}
+function render(){$('#app').innerHTML=({home,subj,test,quiz:qview,result,prog})[view.name]()}
+
+function home(){
+ return `<div class="hello"><h1>Estudo 10.º ano</h1><p class="muted">Escolhe a disciplina.</p></div>
+ <div class="grid">${SUBJ.map(s=>{const on=Object.values(TESTS).some(T=>T.subj===s.k);
+  return on?`<button class="subj on" onclick="openSubj('${s.k}')"><span class="ic" style="background:${s.c}">${s.ic}</span><h3>${s.n}</h3><span class="tag">${tagFor(s.k)}</span></button>`
+  :`<div class="subj off"><span class="ic" style="background:${s.c}">${s.ic}</span><h3>${s.n}</h3><span class="tag">Em breve</span></div>`}).join('')}</div>`}
+
+function subj(){const s=SUBJ.find(x=>x.k===subjCur);const L=Object.keys(TESTS).filter(t=>TESTS[t].subj===subjCur);
+ return `${header("go('home')",s.n)}<div class="list">${L.map(t=>{const T=TESTS[t];return `<button class="testcard" style="background:${s.c};color:#fff" onclick="openTest('${t}')"><span class="k">${T.when?fmtDate(T.when):'Data por definir'}</span><span class="t">${T.title} · ${T.name}</span></button>`}).join('')}</div>`}
+
+function test(){const T=T_(),s=SUBJ.find(x=>x.k===T.subj);
+ const back=Object.keys(TESTS).filter(t=>TESTS[t].subj===T.subj).length>1?`subjCur='${T.subj}';go('subj')`:"go('home')";
+ const tl=T.keys.map((k,i)=>{const P=TOPICS[k],st=stats(k),cv=cover(k);
+  return `<button class="topic" style="--c:${P.c}" onclick="start('${k}')"><div><div class="n">${i+1}. ${P.n}</div><div class="s">${P.s}</div>
+  <div class="cov"><div class="bar"><i style="width:${cv.p}%"></i></div><span>${cv.s}/${cv.n} vistas</span></div></div>
+  <span class="best">${st?`<b>${st.best}%</b><br>melhor`:'—'}</span></button>`}).join('');
+ const tot=T.keys.reduce((a,k)=>{const c=cover(k);return [a[0]+c.s,a[1]+c.n]},[0,0]);const tp=tot[1]?Math.round(tot[0]/tot[1]*100):0;
+ const sa=stats(ALL()),nw=S.wrong.filter(inCur).length,ns=S.saved.filter(inCur).length,P=prep();
+ const tm=S.time[cur]||0,td=(S.tday&&S.tday.d===new Date().toISOString().slice(0,10))?(S.tday[cur]||0):0;
+ const rounds=S.history.filter(x=>T.keys.includes(x.t)||[ALL(),ERR(),SAV()].includes(x.t)||(x.t.startsWith('sub:')&&T.keys.includes(x.t.slice(4).split(':')[0]))).length;
+ return `${header(back,s.n+' · '+T.title)}
+ <div class="testcard" style="background:${s.c};color:#fff"><span class="k">${T.when?'Teste a '+fmtDate(T.when):'Data do teste por definir'}</span><span class="t">${T.name}</span><span class="small" style="opacity:.85">${QS.filter((q,i)=>inCur(i)).length} perguntas · rondas de 10, 20 ou 30</span></div>
+ ${cdBox(T)}
+ <div class="card prep"><div class="row"><h3>Preparação estimada</h3><span class="pp">${P.p}%</span></div><div class="bar"><i style="width:${P.p}%"></i></div>
+ <p class="muted small">${P.p===0?'Faz uma ronda para começar a medir.':`Conta as perguntas já vistas e os acertos recentes em cada matéria.${P.p<85&&P.weak?` Mais fraco: <b>${esc(P.weak)}</b>.`:''}`}</p>
+ <p class="small">Tempo de estudo: <b>${fmtT(tm)}</b>${td?` · hoje ${fmtT(td)}`:''} · ${tot[0]}/${tot[1]} perguntas vistas (${tp}%)</p></div>
+ <div class="row"><span class="muted small">Perguntas por ronda</span><div class="seg">${[10,20,30].map(n=>`<button class="${size()===n?'on':''}" onclick="setSize(${n})">${n}</button>`).join('')}</div></div>
+ <div class="list">
+ <button class="topic" style="--c:var(--accent)" onclick="start('${ALL()}')"><div><div class="n">Mistura tudo</div><div class="s">Um pouco de cada matéria, como no teste</div></div><span class="best">${sa?`<b>${sa.best}%</b><br>melhor`:'—'}</span></button>
+ ${tl}</div>
+ <div class="pill2"><button onclick="start('${ERR()}')" ${nw?'':'disabled'}>Os meus erros<span>${nw} para rever</span></button>
+ <button onclick="start('${SAV()}')" ${ns?'':'disabled'}>Guardadas<span>${ns} para rever</span></button></div>
+ <button class="ghost" onclick="go('prog')">Evolução <span class="muted">· ${rounds} rondas feitas</span></button>
+ <p class="muted small" style="text-align:center">A app mostra primeiro as perguntas que ainda não viste.</p>
+ <button class="muted small" style="text-align:center;padding:6px" onclick="resetTest()">${confirmReset?'<b style="color:var(--bad)">Toca outra vez para apagar o progresso deste teste</b>':'Recomeçar este teste do zero'}</button>`}
+
+function qview(){const id=quiz.ids[quiz.i],q=QS[id],P=TOPICS[q[0]];
+ if(!quiz.opts)quiz.opts=shuffle([q[3],...q[4]]);
+ const n=quiz.ids.length,done=quiz.answered!==null,good=done&&quiz.opts[quiz.answered]===q[3],sv=S.saved.includes(id);
+ const opts=quiz.opts.map((o,j)=>{let c='';if(done){if(o===q[3])c='right';else if(j===quiz.answered)c='wrong'}
+  return `<button class="opt ${c}" ${done?'disabled':''} onclick="answer(${j})"><span class="l">${'ABCD'[j]}</span><span>${esc(o)}</span></button>`}).join('');
+ const fb=done?`<div class="fb ${good?'ok':'no'}" id="fb"><h3>${good?'Certo':'Errado'}</h3>${good?'':`<p>Resposta certa: <b>${esc(q[3])}</b></p>`}<p>${esc(q[5])}</p></div>
+  <button class="big" onclick="next()">${quiz.i+1<n?'Seguinte':'Ver resultado'}</button>`:'';
+ return `<div class="qtop"><button class="back" aria-label="Sair" onclick="go('test')">×</button><div class="prog"><i style="width:${(quiz.i+(done?1:0))/n*100}%"></i></div><span class="count">${quiz.i+1}/${n}</span>
+ <button class="bm ${sv?'on':''}" aria-label="${sv?'Remover das guardadas':'Guardar pergunta'}" onclick="toggleSave()"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 3h12v18l-6-4-6 4z" fill="${sv?'currentColor':'none'}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button></div>
+ <div class="card"><span class="qchip">${esc(P.n)}</span><div class="qtext">${esc(q[2])}</div><div class="opts">${opts}</div></div>${fb}
+ <p class="keys">Teclado: 1–4 para responder · Enter para avançar</p>`}
+
+function result(){const n=quiz.ids.length,p=Math.round(quiz.ok/n*100);
+ const errs=quiz.wrongs.map(i=>QS[i]);
+ return `<div class="card" style="align-items:center;text-align:center"><span class="muted small">${esc(tname(quiz.t))}</span><div class="score">${quiz.ok}/${n}</div><p class="muted">${p}% de respostas certas</p></div>
+ ${errs.length?`<div class="card"><h3>Para rever (${errs.length})</h3>${errs.map(q=>`<div class="err"><span>${esc(q[2])}</span><span class="a">${esc(q[3])}</span></div>`).join('')}</div>`:''}
+ <button class="big" onclick="start('${quiz.t}')">Nova ronda</button>
+ ${S.wrong.filter(inCur).length?`<button class="ghost" onclick="start('${ERR()}')">Rever os meus erros (${S.wrong.filter(inCur).length})</button>`:''}
+ <button class="ghost" onclick="go('test')">Voltar às matérias</button>`}
+
+function prog(){const T=T_();const TK=[...T.keys,ALL(),ERR(),SAV()];
+ const H=S.history.filter(x=>TK.includes(x.t)||(x.t.startsWith('sub:')&&T.keys.includes(x.t.slice(4).split(':')[0])));
+ if(!H.length)return `${header("go('test')",'Evolução')}<div class="card empty">Ainda não há rondas feitas neste teste.</div>`;
+ const pcts=H.map(x=>Math.round(x.c/x.n*100)),avg=Math.round(pcts.reduce((a,b)=>a+b,0)/pcts.length);
+ const last=H.slice(-15),W=320,Hh=150,pl=32,pr=10,pt=10,pb=22;
+ const xs=i=>pl+(last.length===1?(W-pl-pr)/2:i*(W-pl-pr)/(last.length-1)),ys=v=>pt+(100-v)/100*(Hh-pt-pb);
+ const pts=last.map((x,i)=>[xs(i),ys(Math.round(x.c/x.n*100))]);
+ const css=getComputedStyle(document.documentElement),ac=css.getPropertyValue('--accent').trim(),ln=css.getPropertyValue('--line').trim(),mu=css.getPropertyValue('--muted').trim();
+ const grid=[0,50,100].map(v=>`<line x1="${pl}" x2="${W-pr}" y1="${ys(v)}" y2="${ys(v)}" stroke="${ln}"/><text x="${pl-6}" y="${ys(v)+4}" font-size="10" text-anchor="end" fill="${mu}">${v}%</text>`).join('');
+ const chart=`<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Percentagem de acertos nas últimas rondas">${grid}<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${ac}" stroke-width="2"/>${pts.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="${i===pts.length-1?4.5:3}" fill="${ac}"/>`).join('')}<text x="${pl}" y="${Hh-5}" font-size="10" fill="${mu}">mais antiga</text><text x="${W-pr}" y="${Hh-5}" font-size="10" text-anchor="end" fill="${mu}">última</text></svg>`;
+ const rows=T.keys.map(k=>{const P=TOPICS[k];let ok=0,n=0;for(const [kk,v] of Object.entries(S.sub))if(kk.startsWith(k+':')){ok+=v[0];n+=v[1]}
+  if(!n)return `<div class="trow" style="--c:${P.c}"><span class="nm">${P.n}</span><span class="v">sem respostas</span><div class="bar"><i style="width:0"></i></div></div>`;
+  const p=Math.round(ok/n*100),st=stats(k);const tr=st&&st.prev!==null?(st.last>st.prev?' · a subir':st.last<st.prev?' · a descer':''):'';
+  return `<div class="trow" style="--c:${P.c}"><span class="nm">${P.n}</span><span class="v">${p}% (${n})${tr}</span><div class="bar"><i style="width:${p}%"></i></div></div>`}).join('');
+ const weak=Object.entries(S.sub).filter(([k,v])=>v[1]>=3&&SUBN[k]&&T.keys.includes(k.split(':')[0])).map(([k,v])=>[k,Math.round(v[0]/v[1]*100)]).filter(x=>x[1]<80).sort((a,b)=>a[1]-b[1]).slice(0,5);
+ const f5=pcts.slice(0,5),l5=pcts.slice(-5),evo=pcts.length>=6?Math.round(l5.reduce((a,b)=>a+b,0)/l5.length-f5.reduce((a,b)=>a+b,0)/f5.length):null;
+ return `${header("go('test')",'Evolução')}
+ <div class="card"><div class="kpis"><div class="kpi"><b>${H.length}</b><span>rondas</span></div><div class="kpi"><b>${avg}%</b><span>média</span></div><div class="kpi"><b>${fmtT(S.time[cur]||0).replace('menos de 1 min','<1 min')}</b><span>estudo</span></div></div>
+ <p class="small muted">${evo!==null?`Últimas 5 rondas vs. primeiras 5: <b style="color:var(--ink)">${evo>0?'+':''}${evo} pontos percentuais</b>.`:'Com 6 ou mais rondas aparece a comparação entre as primeiras e as últimas.'}</p></div>
+ <div class="card chart"><h3>Acertos nas últimas ${last.length} rondas</h3>${chart}</div>
+ <div class="card"><h3>Por matéria</h3>${rows}</div>
+ <div class="card"><h3>Pontos fracos</h3>${weak.length?`<p class="muted small">Abaixo de 80% (com pelo menos 3 respostas). Toca para treinar só isso.</p>${weak.map(([k,p])=>`<button class="wk" onclick="start('sub:${k}')"><span>${esc(SUBN[k])}</span><span>${p}% · treinar</span></button>`).join('')}`:'<p class="muted small">Nada abaixo de 80% (com pelo menos 3 respostas).</p>'}</div>`}
+
+render();
+</script>
+</body>
+</html>

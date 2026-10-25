@@ -116,6 +116,27 @@ button:disabled{cursor:default}
 .err .a{color:var(--ok);font-weight:600}
 .chart svg{width:100%;height:auto;display:block}
 .empty{text-align:center;color:var(--muted)}
+.calcbtn{align-self:flex-start;display:inline-flex;gap:6px;align-items:center;font-size:14px;font-weight:600;color:var(--accent);border:1px solid var(--line);background:var(--card);border-radius:10px;padding:7px 12px}
+.calc{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.calc .disp{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;text-align:right;min-height:58px;display:flex;flex-direction:column;justify-content:flex-end}
+.calc .ex{font-size:14px;color:var(--muted);word-break:break-all;min-height:18px}
+.calc .rs{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;word-break:break-all}
+.calc .keys4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.calc .keys4 button{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:11px 0;font-size:18px;font-weight:600;text-align:center}
+.calc .keys4 button.op{color:var(--accent)}
+.calc .keys4 button.eq{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
+.fig{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px;display:flex;flex-direction:column;gap:8px}
+.fig .ft{font-weight:600;font-size:13px}
+.fig .fs{font-size:11px;color:var(--muted)}
+.fig table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.fig th,.fig td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right}
+.fig th:first-child,.fig td:first-child{text-align:left}
+.fig th{font-weight:600;color:var(--muted);font-size:12px}
+.fbar{display:grid;grid-template-columns:110px 1fr 44px;gap:8px;align-items:center}
+.fbar .t{height:14px;border-radius:4px;background:var(--line);overflow:hidden}.fbar .t i{display:block;height:100%;background:var(--accent)}
+.fbar span:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+
 </style>
 </head>
 <body>
@@ -231,7 +252,7 @@ const QS_PT = [
 ["p5","alt","Prótese, epêntese e paragoge são processos de…","inserção",["supressão","alteração","contração"],"Inserção (+): início, interior, final."],
 ["p5","alt","Aférese, síncope e apócope são processos de…","supressão",["inserção","alteração","palatalização"],"Supressão (−): início, interior, final."],
 ["p5","alt","Sonorização, vocalização e palatalização são processos de…","alteração",["inserção","supressão","apenas contração"],"Alteração (≠): o som muda, mas não é acrescentado nem eliminado."],
-["p5","alt","Segundo a nota do manual, a grafia…","nem sempre mostra as mudanças já ocorridas na pronúncia",["mostra sempre, com exatidão, a pronúncia atual","muda sempre ao mesmo tempo que a pronúncia","nunca muda, desde o latim até hoje"],"Há grafias conservadoras que não refletem mudanças já ocorridas."],
+["p5","alt","A grafia (forma escrita) das palavras…","nem sempre mostra as mudanças já ocorridas na pronúncia",["mostra sempre, com exatidão, a pronúncia atual","muda sempre ao mesmo tempo que a pronúncia","nunca muda, desde o latim até hoje"],"Há grafias conservadoras que não refletem mudanças já ocorridas."],
 ["p5","alt","Em \"voto / votação\", a vogal destacada \"o\" de votação…","é pronunciada [u] por estar em posição átona",["é pronunciada [ɔ], tal como em voto","desaparece por completo na pronúncia","passa a ditongo por estar átona"],"Redução vocálica: na sílaba átona, a vogal enfraquece."],
 ["p5","alt","A redução vocálica explica a pronúncia de…","\"candidatura\" em comparação com \"candidato\"",["\"escudo\" em comparação com \"scutu-\"","\"lobo\" em comparação com \"lupu-\"","\"chave\" em comparação com \"clave\""],"Nas formas derivadas, a vogal que fica átona enfraquece."],
 ["p6","ins","scutu- > escudo: no início da palavra ocorreu…","prótese",["epêntese","paragoge","aférese"],"Acrescentou-se e- no início."],
@@ -372,7 +393,7 @@ const QS_EC = [
 ["e0","est","Um índice de envelhecimento inferior a 100 significa que…","há menos idosos do que jovens",["há mais idosos do que jovens","a população está a diminuir","não há idosos"],"< 100 → menos pessoas com 65+ do que com 0–14."],
 ["e0","est","Num país há 2 milhões de pessoas com 65+ anos e 1,6 milhões com 0–14. O índice de envelhecimento é…","125",["80","36","3,6"],"2 / 1,6 × 100 = 125 idosos por 100 jovens."],
 ["e0","est","A estrutura setorial da população ativa é…","a distribuição percentual dos ativos pelos setores primário, secundário e terciário",["a repartição da população por escalões etários (jovens, adultos, idosos)","a diferença entre o número de homens e de mulheres ativos","o número de desempregados em cada região do país"],"A estrutura etária reparte por escalões etários."],
-["e0","est","No exemplo do manual (Fig. 1), o setor que empregava mais de dois terços da população ativa era o…","terciário",["primário","secundário","quaternário"],"Cerca de 70% no setor III (serviços)."],
+["e0","est","Observa o gráfico. Que setor emprega mais de dois terços da população ativa?","terciário",["primário","secundário","quaternário"],"Cerca de 70% no setor III (serviços).","setores"],
 ["e0b","txt","O primeiro passo para interpretar um texto é…","situá-lo: saber quem é o autor e a data de publicação",["sintetizá-lo, reformulando as ideias principais","dar a opinião pessoal sobre o assunto tratado","elaborar um esquema com os conceitos do texto"],"Situar → compreender → tema → ideia central → síntese."],
 ["e0b","txt","O tema de um texto é…","o seu objeto, o assunto tratado",["a opinião do leitor sobre o texto","a data e o local de publicação","o autor ou a instituição que o escreveu"],"Tema = de que fala o texto."],
 ["e0b","txt","A ideia central de um texto é…","aquilo que o autor desenvolve ao longo do texto (a tese)",["o título que o autor escolheu para o texto","a primeira frase do primeiro parágrafo","um exemplo secundário que ilustra o assunto"],"Ideia central = tese."],
@@ -387,7 +408,7 @@ const QS_EC = [
 ["e0b","quad","O universo de estudo de um quadro é…","o conjunto a ser estudado (ex.: população residente, por sexo, idade…)",["a instituição que forneceu os dados (ex.: INE, PORDATA)","o título do quadro e o período a que se refere","a unidade monetária em que os valores estão expressos"],"Identificar o universo e os seus componentes."],
 ["e0b","quad","A taxa de desemprego passou de 8,9% para 7,0%. Desceu…","1,9 pontos percentuais",["1,9%","21,3 pontos percentuais","19%"],"Diferença entre percentagens → pontos percentuais (p.p.)."],
 ["e0b","quad","A diferença entre duas percentagens exprime-se em…","pontos percentuais (p.p.)",["permilagens","euros","percentagem da percentagem"],"Ex.: de 7,0% para 6,5% → −0,5 p.p."],
-["e0b","quad","No quadro do manual (2017–2020), a taxa de desemprego feminina foi, em todos os anos…","superior à masculina",["inferior à masculina","igual à masculina","nula"],"E subiu em 2020 por causa da pandemia de Covid-19."],
+["e0b","quad","Observa o quadro. Entre 2017 e 2020, a taxa de desemprego feminina foi, em todos os anos…","superior à masculina",["inferior à masculina","igual à masculina","nula"],"E subiu em 2020 por causa da pandemia de Covid-19.","desemp"],
 ["e0b","graf","Ao analisar um gráfico, para evitar análises incorretas é preciso ter atenção…","à escala",["à cor das barras","ao tamanho da letra","ao número de páginas"],"A escala pode exagerar ou esconder variações."],
 ["e0b","graf","Os gráficos circulares servem sobretudo para representar…","as partes de um todo (repartição), geralmente em percentagem",["evoluções de uma variável ao longo do tempo","relações entre duas variáveis diferentes","valores negativos e positivos de vários países"],"Ex.: exportações por zona económica."],
 ["e0b","graf","As curvas são gráficos que representam geralmente…","evoluções de séries cronológicas",["partes de um todo","classificações de conceitos","repartições em percentagem"],"Tempo no eixo horizontal, valores no vertical."],
@@ -404,8 +425,8 @@ const QS_EC = [
 ["e1","fs","No estudo do trabalho infantil, a Economia interessa-se sobretudo por…","o contributo dos rendimentos do trabalhador infantil para o orçamento familiar",["a legislação do trabalho e a definição de trabalho infantil","a evolução do trabalho infantil desde a Revolução Industrial","o aparecimento do conceito e a relação entre grupos sociais"],"Direito: legislação; História: evolução; Sociologia: conceito e grupos sociais."],
 ["e1","fs","No estudo do trabalho infantil, o Direito interessa-se por…","a legislação do trabalho e a definição de trabalho infantil",["o contributo do trabalho infantil para o rendimento das famílias","a evolução do trabalho infantil desde a Revolução Industrial","a relação entre os grupos sociais e o trabalho infantil"],"Cada ciência social tem a sua perspetiva."],
 ["e1","fs","No estudo do trabalho infantil, a História interessa-se por…","a evolução do trabalho infantil desde a Revolução Industrial",["o contributo dos rendimentos infantis para o orçamento familiar","a legislação atual do trabalho e os direitos da criança","a definição jurídica de trabalho infantil"],"Perspetiva histórica."],
-["e1","fs","Segundo a OIT, a maior parte das crianças em situação de trabalho trabalhava na…","agricultura",["indústria","nos serviços","construção"],"Agricultura 70,9%; serviços 17,1%; indústria 11,9%."],
-["e1","fs","Segundo o texto do manual, o trabalho infantil dificulta o desenvolvimento dos países porque…","os priva de mão de obra qualificada",["faz aumentar os salários dos adultos","reduz a população em idade escolar","aumenta as exportações agrícolas"],"Crianças que não estudam não se qualificam e perpetuam desigualdades."],
+["e1","fs","Observa o gráfico (OIT). Em que setor trabalhava a maior parte das crianças em situação de trabalho?","agricultura",["indústria","serviços","construção"],"Agricultura 70,9%; serviços 17,1%; indústria 11,9%.","oit"],
+["e1","fs","O trabalho infantil dificulta o desenvolvimento dos países porque…","os priva de mão de obra qualificada",["faz aumentar os salários dos adultos","reduz a população em idade escolar","aumenta as exportações agrícolas"],"Crianças que não estudam não se qualificam e perpetuam desigualdades."],
 ["e1","obj","O fenómeno económico é…","um fenómeno social ligado à produção e aos rendimentos",["um fenómeno natural que afeta a produção, como as secas","um fenómeno social apenas jurídico, ligado às leis do trabalho","qualquer fenómeno social que se possa medir com números"],"É a dimensão económica da realidade social."],
 ["e1","obj","A interdisciplinaridade é…","o recurso às diversas ciências sociais para estudar a realidade",["a atitude de estudar a realidade social a partir de uma só ciência","a separação total entre as ciências sociais para evitar confusões","a utilização exclusiva da Matemática para estudar a sociedade"],"Sem ela, as visões seriam incompletas e parcelares."],
 ["e1","obj","Os fenómenos económicos são uma abstração porque…","a Economia isola artificialmente uma dimensão da realidade social",["não existem na realidade, são apenas teorias dos economistas","são inventados para justificar decisões políticas","não há dados estatísticos que permitam estudá-los"],"A realidade social é una e indivisível; a Economia isola uma dimensão."],
@@ -529,7 +550,7 @@ const QS_EC = [
 ["e6","engel","Família A: alimentação = 50% da despesa; família B: 30%. Segundo a lei de Engel…","a família B tem maior rendimento",["a família A tem maior rendimento","têm o mesmo rendimento","não se pode concluir nada"],"Menor peso da alimentação → maior rendimento."],
 ["e6","engel","Num país, o coeficiente orçamental da alimentação passou de 18,4% para 16,1%. Segundo a lei de Engel…","o rendimento das famílias aumentou",["o rendimento diminuiu","as famílias passaram fome","os preços dos alimentos subiram"],"A alimentação perdeu peso → rendimento maior."],
 ["e6","engel","Famílias com rendimentos mais elevados gastam proporcionalmente mais em…","bens não essenciais, como viagens e espetáculos",["alimentação e bebidas não alcoólicas","bens inferiores, como os transportes públicos","pão e outros bens alimentares básicos"],"Indicadores de nível de vida."],
-["e6","engel","Em Portugal (2005-06 e 2015-16), a classe de despesa com maior coeficiente orçamental era…","habitação, água, eletricidade e combustíveis",["produtos alimentares e bebidas não alcoólicas","transportes","restaurantes e hotéis"],"26,5% e 30,0%."],
+["e6","engel","Observa o quadro. Nos dois períodos, a classe de despesa com maior coeficiente orçamental era…","habitação, água, eletricidade e combustíveis",["produtos alimentares e bebidas não alcoólicas","transportes","restaurantes e hotéis"],"26,5% e 30,0%.","ptcons"],
 ["e6","engel","Em Portugal, o coeficiente da alimentação passou de 15,6% para 14,7%. Isto indica que…","o rendimento disponível das famílias aumentou",["o rendimento disponível das famílias diminuiu","os preços da alimentação subiram muito","a lei de Engel não se aplica a Portugal"],"Lei de Engel."],
 ["e6","preco","Uma subida dos preços, mantendo-se os rendimentos, provoca…","uma diminuição da capacidade aquisitiva",["um aumento da capacidade aquisitiva","um aumento dos rendimentos","nenhum efeito"],"Compra-se menos com o mesmo dinheiro."],
 ["e6","preco","Se os preços sobem e os rendimentos não acompanham, os consumidores tendem a…","abdicar de consumos não essenciais",["comprar mais supérfluos","gastar menos em alimentação","poupar mais"],"Maior parcela vai para as necessidades básicas."],
@@ -542,7 +563,7 @@ const QS_EC = [
 ["e6","ext","A moda influencia o consumo porque…","cria desejo e torna obsoletos os produtos anteriores",["baixa os preços dos produtos que estão na moda","aumenta os rendimentos de quem segue a moda","obriga por lei a comprar os produtos da estação"],"Sensação de felicidade breve; são necessários novos produtos."],
 ["e6","ext","Uma família numerosa com filhos dependentes regista, em geral…","um aumento das despesas de consumo familiares",["uma diminuição das despesas totais","despesas iguais às de um casal sem filhos","só despesas com saúde"],"Com características diferentes conforme a idade dos filhos."],
 ["e6","ext","Famílias com elementos nos escalões etários mais velhos têm maior peso de despesas com…","saúde e manutenção da habitação",["propinas e mesadas","brinquedos e creches","telecomunicações e espetáculos"],"Composição do agregado."],
-["e6","ext","Em Portugal (2015-16), os agregados com crianças dependentes tinham, face aos sem crianças…","maior despesa total, mas menor despesa per capita",["menor despesa total, mas maior despesa per capita","maior despesa total e maior despesa per capita","menor despesa total e menor despesa per capita"],"25 254 € vs 17 404 € no total; 7248 € vs 9998 € per capita."],
+["e6","ext","Observa o quadro. Face aos agregados sem crianças, os agregados com crianças dependentes tinham…","maior despesa total, mas menor despesa per capita",["menor despesa total, mas maior despesa per capita","maior despesa total e maior despesa per capita","menor despesa total e menor despesa per capita"],"25 254 € vs 17 404 € no total; 7248 € vs 9998 € per capita.","agreg"],
 ["e6","ext","Despesas típicas da juventude incluem…","propinas, línguas, mesadas, viagens, telecomunicações",["creches, amas, brinquedos e alimentação infantil","saúde, medicamentos e manutenção da habitação","fraldas, carrinhos de bebé e consultas de pediatria"],"Na infância: alimentação, vestuário, guarda, brinquedos."],
 ["e7","soc","A sociedade de consumo nasce na sequência…","da expansão da industrialização",["da Revolução Francesa","do fim da agricultura","da invenção da moeda"],"Fabrico de bens em série e em grande escala."],
 ["e7","soc","A sociedade de consumo afirmou-se sobretudo…","em meados do século XX, após a II Guerra Mundial",["no século XVIII, com a Revolução Francesa","na Idade Média, com as feiras e os mercados","depois do ano 2000, com o comércio eletrónico"],"Recursos antes afetos à guerra passaram à produção."],
@@ -574,7 +595,7 @@ const QS_EC = [
 ["e7","sust","O desenvolvimento sustentável é o modelo que…","satisfaz o presente sem comprometer as gerações futuras",["maximiza o consumo atual, mesmo que esgote os recursos","usa os recursos rapidamente para crescer mais depressa","só se preocupa com o lucro das empresas no presente"],"Base do consumo sustentável."],
 ["e7","sust","A economia circular procura…","prolongar a vida dos produtos: reduzir, reutilizar, reciclar",["encurtar a vida dos produtos para aumentar as vendas","aumentar a extração de recursos naturais para produzir mais","deitar fora os produtos usados e substituí-los por novos"],"Substitui a ideia de \"fim de vida\" do produto."],
 ["e7","sust","A Refood, que recolhe comida não vendida para a dar a quem precisa, é exemplo de…","economia circular",["obsolescência programada","consumismo","consumo intermédio"],"Reintegra \"resíduos\" no ciclo."],
-["e7","sust","Segundo a Fig. 2.4, as perdas alimentares em Portugal somavam cerca de…","1 milhão de toneladas (1031 mil t)",["100 mil toneladas (103 mil t)","10 mil toneladas (10,3 mil t)","10 milhões de toneladas (10 310 mil t)"],"332 + 77 + 298 + 324 mil t ao longo da cadeia."],
+["e7","sust","Observa a figura. As perdas alimentares em Portugal somavam cerca de…","1 milhão de toneladas (1031 mil t)",["100 mil toneladas (103 mil t)","10 mil toneladas (10,3 mil t)","10 milhões de toneladas (10 310 mil t)"],"332 + 77 + 298 + 324 mil t ao longo da cadeia.","desperd"],
 ["e7","sust","Reduzir o consumo e o desperdício, reciclar e reutilizar são práticas que visam…","o desenvolvimento sustentável e a economia circular",["o consumismo e o consumo de massas","a obsolescência programada dos produtos","a sociedade de consumo e a publicidade"],"Síntese do manual."]
 ];
 
@@ -632,6 +653,18 @@ const TESTS={
  ec1:{subj:'ec',title:'1.º Teste',name:'Temas 0, 1 e 2 · Atividade económica, necessidades e consumo',when:'2026-10-28',keys:['e0','e0b','e1','e2','e3','e4','e5','e6','e7']},
 };
 const QS=[...QS_PT,...QS_EC];
+// Figuras/quadros recriados a partir do manual, para a app funcionar sem o livro.
+const bars=(rows,max)=>rows.map(([l,v,t])=>`<div class="fbar"><span>${l}</span><div class="t"><i style="width:${v/max*100}%"></i></div><span>${t||v}</span></div>`).join('');
+const tbl=(h,rows)=>`<table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table>`;
+const FIGS={
+ setores:`<div class="ft">Estrutura setorial da população ativa (%), num país, num dado ano</div>${bars([['Setor I (primário)',2,'≈ 2'],['Setor II (secundário)',28,'≈ 28'],['Setor III (terciário)',70,'≈ 70']],100)}<div class="fs">Valores aproximados, a partir do gráfico do manual.</div>`,
+ desemp:`<div class="ft">Portugal: taxa de desemprego (%), total e por sexo</div>${tbl(['Ano','Total','Homens','Mulheres'],[['2017','8,9','8,4','9,4'],['2018','7,0','6,6','7,4'],['2019','6,5','5,8','7,1'],['2020 (3.º trim.)','7,8','7,6','7,9']])}<div class="fs">Fonte: PORDATA e GEP/MTSSS</div>`,
+ oit:`<div class="ft">Crianças e adolescentes (5–17 anos) em situação de trabalho, por setor (%)</div>${bars([['Agricultura',70.9,'70,9'],['Serviços',17.1,'17,1'],['Indústria',11.9,'11,9']],100)}<div class="fs">Fonte: OIT (dados de 2016)</div>`,
+ ptcons:`<div class="ft">Portugal: despesa por agregado, por grupo (%)</div>${tbl(['Grupo de despesa','2005-06','2015-16'],[['Alimentares e bebidas não alcoólicas','15,6','14,7'],['Bebidas alcoólicas e tabaco','2,6','1,9'],['Vestuário e calçado','4,1','3,6'],['Habitação, água, eletricidade, combustíveis','26,5','30,0'],['Equipamento e manutenção da habitação','5,3','4,0'],['Saúde','5,0','5,3'],['Transportes','13,5','14,7'],['Comunicações','3,3','3,4'],['Lazer, recreação e cultura','4,9','4,7'],['Ensino','2,3','2,5'],['Restaurantes e hotéis','10,4','8,5'],['Bens e serviços diversos','6,5','6,7']])}<div class="fs">Fonte: INE, Inquérito às Despesas das Famílias</div>`,
+ agreg:`<div class="ft">Portugal, 2015-2016: despesa total anual média (€)</div>${tbl(['','Por agregado','Per capita'],[['Total','20 363','8 981'],['Sem crianças dependentes','17 404','9 998'],['Com crianças dependentes','25 254','7 248']])}<div class="fs">Fonte: INE, Inquérito às Despesas das Famílias</div>`,
+ desperd:`<div class="ft">Perdas alimentares em Portugal ao longo da cadeia (mil toneladas)</div>${bars([['Produção',332],['Transformação',77],['Distribuição',298],['Consumo (casas)',324]],332)}<div class="fs">332 + 77 + 298 + 324. Fonte: CNCDA</div>`,
+};
+
 const KEY='estudo10-v1';
 
 // ===================== ESTADO =====================
@@ -692,7 +725,7 @@ function answer(j){if(!quiz||quiz.answered!==null)return;const id=quiz.ids[quiz.
  tick();recAdd(q[0],good);quiz.answered=j;S.seen[id]=1;const k=q[0]+':'+q[1];const st=S.sub[k]||[0,0];st[1]++;if(good)st[0]++;S.sub[k]=st;
  if(good){quiz.ok++;if(quiz.t===ERR())S.wrong=S.wrong.filter(x=>x!==id)}else{quiz.wrongs.push(id);if(!S.wrong.includes(id))S.wrong.push(id)}
  save();render();setTimeout(()=>{const f=$('#fb');if(f)f.scrollIntoView({behavior:'smooth',block:'nearest'})},40)}
-function next(){if(!quiz||quiz.answered===null)return;tick();quiz.i++;quiz.answered=null;quiz.opts=null;
+function next(){if(!quiz||quiz.answered===null)return;tick();calc.ex='';calc.rs='';quiz.i++;quiz.answered=null;quiz.opts=null;
  if(quiz.i>=quiz.ids.length){S.history.push({d:Date.now(),t:quiz.t,c:quiz.ok,n:quiz.ids.length});if(S.history.length>500)S.history=S.history.slice(-500);save();view={name:'result'}}
  render();window.scrollTo(0,0)}
 function toggleSave(){const id=quiz.ids[quiz.i];const k=S.saved.indexOf(id);if(k>=0)S.saved.splice(k,1);else S.saved.push(id);save();render()}
@@ -704,8 +737,30 @@ function resetTest(){if(!confirmReset){confirmReset=true;render();return}
  delete S.time[cur];confirmReset=false;save();go('test')}
 let confirmReset=false;
 document.addEventListener('keydown',e=>{if(view.name!=='quiz'||!quiz)return;
- if(quiz.answered===null){const n='1234abcd'.indexOf(e.key.toLowerCase());if(n>=0){answer(n%4);e.preventDefault()}}
+ if(quiz.answered===null&&!calc.open){const n='1234abcd'.indexOf(e.key.toLowerCase());if(n>=0){answer(n%4);e.preventDefault()}}
  else if(e.key==='Enter'||e.key===' '){next();e.preventDefault()}});
+
+
+// ===== Calculadora (aparece nas perguntas com contas) =====
+const CALCQ=['Num país entraram 30 mil','População residente 8000','População ativa 5000','População ativa 4500','País com 10 milhões','Nascimentos 80 000','Crescimento efetivo −14 000','Num país há 2 milhões','A taxa de desemprego passou de 8,9%','Uma economia produz só cereais','Uma economia produz só bicicletas','Uma família gasta 3600','Uma família gasta 450','Despesa total de 2000','Observa a figura. As perdas alimentares'];
+const needsCalc=q=>CALCQ.some(k=>q[2].startsWith(k));
+let calc={open:false,ex:'',rs:''};
+function cParse(str){let i=0;const s=str.replace(/×/g,'*').replace(/÷/g,'/').replace(/,/g,'.').replace(/−/g,'-');
+ const peek=()=>s[i],num=()=>{let j=i;while(i<s.length&&/[0-9.]/.test(s[i]))i++;if(j===i)throw 0;return parseFloat(s.slice(j,i))};
+ function fac(){if(peek()==='-'){i++;return -fac()}if(peek()==='('){i++;const v=expr();if(s[i]!==')')throw 0;i++;return pct(v)}return pct(num())}
+ function pct(v){if(s[i]==='%'){i++;return v/100}return v}
+ function term(){let v=fac();while(peek()==='*'||peek()==='/'){const o=s[i++];const r=fac();v=o==='*'?v*r:v/r}return v}
+ function expr(){let v=term();while(peek()==='+'||peek()==='-'){const o=s[i++];const r=term();v=o==='+'?v+r:v-r}return v}
+ const v=expr();if(i!==s.length||!isFinite(v))throw 0;return v}
+function cFmt(v){return Number(v.toFixed(6)).toLocaleString('pt-PT',{maximumFractionDigits:6})}
+function cKey(k){if(k==='C'){calc.ex='';calc.rs=''}else if(k==='⌫'){calc.ex=calc.ex.slice(0,-1)}
+ else if(k==='='){try{calc.rs=cFmt(cParse(calc.ex))}catch(e){calc.rs='Erro'}}
+ else{if(calc.rs&&calc.rs!=='Erro'&&/[+−×÷%]/.test(k)&&calc.ex&&calc.lastEq){calc.ex=calc.rs.replace(/\s/g,'')}if(calc.lastEq&&/[0-9,(]/.test(k)){calc.ex='';}calc.ex+=k;calc.rs=''}
+ calc.lastEq=k==='=';const d=$('#calc');if(d)d.outerHTML=calcHTML()}
+function calcHTML(){const K=['C','(',')','÷','7','8','9','×','4','5','6','−','1','2','3','+','0',',','⌫','='];
+ return `<div class="calc" id="calc"><div class="disp"><div class="ex">${esc(calc.ex)||'&nbsp;'}</div><div class="rs">${calc.rs||'&nbsp;'}</div></div>
+ <div class="keys4">${K.map(k=>`<button class="${'÷×−+'.includes(k)?'op':k==='='?'eq':''}" onclick="cKey('${k}')">${k}</button>`).join('')}</div></div>`}
+function toggleCalc(){calc.open=!calc.open;render()}
 
 // ===================== ECRÃS =====================
 function header(back,title){return `<div class="top">${back?`<button class="back" aria-label="Voltar" onclick="${back}">‹</button>`:''}<h2>${title}</h2></div>`}
@@ -755,7 +810,7 @@ function qview(){const id=quiz.ids[quiz.i],q=QS[id],P=TOPICS[q[0]];
   <button class="big" onclick="next()">${quiz.i+1<n?'Seguinte':'Ver resultado'}</button>`:'';
  return `<div class="qtop"><button class="back" aria-label="Sair" onclick="go('test')">×</button><div class="prog"><i style="width:${(quiz.i+(done?1:0))/n*100}%"></i></div><span class="count">${quiz.i+1}/${n}</span>
  <button class="bm ${sv?'on':''}" aria-label="${sv?'Remover das guardadas':'Guardar pergunta'}" onclick="toggleSave()"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 3h12v18l-6-4-6 4z" fill="${sv?'currentColor':'none'}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button></div>
- <div class="card"><span class="qchip">${esc(P.n)}</span><div class="qtext">${esc(q[2])}</div><div class="opts">${opts}</div></div>${fb}
+ <div class="card"><span class="qchip">${esc(P.n)}</span><div class="qtext">${esc(q[2])}</div>${q[6]&&FIGS[q[6]]?`<div class="fig">${FIGS[q[6]]}</div>`:''}${needsCalc(q)?`<button class="calcbtn" onclick="toggleCalc()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h4"/></svg>${calc.open?'Fechar calculadora':'Calculadora'}</button>${calc.open?calcHTML():''}`:''}<div class="opts">${opts}</div></div>${fb}
  <p class="keys">Teclado: 1–4 para responder · Enter para avançar</p>`}
 
 function result(){const n=quiz.ids.length,p=Math.round(quiz.ok/n*100);

@@ -97,6 +97,10 @@ button:disabled{cursor:default}
 .fb h3{font-size:16px} .fb.ok h3{color:var(--ok)} .fb.no h3{color:var(--bad)}
 .big{width:100%;background:var(--accent);color:var(--accent-ink);border-radius:12px;padding:14px;font-weight:700;font-size:17px;text-align:center}
 .ghost{width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px;font-weight:600;text-align:center}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)} .opt.sel .l{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.opt.chk .l{border-radius:5px}
+.opt.right.miss{background:var(--card);border-style:dashed}
+.multihint{font-size:13px;color:var(--muted);margin-top:-4px}
 .keys{font-size:12px;color:var(--muted);text-align:center}
 @media (hover:none){.keys{display:none}}
 /* resultado / evolução */
@@ -128,6 +132,7 @@ button:disabled{cursor:default}
 
 .fig{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px;display:flex;flex-direction:column;gap:8px}
 .fig .ft{font-weight:600;font-size:13px}
+.fig p{margin:0;font-size:14px;line-height:1.55}
 .fig .fs{font-size:11px;color:var(--muted)}
 .fig table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
 .fig th,.fig td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right}
@@ -599,6 +604,125 @@ const QS_EC = [
 ["e7","sust","Reduzir o consumo e o desperdício, reciclar e reutilizar são práticas que visam…","o desenvolvimento sustentável e a economia circular",["o consumismo e o consumo de massas","a obsolescência programada dos produtos","a sociedade de consumo e a publicidade"],"Síntese do manual."]
 ];
 
+// Novas perguntas: ficha diagnóstica de Economia (e8) + verdadeiro/falso + selecionar as verdadeiras.
+// V/F: certa 'Verdadeiro' ou 'Falso'. Escolha múltipla com várias certas: resposta = array.
+const V='Verdadeiro',F='Falso';
+const QS_NEW = [
+// ---------- E8 · COMO NA FICHA DIAGNÓSTICA ----------
+['e8','dia','A Ana tem 20 € e gostaria de comprar um livro (15 €) e ir ao cinema (8 €), mas não tem dinheiro para as duas coisas. Esta situação ilustra…','a escassez de recursos face às necessidades',['a falta de organização da Ana','o preço excessivo dos bens culturais','a impossibilidade de satisfazer necessidades'],'Recursos (20 €) escassos face às necessidades (23 €): é preciso escolher. Se escolher o livro, o cinema é o custo de oportunidade.'],
+['e8','dia','O Tiago tem 30 € e quer uns ténis (25 €) e um jogo (20 €). Se escolher os ténis, o custo de oportunidade é…','o jogo',['os ténis','os 30 €','os 5 € que sobram'],'Custo de oportunidade = a alternativa sacrificada.'],
+['e8','dia','As necessidades das pessoas…','variam de acordo com a época, a sociedade e o rendimento',['são iguais em todas as épocas e sociedades','dependem apenas da idade de cada pessoa','podem ser todas satisfeitas desde que se tenha dinheiro'],'Relatividade das necessidades: variam no tempo e no espaço.'],
+['e8','dia','Os bilhetes para um concerto muito popular esgotaram em minutos e começaram a ser revendidos. É de esperar que o preço de revenda…','aumente, porque muitas pessoas os querem e há poucos disponíveis',['diminua, porque os bilhetes já foram usados por outra pessoa','se mantenha, porque o preço está impresso no bilhete','diminua, porque há muitos vendedores'],'Muita procura e pouca oferta → o preço sobe.'],
+['e8','dia','Há uma colheita muito fraca de laranjas e poucas laranjas no mercado. É de esperar que o preço das laranjas…','suba, porque há menos laranjas para a mesma procura',['desça, porque as laranjas são de pior qualidade','se mantenha, porque o preço é fixado pelo Estado','desça, porque as pessoas compram menos fruta'],'Menos oferta para a mesma procura → preço mais alto.'],
+['e8','dia','As pessoas aceitam notas e moedas em troca de bens e serviços porque…','confiam que também serão aceites por outros como meio de pagamento',['o papel e o metal de que são feitas têm grande valor','são emitidas pelos bancos onde têm conta','é a única forma de fazer pagamentos'],'O valor da moeda assenta na confiança.'],
+['e8','dia','Um agricultor, um operário de uma fábrica de automóveis e uma enfermeira trabalham, respetivamente, nos setores…','primário, secundário e terciário',['secundário, primário e terciário','primário, terciário e secundário','terciário, secundário e primário'],'Primário: agricultura, pesca. Secundário: indústria. Terciário: serviços.'],
+['e8','dia','Um pescador, um trabalhador da construção civil e um professor trabalham, respetivamente, nos setores…','primário, secundário e terciário',['primário, terciário e secundário','secundário, secundário e terciário','terciário, secundário e primário'],'Pesca = primário; construção = secundário (indústria); ensino = terciário (serviços).'],
+['e8','dia','Uma empregada bancária trabalha no setor…','terciário',['primário','secundário','quaternário'],'Bancos prestam serviços → terciário.'],
+['e8','dia','Quando se diz que em Portugal existe inflação, isso significa que…','o nível geral dos preços está a aumentar',['os salários estão a aumentar','o preço de um determinado produto aumentou','há menos dinheiro em circulação'],'Inflação = subida do nível GERAL dos preços, não de um só produto.'],
+['e8','dia','O preço do pão subiu, mas a maior parte dos outros preços desceu. Isto é, só por si, inflação?','Não: a inflação é a subida do nível geral dos preços, não de um só produto',['Sim: basta que um produto essencial suba','Sim: o pão é o produto mais importante','Não: só há inflação quando os salários sobem'],'Inflação refere-se ao conjunto dos preços.'],
+['e8','dia','Poupar corresponde a…','a parte do rendimento que não é gasta em consumo',['comprar produtos em saldo, pagando menos do que o preço normal','depositar todo o rendimento numa conta bancária','comprar bens a crédito, pagando em prestações'],'Poupança = rendimento − consumo.'],
+['e8','dia','A Rita recebe 900 € por mês e gasta 750 € em consumo. A poupança mensal é…','150 €',['750 €','1650 €','16,7 €'],'900 − 750 = 150 €.'],
+['e8','dia','"Um produto com um preço mais elevado é sempre de melhor qualidade." Esta afirmação é…','falsa, porque o preço depende também da procura, da marca, dos custos e da concorrência',['verdadeira, porque o preço reflete apenas a qualidade do produto','verdadeira, porque as empresas não vendem caro produtos de má qualidade','falsa, porque os preços de todos os produtos são fixados pelo Estado'],'O preço resulta de vários fatores, não só da qualidade.'],
+['e8','pct','Um casaco custava 60 € e está em saldo com 25 % de desconto. O preço final é…','45 €',['35 €','48 €','15 €'],'Desconto: 60 × 0,25 = 15 €; preço final: 60 − 15 = 45 € (ou 60 × 0,75).'],
+['e8','pct','Umas calças custavam 45 € e têm 20 % de desconto. O preço final é…','36 €',['9 €','25 €','40 €'],'45 × 0,20 = 9 €; 45 − 9 = 36 € (ou 45 × 0,80).'],
+['e8','pct','Um produto de 50 € aumenta 10 %. O novo preço é…','55 €',['60 €','51 €','45 €'],'50 × 1,10 = 55 €.'],
+['e8','pct','A taxa de variação calcula-se com a fórmula…','(Valor final − Valor inicial) / Valor inicial × 100',['(Valor inicial − Valor final) / Valor final × 100','Valor final / Valor inicial × 100','(Valor final − Valor inicial) × 100'],'TV = (Vf − Vi) / Vi × 100. Positiva = aumento; negativa = diminuição.'],
+['e8','pct','O preço de um café passou de 0,80 € para 1,00 €. A taxa de variação do preço foi de…','+25 %',['+20 %','+125 %','+0,20 %'],'(1,00 − 0,80) / 0,80 × 100 = 25 %. Atenção: divide-se pelo valor INICIAL.'],
+['e8','pct','O preço de um bilhete passou de 2,50 € para 2,00 €. A taxa de variação foi de…','−20 %',['−25 %','+20 %','−0,50 %'],'(2,00 − 2,50) / 2,50 × 100 = −20 %.'],
+['e8','pct','Um salário passou de 1200 € para 1260 €. A taxa de variação foi de…','+5 %',['+60 %','+4,8 %','+105 %'],'(1260 − 1200) / 1200 × 100 = 5 %.'],
+['e8','pct','A família Silva tem um rendimento mensal de 1800 € e gasta 630 € com a habitação. A percentagem do rendimento gasta com a habitação é…','35 %',['28,6 %','63 %','11,7 %'],'630 / 1800 × 100 = 35 %.'],
+['e8','pct','Uma família ganha 2000 € por mês e gasta 500 € em alimentação. A percentagem do rendimento gasta em alimentação é…','25 %',['40 %','20 %','50 %'],'500 / 2000 × 100 = 25 %.'],
+['e8','pct','Numa turma de 25 alunos, 10 escolheram Economia A. A percentagem é…','40 %',['10 %','25 %','2,5 %'],'10 / 25 × 100 = 40 %.'],
+['e8','infl','Observa o gráfico. Em que ano a taxa de inflação foi mais elevada, e qual o valor?','2022, com 7,8 %',['2023, com 4,3 %','2021, com 1,3 %','2025, com 2,3 %'],'A barra mais alta é 2022 (7,8 %).','infl'],
+['e8','infl','Observa o gráfico. Em 2020 a taxa de inflação foi de 0,0 %. Isso significa que…','em média, o nível geral dos preços não variou face ao ano anterior',['todos os preços desceram','os preços de todos os produtos ficaram exatamente iguais','não houve qualquer compra nesse ano'],'Inflação 0 % = o nível geral (média) dos preços manteve-se; alguns preços podem ter subido e outros descido.','infl'],
+['e8','infl','Observa o gráfico. "Em 2023, os preços desceram em Portugal, porque a taxa de inflação passou de 7,8 % para 4,3 %." Esta afirmação é…','falsa, porque os preços continuaram a subir, embora a um ritmo mais lento',['verdadeira, porque a taxa de inflação diminuiu','verdadeira, porque os preços desceram','falsa, porque os preços se mantiveram iguais aos de 2022'],'Inflação positiva = os preços sobem. Se a taxa baixa mas continua positiva, os preços sobem mais devagar.','infl'],
+['e8','infl','Observa o gráfico. De 2023 para 2024, a taxa de inflação…','diminuiu 1,9 pontos percentuais',['diminuiu 1,9 %','aumentou 1,9 pontos percentuais','diminuiu 44 pontos percentuais'],'4,3 − 2,4 = 1,9 p.p. (diferença entre percentagens = pontos percentuais).','infl'],
+['e8','infl','Observa o gráfico. Em 2025 (2,3 %), comparando com 2024 (2,4 %), os preços…','continuaram a subir, quase ao mesmo ritmo',['desceram ligeiramente','mantiveram-se exatamente iguais','subiram muito mais depressa'],'A inflação continuou positiva: os preços subiram cerca de 2,3 %.','infl'],
+['e8','infl','Observa o gráfico. Entre 2021 e 2025, houve algum ano em que os preços, em média, desceram?','Não: a inflação foi sempre positiva nesses anos',['Sim, em 2023, porque a inflação baixou','Sim, em 2024 e 2025','Sim, em todos os anos depois de 2022'],'Só haveria descida dos preços com uma taxa negativa.','infl'],
+['e8','doc','Lê o Documento 1. A ideia principal é que…','os preços dos alimentos subiram mais do que a inflação, as famílias perderam poder de compra e há opiniões diferentes sobre o que fazer',['o Estado baixou os impostos sobre os alimentos essenciais','as empresas de distribuição baixaram os preços','a inflação em 2025 foi de 4,8 %'],'Ideia principal = o essencial do texto todo, não um pormenor.','doc1'],
+['e8','doc','Lê o Documento 1. Qual destas afirmações é um FACTO?','"em 2025 os preços dos produtos alimentares não transformados aumentaram, em média, 4,8 %"',['"o Estado deveria baixar os impostos sobre os alimentos essenciais"','"essa medida beneficiaria sobretudo as empresas de distribuição"','"o Estado deveria ajudar mais as famílias"'],'Facto = dado verificável (aqui, um número do INE). Opinião = juízo ou proposta ("deveria", "consideram").','doc1'],
+['e8','doc','Lê o Documento 1. Qual destas afirmações é uma OPINIÃO?','"o Estado deveria baixar os impostos sobre os alimentos essenciais"',['"a taxa de inflação desse ano foi de 2,3 %"','"os preços aumentaram, em média, 4,8 %"','"muitas famílias começaram a comparar preços entre supermercados"'],'"Deveria" indica uma proposta, um juízo: é opinião.','doc1'],
+['e8','doc','Lê o Documento 1. A expressão "o dinheiro chega para menos" significa que…','os preços sobem mais depressa do que os rendimentos e as famílias perdem poder de compra',['as famílias passaram a ganhar menos dinheiro','há menos notas em circulação','os bancos deixaram de emprestar dinheiro'],'Com o mesmo dinheiro compram-se menos bens.','doc1'],
+['e8','doc','Lê o Documento 1. Segundo o texto, como reagiram muitas famílias à subida dos preços?','comparando preços, preferindo marca branca e aproveitando promoções',['pedindo mais crédito para manter o consumo','deixando de comprar alimentos','mudando de país'],'Comportamento racional face à perda de poder de compra.','doc1'],
+['e8','doc','Lê o Documento 1. Os preços dos alimentos não transformados subiram 4,8 % e a inflação foi de 2,3 %. Isto quer dizer que esses alimentos…','subiram mais do que a média dos preços',['subiram menos do que a média dos preços','desceram de preço','subiram exatamente como a média'],'4,8 % > 2,3 %: subiram acima da média geral.','doc1'],
+['e8','dia','Recebes um prémio de 500 € e decides comprar uma bicicleta. O que deixas de poder fazer com esse dinheiro chama-se…','custo de oportunidade',['benefício','poupança','inflação'],'Escolher a bicicleta implica sacrificar a alternativa (ex.: poupar ou fazer uma viagem).'],
+['e8','dia','Recebes 500 € e decides pôr tudo numa conta bancária. Do ponto de vista económico, estás a…','poupar',['consumir','produzir','redistribuir'],'Rendimento não consumido = poupança. Custo de oportunidade: o que deixas de comprar agora.'],
+['e8','dia','Se os preços sobem 4,8 % e o salário de uma pessoa sobe 2 %, essa pessoa…','perde poder de compra',['ganha poder de compra','mantém o poder de compra','deixa de pagar impostos'],'O salário sobe menos do que os preços: compra menos com o que ganha.'],
+
+// ---------- VERDADEIRO / FALSO (Economia) ----------
+['e0','vf','Verdadeiro ou falso? A taxa de desemprego calcula-se dividindo os desempregados pela população residente.',F,[V],'Falso: divide-se pela população ATIVA.'],
+['e0','vf','Verdadeiro ou falso? Os reformados fazem parte da população inativa.',V,[F],'Inativos: não estão empregados nem desempregados (estudantes, domésticas, reformados).'],
+['e0','vf','Verdadeiro ou falso? Um saldo migratório negativo significa que saíram mais pessoas do que entraram.',V,[F],'SM = imigração − emigração < 0.'],
+['e0','vf','Verdadeiro ou falso? A taxa de mortalidade infantil divide os óbitos de crianças com menos de 1 ano pela população residente.',F,[V],'Falso: divide-se pelo total de NADOS-VIVOS.'],
+['e0','vf','Verdadeiro ou falso? Um índice de envelhecimento de 180 significa que há 180 idosos por cada 100 jovens.',V,[F],'Idosos (65+) por cada 100 jovens (0–14).'],
+['e0','vf','Verdadeiro ou falso? O crescimento efetivo pode ser positivo mesmo com crescimento natural negativo.',V,[F],'Basta que o saldo migratório positivo seja maior do que o crescimento natural negativo.'],
+['e0b','vf','Verdadeiro ou falso? A diferença entre 8,9 % e 7,0 % é de 1,9 pontos percentuais.',V,[F],'Diferença entre percentagens → pontos percentuais.'],
+['e0b','vf','Verdadeiro ou falso? Numa síntese, deve-se incluir a opinião pessoal sobre o texto.',F,[V],'Falso: a síntese não inclui opiniões pessoais.'],
+['e0b','vf','Verdadeiro ou falso? As curvas são o tipo de gráfico mais adequado para mostrar a evolução ao longo do tempo.',V,[F],'Séries cronológicas → curvas.'],
+['e1','vf','Verdadeiro ou falso? A Matemática e a Estatística são ciências sociais.',F,[V],'Falso: não são ciências sociais, mas são imprescindíveis à Economia.'],
+['e1','vf','Verdadeiro ou falso? Um mesmo fenómeno social pode ser estudado por várias ciências sociais.',V,[F],'Cada uma estuda-o de uma perspetiva diferente.'],
+['e1','vf','Verdadeiro ou falso? A Economia estuda toda a realidade social, sem precisar das outras ciências.',F,[V],'Falso: estuda a dimensão económica e precisa da interdisciplinaridade.'],
+['e2','vf','Verdadeiro ou falso? Se os recursos fossem ilimitados, não haveria problema económico.',V,[F],'O problema económico nasce da escassez.'],
+['e2','vf','Verdadeiro ou falso? O custo de oportunidade é o preço que se paga em dinheiro por um bem.',F,[V],'Falso: é a alternativa sacrificada.'],
+['e2','vf','Verdadeiro ou falso? Ser racional, em Economia, é obter o máximo benefício com o mínimo de recursos.',V,[F],'Racionalidade económica.'],
+['e3','vf','Verdadeiro ou falso? Um banco pertence ao agente Empresas não Financeiras.',F,[V],'Falso: é uma Instituição Financeira.'],
+['e3','vf','Verdadeiro ou falso? A função principal das Famílias é consumir.',V,[F],'Famílias → consumo.'],
+['e3','vf','Verdadeiro ou falso? O Estado assegura atividades pouco lucrativas, como infraestruturas e transportes públicos.',V,[F],'E outras que não devem ser feitas por particulares (justiça, defesa, segurança).'],
+['e3','vf','Verdadeiro ou falso? A poupança é a parte do rendimento que não é consumida.',V,[F],'Utilização dos rendimentos = consumo + poupança.'],
+['e4','vf','Verdadeiro ou falso? As necessidades terciárias são indispensáveis à vida humana.',F,[V],'Falso: essas são as primárias. As terciárias são dispensáveis.'],
+['e4','vf','Verdadeiro ou falso? A segurança é uma necessidade coletiva.',V,[F],'Decorre da vida em coletividade.'],
+['e4','vf','Verdadeiro ou falso? A saciabilidade significa que as necessidades se renovam constantemente.',F,[V],'Falso: isso é a multiplicidade. Saciabilidade = a intensidade diminui até desaparecer.'],
+['e5','vf','Verdadeiro ou falso? A compra de tecido por uma fábrica de roupa é consumo final.',F,[V],'Falso: é consumo intermédio (o tecido vai ser transformado).'],
+['e5','vf','Verdadeiro ou falso? Os bens públicos caracterizam-se pela não rivalidade e não exclusão.',V,[F],'Ex.: iluminação pública, defesa nacional.'],
+['e5','vf','Verdadeiro ou falso? O consumo privado é realizado pelo Estado.',F,[V],'Falso: é realizado pelas famílias. O do Estado é consumo público.'],
+['e6','vf','Verdadeiro ou falso? Segundo a lei de Engel, as famílias mais pobres gastam uma maior percentagem do rendimento em alimentação.',V,[F],'Menor rendimento → maior coeficiente orçamental da alimentação.'],
+['e6','vf','Verdadeiro ou falso? A publicidade é um fator económico que influencia o consumo.',F,[V],'Falso: é um fator extraeconómico.'],
+['e6','vf','Verdadeiro ou falso? Uma subida dos preços, com o rendimento constante, diminui a capacidade aquisitiva.',V,[F],'Compra-se menos com o mesmo dinheiro.'],
+['e6','vf','Verdadeiro ou falso? A soma dos coeficientes orçamentais de uma família é 100 %.',V,[F],'São as partes de um todo.'],
+['e7','vf','Verdadeiro ou falso? Na sociedade de consumo, a procura é superior à oferta.',F,[V],'Falso: a oferta excede a procura.'],
+['e7','vf','Verdadeiro ou falso? O consumerismo defende um consumo racional, responsável e sustentável.',V,[F],'É o oposto do consumismo.'],
+['e7','vf','Verdadeiro ou falso? A obsolescência programada aumenta a duração dos produtos.',F,[V],'Falso: reduz a vida útil para se comprar mais.'],
+['e7','vf','Verdadeiro ou falso? A economia circular procura reintegrar os resíduos no ciclo produtivo.',V,[F],'Redução, reutilização, recuperação e reciclagem.'],
+
+// ---------- SELECIONA AS VERDADEIRAS (Economia) ----------
+['e0','sel','Seleciona TODAS as que pertencem à população ativa.',['um desempregado à procura de emprego','uma enfermeira empregada'],['um estudante que não trabalha','um reformado'],'Ativos = empregados + desempregados.'],
+['e3','sel','Seleciona TODAS as Instituições Financeiras.',['um banco','uma companhia de seguros'],['uma operadora de telecomunicações','uma fábrica de automóveis'],'Financiamento e serviços financeiros.'],
+['e3','sel','Seleciona TODAS as que são atividades económicas principais.',['produção','utilização dos rendimentos (consumo e poupança)','redistribuição dos rendimentos'],['publicidade'],'Produção, distribuição e redistribuição dos rendimentos, utilização dos rendimentos.'],
+['e4','sel','Seleciona TODAS as características das necessidades.',['multiplicidade','saciabilidade','relatividade'],['rivalidade'],'São 4: multiplicidade, substituibilidade, saciabilidade, relatividade. Rivalidade é dos bens.'],
+['e4','sel','Seleciona TODAS as necessidades primárias.',['alimentação','respiração'],['vestuário de marca','viajar em classe executiva'],'Primárias = indispensáveis à vida.'],
+['e5','sel','Seleciona TODOS os exemplos de consumo intermédio.',['uma padaria compra farinha','uma fábrica de sumos compra fruta'],['uma família compra pão','um estudante compra um computador'],'Intermédio: bens que vão ser transformados pelas empresas.'],
+['e5','sel','Seleciona TODOS os exemplos de consumo coletivo.',['iluminação pública','defesa nacional'],['uma refeição num restaurante','um bilhete de cinema'],'Sem rivalidade nem exclusão.'],
+['e6','sel','Seleciona TODOS os fatores extraeconómicos que influenciam o consumo.',['moda','publicidade','dimensão e composição do agregado familiar'],['preço dos bens'],'O preço é um fator económico.'],
+['e6','sel','Seleciona TODOS os fatores económicos que influenciam o consumo.',['rendimento','preço dos bens','inovação tecnológica'],['moda'],'Moda é extraeconómico.'],
+['e7','sel','Seleciona TODAS as consequências do consumismo.',['endividamento das famílias','esgotamento dos recursos naturais','acentuação do individualismo'],['aumento da poupança'],'E também exclusão de quem não tem capacidade aquisitiva.'],
+['e7','sel','Seleciona TODOS os comportamentos consumeristas.',['evitar o desperdício','comprar produtos biológicos','não comprar produtos feitos com trabalho infantil'],['usar e deitar fora'],'Usar e deitar fora é consumismo.'],
+['e7','sel','Seleciona TODOS os DEVERES do consumidor.',['consciência ambiental','solidariedade','consciência crítica'],['direito à informação'],'Direito à informação é um direito, não um dever.'],
+['e8','sel','Seleciona TODOS os FACTOS (e não opiniões).',['a inflação em 2022 foi de 7,8 %','em 2020 a taxa de inflação foi de 0,0 %'],['o Estado deveria baixar os impostos','os preços estão demasiado altos'],'Factos são verificáveis; opiniões exprimem juízos.'],
+
+// ---------- PORTUGUÊS: V/F e selecionar ----------
+['p2','vf','Verdadeiro ou falso? Na cantiga de amigo, o sujeito poético é uma voz feminina.',V,[F],'A donzela fala do amigo.'],
+['p2','vf','Verdadeiro ou falso? As cantigas de amigo eram escritas por mulheres.',F,[V],'Falso: eram escritas por trovadores (homens) que davam voz a uma donzela.'],
+['p2','vf','Verdadeiro ou falso? O espaço típico da cantiga de amigo é a corte.',F,[V],'Falso: é natural e campestre. A corte é o espaço da cantiga de amor.'],
+['p2','vf','Verdadeiro ou falso? As cantigas de amigo têm valor documental porque mostram costumes da época.',V,[F],'Romarias, fossado, vida das mulheres, lugares reais.'],
+['p3','vf','Verdadeiro ou falso? O refrão repete-se no fim de cada estrofe.',V,[F],'Definição de refrão.'],
+['p3','vf','Verdadeiro ou falso? O leixa-pren consiste em repetir o refrão no início das estrofes.',F,[V],'Falso: é retomar o 2.º verso de uma estrofe como 1.º verso de outra.'],
+['p3','vf','Verdadeiro ou falso? Apesar das repetições, há progressão temática nas cantigas de amigo.',V,[F],'A situação e o sentimento evoluem.'],
+['p5','vf','Verdadeiro ou falso? A prótese é a supressão de um som no início da palavra.',F,[V],'Falso: isso é a aférese. Prótese = inserção no início.'],
+['p5','vf','Verdadeiro ou falso? A síncope é a supressão de um som no interior da palavra.',V,[F],'Ex.: legale- > leal.'],
+['p5','vf','Verdadeiro ou falso? Na sonorização, uma consoante sonora passa a surda.',F,[V],'Falso: é ao contrário (surda > sonora).'],
+['p5','vf','Verdadeiro ou falso? A crase é a fusão de duas vogais numa só.',V,[F],'Ex.: paa > pá.'],
+['p6','vf','Verdadeiro ou falso? Em feria- > feira houve metátese.',V,[F],'O i mudou de posição.'],
+['p6','vf','Verdadeiro ou falso? Em lupu- > lobo houve vocalização.',F,[V],'Falso: houve sonorização (p > b).'],
+['p6','vf','Verdadeiro ou falso? Em clamare > chamar houve palatalização.',V,[F],'cl > ch.'],
+['p6','vf','Verdadeiro ou falso? Em mare > mar houve síncope.',F,[V],'Falso: caiu o som final → apócope.'],
+['p2','sel','Seleciona TODOS os possíveis interlocutores da donzela na cantiga de amigo.',['a mãe','as ondas do mar','as amigas'],['a "senhor"'],'"Senhor" é a amada na cantiga de amor.'],
+['p3','sel','Seleciona TODAS as marcas formais típicas da cantiga de amigo.',['paralelismo','refrão','leixa-pren'],['sonetos de 14 versos'],'Estrutura paralelística com refrão.'],
+['p5','sel','Seleciona TODOS os processos de supressão.',['aférese','síncope','apócope'],['prótese'],'Prótese é inserção.'],
+['p5','sel','Seleciona TODOS os processos de inserção.',['prótese','epêntese','paragoge'],['crase'],'Crase é contração (alteração).'],
+['p6','sel','Seleciona TODAS as evoluções em que houve sonorização.',['lupu- > lobo','acutu- > agudo','amicu- > amigo'],['octo > oito'],'octo > oito é vocalização.'],
+['p6','sel','Seleciona TODAS as evoluções em que houve palatalização.',['clave- > chave','filiu- > filho','pluvia- > chuva'],['lacte- > leite'],'lacte > leite é vocalização (c > i).'],
+];
+
 
 // ===================== CONFIGURAÇÃO =====================
 // Disciplinas: on=true quando houver perguntas. Para acrescentar, criar o banco de perguntas, os TOPICS e um teste em TESTS.
@@ -628,6 +752,7 @@ const TOPICS={
  e4:{n:'Necessidades',s:'Características e classificação',c:'#1f7f86'},
  e5:{n:'Consumo: noção e classificação',s:'Privado/público, individual/coletivo, final/intermédio',c:'#b5651d'},
  e6:{n:'Fatores que influenciam o consumo',s:'Rendimento, coeficiente orçamental, lei de Engel, preço…',c:'#8a5a2b'},
+ e8:{n:'Como na ficha diagnóstica',s:'Escassez, preços, inflação, percentagens, facto vs. opinião',c:'#1d2b44'},
  e7:{n:'Sociedade de consumo',s:'Obsolescência, consumismo, consumerismo, sustentabilidade',c:'#2f6b3a'},
 };
 const SUBN={'p1:epoca':'Época e língua','p1:canc':'Cancioneiros','p1:autores':'Trovadores, jograis e géneros','p1:amor':'Amigo vs. amor',
@@ -650,9 +775,11 @@ const SUBN={'p1:epoca':'Época e língua','p1:canc':'Cancioneiros','p1:autores':
 // when: 'AAAA-MM-DD' ou null (data por definir)
 const TESTS={
  pt1:{subj:'pt',title:'1.º Teste',name:'Poesia trovadoresca e processos fonológicos',when:'2026-10-26',keys:['p1','p2','p3','p4','p5','p6','p7','p8']},
- ec1:{subj:'ec',title:'1.º Teste',name:'Temas 0, 1 e 2 · Atividade económica, necessidades e consumo',when:'2026-10-28',keys:['e0','e0b','e1','e2','e3','e4','e5','e6','e7']},
+ ec1:{subj:'ec',title:'1.º Teste',name:'Temas 0, 1 e 2 · Atividade económica, necessidades e consumo',when:'2026-10-28',keys:['e8','e0','e0b','e1','e2','e3','e4','e5','e6','e7']},
 };
-const QS=[...QS_PT,...QS_EC];
+const QS=[...QS_PT,...QS_EC,...QS_NEW];
+Object.assign(SUBN,{'e8:dia':'Economia no dia a dia','e8:pct':'Percentagens e taxa de variação','e8:infl':'Gráfico da inflação','e8:doc':'Leitura de documento (facto/opinião)','e8:sel':'Factos vs. opiniões'});
+Object.keys(TOPICS).forEach(k=>{SUBN[k+':vf']='Verdadeiro ou falso · '+TOPICS[k].n;SUBN[k+':sel']=SUBN[k+':sel']||'Seleciona as verdadeiras · '+TOPICS[k].n});
 // Figuras/quadros recriados a partir do manual, para a app funcionar sem o livro.
 const bars=(rows,max)=>rows.map(([l,v,t])=>`<div class="fbar"><span>${l}</span><div class="t"><i style="width:${v/max*100}%"></i></div><span>${t||v}</span></div>`).join('');
 const tbl=(h,rows)=>`<table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table>`;
@@ -662,6 +789,8 @@ const FIGS={
  oit:`<div class="ft">Crianças e adolescentes (5–17 anos) em situação de trabalho, por setor (%)</div>${bars([['Agricultura',70.9,'70,9'],['Serviços',17.1,'17,1'],['Indústria',11.9,'11,9']],100)}<div class="fs">Fonte: OIT (dados de 2016)</div>`,
  ptcons:`<div class="ft">Portugal: despesa por agregado, por grupo (%)</div>${tbl(['Grupo de despesa','2005-06','2015-16'],[['Alimentares e bebidas não alcoólicas','15,6','14,7'],['Bebidas alcoólicas e tabaco','2,6','1,9'],['Vestuário e calçado','4,1','3,6'],['Habitação, água, eletricidade, combustíveis','26,5','30,0'],['Equipamento e manutenção da habitação','5,3','4,0'],['Saúde','5,0','5,3'],['Transportes','13,5','14,7'],['Comunicações','3,3','3,4'],['Lazer, recreação e cultura','4,9','4,7'],['Ensino','2,3','2,5'],['Restaurantes e hotéis','10,4','8,5'],['Bens e serviços diversos','6,5','6,7']])}<div class="fs">Fonte: INE, Inquérito às Despesas das Famílias</div>`,
  agreg:`<div class="ft">Portugal, 2015-2016: despesa total anual média (€)</div>${tbl(['','Por agregado','Per capita'],[['Total','20 363','8 981'],['Sem crianças dependentes','17 404','9 998'],['Com crianças dependentes','25 254','7 248']])}<div class="fs">Fonte: INE, Inquérito às Despesas das Famílias</div>`,
+ infl:`<div class="ft">Taxa de inflação em Portugal (variação média anual do IPC, %)</div>${bars([['2020',0,'0,0'],['2021',1.3,'1,3'],['2022',7.8,'7,8'],['2023',4.3,'4,3'],['2024',2.4,'2,4'],['2025',2.3,'2,3']],7.8)}<div class="fs">Fonte: INE</div>`,
+ doc1:`<div class="ft">Documento 1</div><p>Nos últimos anos, muitas famílias portuguesas têm sentido que o dinheiro «chega para menos». Segundo o Instituto Nacional de Estatística, em 2025 os preços dos produtos alimentares não transformados, como a fruta, os legumes, a carne e o peixe, aumentaram, em média, 4,8 %, um valor bem acima da taxa de inflação desse ano (2,3 %).</p><p>Quando os preços sobem mais depressa do que os rendimentos, as famílias passam a conseguir comprar menos bens com o mesmo dinheiro. Por isso, muitas começaram a comparar preços entre supermercados, a preferir produtos de marca branca e a aproveitar mais as promoções.</p><p>Alguns economistas defendem que o Estado deveria baixar os impostos sobre os alimentos essenciais. Outros consideram que essa medida beneficiaria sobretudo as empresas de distribuição e pouco os consumidores.</p><div class="fs">Texto da ficha diagnóstica, com base em dados do INE.</div>`,
  desperd:`<div class="ft">Perdas alimentares em Portugal ao longo da cadeia (mil toneladas)</div>${bars([['Produção',332],['Transformação',77],['Distribuição',298],['Consumo (casas)',324]],332)}<div class="fs">332 + 77 + 298 + 324. Fonte: CNCDA</div>`,
 };
 
@@ -720,12 +849,19 @@ function go(n){view={name:n};render();window.scrollTo(0,0)}
 function openSubj(k){subjCur=k;const L=Object.keys(TESTS).filter(t=>TESTS[t].subj===k);if(L.length===1){cur=L[0];go('test')}else go('subj')}
 function openTest(t){cur=t;go('test')}
 function setSize(n){S.size=n;save();render()}
-function start(t){const ids=build(t);if(!ids.length)return;quiz={t,ids,i:0,ok:0,answered:null,opts:null,wrongs:[]};view={name:'quiz'};lastAct=Date.now();render();window.scrollTo(0,0)}
-function answer(j){if(!quiz||quiz.answered!==null)return;const id=quiz.ids[quiz.i],q=QS[id],choice=quiz.opts[j],good=choice===q[3];
- tick();recAdd(q[0],good);quiz.answered=j;S.seen[id]=1;const k=q[0]+':'+q[1];const st=S.sub[k]||[0,0];st[1]++;if(good)st[0]++;S.sub[k]=st;
+function start(t){const ids=build(t);if(!ids.length)return;quiz={t,ids,i:0,ok:0,answered:null,opts:null,sel:[],wrongs:[]};view={name:'quiz'};lastAct=Date.now();render();window.scrollTo(0,0)}
+const isMulti=q=>Array.isArray(q[3]);
+const isVF=q=>!isMulti(q)&&q[4].length===1&&[q[3],q[4][0]].sort().join()==='Falso,Verdadeiro';
+const ansTxt=q=>isMulti(q)?q[3].join(' · '):q[3];
+function toggleSel(j){if(!quiz||quiz.answered!==null)return;const k=quiz.sel.indexOf(j);if(k>=0)quiz.sel.splice(k,1);else quiz.sel.push(j);render()}
+function confirmMulti(){if(!quiz||quiz.answered!==null||!quiz.sel.length)return;const q=QS[quiz.ids[quiz.i]];const ch=quiz.sel.map(j=>quiz.opts[j]);
+ finish(ch.length===q[3].length&&ch.every(c=>q[3].includes(c)),'m')}
+function answer(j){if(!quiz||quiz.answered!==null)return;const q=QS[quiz.ids[quiz.i]];if(isMulti(q))return toggleSel(j);finish(quiz.opts[j]===q[3],j)}
+function finish(good,mark){const id=quiz.ids[quiz.i],q=QS[id];
+ tick();recAdd(q[0],good);quiz.answered=mark;quiz.good=good;S.seen[id]=1;const k=q[0]+':'+q[1];const st=S.sub[k]||[0,0];st[1]++;if(good)st[0]++;S.sub[k]=st;
  if(good){quiz.ok++;if(quiz.t===ERR())S.wrong=S.wrong.filter(x=>x!==id)}else{quiz.wrongs.push(id);if(!S.wrong.includes(id))S.wrong.push(id)}
  save();render();setTimeout(()=>{const f=$('#fb');if(f)f.scrollIntoView({behavior:'smooth',block:'nearest'})},40)}
-function next(){if(!quiz||quiz.answered===null)return;tick();calc.ex='';calc.rs='';quiz.i++;quiz.answered=null;quiz.opts=null;
+function next(){if(!quiz||quiz.answered===null)return;tick();calc.ex='';calc.rs='';quiz.i++;quiz.answered=null;quiz.opts=null;quiz.sel=[];
  if(quiz.i>=quiz.ids.length){S.history.push({d:Date.now(),t:quiz.t,c:quiz.ok,n:quiz.ids.length});if(S.history.length>500)S.history=S.history.slice(-500);save();view={name:'result'}}
  render();window.scrollTo(0,0)}
 function toggleSave(){const id=quiz.ids[quiz.i];const k=S.saved.indexOf(id);if(k>=0)S.saved.splice(k,1);else S.saved.push(id);save();render()}
@@ -737,12 +873,12 @@ function resetTest(){if(!confirmReset){confirmReset=true;render();return}
  delete S.time[cur];confirmReset=false;save();go('test')}
 let confirmReset=false;
 document.addEventListener('keydown',e=>{if(view.name!=='quiz'||!quiz)return;
- if(quiz.answered===null&&!calc.open){const n='1234abcd'.indexOf(e.key.toLowerCase());if(n>=0){answer(n%4);e.preventDefault()}}
+ if(quiz.answered===null&&!calc.open){const n='1234abcd'.indexOf(e.key.toLowerCase());if(n>=0&&quiz.opts&&n%4<quiz.opts.length){answer(n%4);e.preventDefault()}else if(e.key==='Enter'&&isMulti(QS[quiz.ids[quiz.i]])){confirmMulti();e.preventDefault()}}
  else if(e.key==='Enter'||e.key===' '){next();e.preventDefault()}});
 
 
 // ===== Calculadora (aparece nas perguntas com contas) =====
-const CALCQ=['Num país entraram 30 mil','População residente 8000','População ativa 5000','População ativa 4500','País com 10 milhões','Nascimentos 80 000','Crescimento efetivo −14 000','Num país há 2 milhões','A taxa de desemprego passou de 8,9%','Uma economia produz só cereais','Uma economia produz só bicicletas','Uma família gasta 3600','Uma família gasta 450','Despesa total de 2000','Observa a figura. As perdas alimentares'];
+const CALCQ=['Um casaco custava 60','Umas calças custavam 45','Um produto de 50 €','O preço de um café passou','O preço de um bilhete passou','Um salário passou','A família Silva tem','Uma família ganha 2000','Numa turma de 25','A Rita recebe 900','Observa o gráfico. De 2023 para 2024','Num país entraram 30 mil','População residente 8000','População ativa 5000','População ativa 4500','País com 10 milhões','Nascimentos 80 000','Crescimento efetivo −14 000','Num país há 2 milhões','A taxa de desemprego passou de 8,9%','Uma economia produz só cereais','Uma economia produz só bicicletas','Uma família gasta 3600','Uma família gasta 450','Despesa total de 2000','Observa a figura. As perdas alimentares'];
 const needsCalc=q=>CALCQ.some(k=>q[2].startsWith(k));
 let calc={open:false,ex:'',rs:''};
 function cParse(str){let i=0;const s=str.replace(/×/g,'*').replace(/÷/g,'/').replace(/,/g,'.').replace(/−/g,'-');
@@ -802,21 +938,26 @@ function test(){const T=T_(),s=SUBJ.find(x=>x.k===T.subj);
  <button class="muted small" style="text-align:center;padding:6px" onclick="resetTest()">${confirmReset?'<b style="color:var(--bad)">Toca outra vez para apagar o progresso deste teste</b>':'Recomeçar este teste do zero'}</button>`}
 
 function qview(){const id=quiz.ids[quiz.i],q=QS[id],P=TOPICS[q[0]];
- if(!quiz.opts)quiz.opts=shuffle([q[3],...q[4]]);
- const n=quiz.ids.length,done=quiz.answered!==null,good=done&&quiz.opts[quiz.answered]===q[3],sv=S.saved.includes(id);
- const opts=quiz.opts.map((o,j)=>{let c='';if(done){if(o===q[3])c='right';else if(j===quiz.answered)c='wrong'}
-  return `<button class="opt ${c}" ${done?'disabled':''} onclick="answer(${j})"><span class="l">${'ABCD'[j]}</span><span>${esc(o)}</span></button>`}).join('');
- const fb=done?`<div class="fb ${good?'ok':'no'}" id="fb"><h3>${good?'Certo':'Errado'}</h3>${good?'':`<p>Resposta certa: <b>${esc(q[3])}</b></p>`}<p>${esc(q[5])}</p></div>
-  <button class="big" onclick="next()">${quiz.i+1<n?'Seguinte':'Ver resultado'}</button>`:'';
+ const multi=isMulti(q),vf=isVF(q);quiz.sel=quiz.sel||[];
+ if(!quiz.opts)quiz.opts=vf?['Verdadeiro','Falso']:multi?shuffle([...q[3],...q[4]]):shuffle([q[3],...q[4]]);
+ const n=quiz.ids.length,done=quiz.answered!==null,good=done&&quiz.good,sv=S.saved.includes(id);
+ const isRight=o=>multi?q[3].includes(o):o===q[3];
+ const opts=quiz.opts.map((o,j)=>{const picked=multi?quiz.sel.includes(j):j===quiz.answered;let c='';
+  if(done){if(isRight(o))c=multi&&!picked?'right miss':'right';else if(picked)c='wrong'}else if(multi&&picked)c='sel';
+  const lab=vf?o[0]:multi?(picked?'✓':''):'ABCD'[j];
+  return `<button class="opt ${c} ${multi?'chk':''}" ${done?'disabled':''} onclick="answer(${j})"><span class="l">${lab}</span><span>${esc(o)}</span></button>`}).join('');
+ const fb=done?`<div class="fb ${good?'ok':'no'}" id="fb"><h3>${good?'Certo':'Errado'}</h3>${good?'':`<p>Resposta certa: <b>${esc(ansTxt(q))}</b></p>`}<p>${esc(q[5])}</p></div>
+  <button class="big" onclick="next()">${quiz.i+1<n?'Seguinte':'Ver resultado'}</button>`:(multi?`<button class="big" onclick="confirmMulti()" ${quiz.sel.length?'':'disabled style="opacity:.45"'}>Confirmar</button>`:'');
+ const hint=multi?`<p class="multihint">Pode haver mais do que uma certa. Seleciona todas e confirma.</p>`:'';
  return `<div class="qtop"><button class="back" aria-label="Sair" onclick="go('test')">×</button><div class="prog"><i style="width:${(quiz.i+(done?1:0))/n*100}%"></i></div><span class="count">${quiz.i+1}/${n}</span>
  <button class="bm ${sv?'on':''}" aria-label="${sv?'Remover das guardadas':'Guardar pergunta'}" onclick="toggleSave()"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 3h12v18l-6-4-6 4z" fill="${sv?'currentColor':'none'}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button></div>
- <div class="card"><span class="qchip">${esc(P.n)}</span><div class="qtext">${esc(q[2])}</div>${q[6]&&FIGS[q[6]]?`<div class="fig">${FIGS[q[6]]}</div>`:''}${needsCalc(q)?`<button class="calcbtn" onclick="toggleCalc()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h4"/></svg>${calc.open?'Fechar calculadora':'Calculadora'}</button>${calc.open?calcHTML():''}`:''}<div class="opts">${opts}</div></div>${fb}
+ <div class="card"><span class="qchip">${esc(P.n)}</span><div class="qtext">${esc(q[2])}</div>${q[6]&&FIGS[q[6]]?`<div class="fig">${FIGS[q[6]]}</div>`:''}${needsCalc(q)?`<button class="calcbtn" onclick="toggleCalc()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h4"/></svg>${calc.open?'Fechar calculadora':'Calculadora'}</button>${calc.open?calcHTML():''}`:''}${hint}<div class="opts">${opts}</div></div>${fb}
  <p class="keys">Teclado: 1–4 para responder · Enter para avançar</p>`}
 
 function result(){const n=quiz.ids.length,p=Math.round(quiz.ok/n*100);
  const errs=quiz.wrongs.map(i=>QS[i]);
  return `<div class="card" style="align-items:center;text-align:center"><span class="muted small">${esc(tname(quiz.t))}</span><div class="score">${p}%</div><p class="muted" style="font-size:18px;font-weight:600">${quiz.ok}/${n} certas</p></div>
- ${errs.length?`<div class="card"><h3>Para rever (${errs.length})</h3>${errs.map(q=>`<div class="err"><span>${esc(q[2])}</span><span class="a">${esc(q[3])}</span></div>`).join('')}</div>`:''}
+ ${errs.length?`<div class="card"><h3>Para rever (${errs.length})</h3>${errs.map(q=>`<div class="err"><span>${esc(q[2])}</span><span class="a">${esc(ansTxt(q))}</span></div>`).join('')}</div>`:''}
  <button class="big" onclick="start('${quiz.t}')">Nova ronda</button>
  ${S.wrong.filter(inCur).length?`<button class="ghost" onclick="start('${ERR()}')">Rever os meus erros (${S.wrong.filter(inCur).length})</button>`:''}
  <button class="ghost" onclick="go('test')">Voltar às matérias</button>`}

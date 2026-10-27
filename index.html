@@ -724,6 +724,20 @@ const QS_NEW = [
 ['p5','sel','Seleciona TODOS os processos de inserção.',['prótese','epêntese','paragoge'],['crase'],'Crase é contração (alteração).'],
 ['p6','sel','Seleciona TODAS as evoluções em que houve sonorização.',['lupu- > lobo','acutu- > agudo','amicu- > amigo'],['octo > oito'],'octo > oito é vocalização.'],
 ['p6','sel','Seleciona TODAS as evoluções em que houve palatalização.',['clave- > chave','filiu- > filho','pluvia- > chuva'],['lacte- > leite'],'lacte > leite é vocalização (c > i).'],
+// ---------- E5 · RIVALIDADE E EXCLUSIVIDADE (reforço pela matriz) ----------
+['e5','riv','A rivalidade no consumo significa que…','o consumo de um bem por uma pessoa diminui a quantidade disponível para as outras',['ninguém pode ser impedido de consumir o bem','o bem é fornecido gratuitamente pelo Estado','várias pessoas podem consumir o bem ao mesmo tempo sem o esgotar'],'Ex.: a sandes que eu como já não pode ser comida por outra pessoa.'],
+['e5','riv','A exclusividade (ou exclusão) no consumo significa que…','é possível impedir quem não paga (ou não é dono) de consumir o bem',['o consumo de uma pessoa não afeta as outras','o bem é usado por toda a coletividade','o bem é pago através dos impostos'],'Os bens privados pertencem aos proprietários; a lei reconhece o direito de propriedade.'],
+['e5','riv','Uma piza comprada e comida por uma pessoa é um bem…','rival e exclusivo',['não rival e não exclusivo','rival e não exclusivo','não rival e exclusivo'],'Quem a come impede os outros (exclusão) e esgota-a (rivalidade).'],
+['e5','riv','A iluminação de uma rua é um bem…','não rival e não exclusivo',['rival e exclusivo','rival e não exclusivo','não rival e exclusivo'],'Ninguém pode ser excluído e o uso de uns não diminui o dos outros: bem público.'],
+['e5','riv','Os bens com rivalidade e exclusividade são…','bens privados, que satisfazem o consumo individual',['bens públicos, que satisfazem o consumo coletivo','bens intermédios, consumidos pelas empresas','bens públicos, pagos pelos impostos'],'Privado → individual; público → coletivo.'],
+['e5','riv','Os bens sem rivalidade nem exclusividade são…','bens públicos, que satisfazem o consumo coletivo',['bens privados, que satisfazem o consumo individual','bens de luxo, pagos individualmente','bens intermédios das empresas'],'Ex.: defesa nacional, iluminação pública.'],
+['e5','riv','Porque é que a defesa nacional é fornecida pelo Estado através dos impostos?','porque ninguém pode ser excluído do seu benefício, por isso não se pode cobrar a cada um',['porque dá muito lucro às empresas','porque só beneficia quem a paga','porque é um bem rival'],'Não exclusividade: todos beneficiam, paguem ou não → financia-se pelos impostos.'],
+['e5','riv','Uma pessoa a ver um fogo de artifício público não impede outra de o ver. Isto mostra…','a não rivalidade',['a rivalidade','a exclusividade','o consumo intermédio'],'O consumo de um não diminui o dos outros.'],
+['e5','vf','Verdadeiro ou falso? Os bens privados são pagos individualmente porque o benefício é individual.',V,[F],'Bens privados: exclusivos, rivais, pagos por quem os consome.'],
+['e5','vf','Verdadeiro ou falso? Num bem público, quem não paga impostos pode ser impedido de beneficiar dele.',F,[V],'Falso: não exclusividade — ninguém pode ser excluído.'],
+['e5','vf','Verdadeiro ou falso? Comprar muito leite no supermercado deixa menos para os outros: o leite é um bem rival.',V,[F],'Exemplo do manual.'],
+['e5','sel','Seleciona TODAS as características dos bens públicos.',['não rivalidade','não exclusividade','benefício coletivo'],['pagamento individual'],'São cobrados à coletividade (impostos).'],
+['e5','sel','Seleciona TODAS as características dos bens privados.',['rivalidade','exclusividade','pagamento individual'],['benefício coletivo'],'Satisfazem necessidades individuais.'],
 ];
 
 
@@ -747,15 +761,15 @@ const TOPICS={
  p6:{n:'Processos fonológicos: identificar',s:'Do latim ao português, palavra a palavra',c:'#2f7d5b'},
  p7:{n:'Processos parecidos',s:'Síncope ou apócope? Crase ou sinérese?',c:'#b5651d'},
  p8:{n:'Do latim ao português antigo',s:'Marcas do galego-português nas cantigas',c:'#5b6577'},
- e0:{n:'Conceitos e indicadores',s:'População ativa, taxas, crescimento natural e efetivo',c:'#2f7d5b'},
- e0b:{n:'Capacidades estruturantes',s:'Textos, esquemas, quadros, gráficos, sínteses',c:'#5b6577'},
+ e0:{n:'Conceitos e indicadores (Tema 0)',s:'Taxas e população — não está na matriz',c:'#2f7d5b'},
+ e0b:{n:'Capacidades estruturantes (Tema 0)',s:'Textos, quadros, gráficos — não está na matriz',c:'#5b6577'},
  e1:{n:'A Economia como ciência social',s:'Fenómenos sociais e económicos, objeto de estudo, definições',c:'#2d5fa8'},
  e2:{n:'O problema económico',s:'Escassez, escolhas, racionalidade, custo de oportunidade',c:'#a23b4c'},
  e3:{n:'Agentes e atividades económicas',s:'Famílias, empresas, Estado… produção, rendimentos',c:'#6b4fa0'},
  e4:{n:'Necessidades',s:'Características e classificação',c:'#1f7f86'},
- e5:{n:'Consumo: noção e classificação',s:'Privado/público, individual/coletivo, final/intermédio',c:'#b5651d'},
+ e5:{n:'Consumo: classificação, rivalidade e exclusividade',s:'Privado/público, individual/coletivo, final/intermédio, bens públicos e privados',c:'#b5651d'},
  e6:{n:'Fatores que influenciam o consumo',s:'Rendimento, coeficiente orçamental, lei de Engel, preço…',c:'#8a5a2b'},
- e8:{n:'Como na ficha diagnóstica',s:'Escassez, preços, inflação, percentagens, facto vs. opinião',c:'#1d2b44'},
+ e8:{n:'Ficha diagnóstica',s:'Inflação, percentagens, facto vs. opinião (não está na matriz)',c:'#1d2b44'},
  e7:{n:'Sociedade de consumo',s:'Obsolescência, consumismo, consumerismo, sustentabilidade',c:'#2f6b3a'},
 };
 const SUBN={'p1:epoca':'Época e língua','p1:canc':'Cancioneiros','p1:autores':'Trovadores, jograis e géneros','p1:amor':'Amigo vs. amor',
@@ -772,13 +786,13 @@ const SUBN={'p1:epoca':'Época e língua','p1:canc':'Cancioneiros','p1:autores':
  'e2:prob':'Escassez e escolhas','e2:rac':'Racionalidade económica','e2:co':'Custo de oportunidade',
  'e3:ag':'Agentes económicos','e3:at':'Atividades económicas',
  'e4:noc':'Noção de necessidade','e4:car':'Características das necessidades','e4:cls':'Classificação das necessidades',
- 'e5:noc':'Noção de consumo','e5:cls':'Critérios de classificação','e5:priv':'Consumo privado e público','e5:ind':'Individual vs. coletivo, bens públicos e privados','e5:fin':'Consumo final e intermédio',
+ 'e5:noc':'Noção de consumo','e5:cls':'Critérios de classificação','e5:priv':'Consumo privado e público','e5:ind':'Individual vs. coletivo, bens públicos e privados','e5:fin':'Consumo final e intermédio','e5:riv':'Rivalidade e exclusividade',
  'e6:fat':'Fatores económicos e extraeconómicos','e6:rend':'Rendimento e tipos de bens','e6:coef':'Coeficiente orçamental','e6:engel':'Lei de Engel e Portugal','e6:preco':'Preço dos bens','e6:inov':'Inovação tecnológica','e6:ext':'Moda, publicidade, agregados familiares',
  'e7:soc':'Sociedade de consumo','e7:obs':'Obsolescência programada','e7:cons':'Consumismo','e7:cerismo':'Consumerismo','e7:dir':'Direitos e deveres do consumidor','e7:sust':'Consumo sustentável e economia circular'};
 // when: 'AAAA-MM-DD' ou null (data por definir)
 const TESTS={
  pt1:{subj:'pt',title:'1.º Teste',name:'Poesia trovadoresca e processos fonológicos',when:'2026-10-26',keys:['p1','p2','p3','p4','p5','p6','p7','p8']},
- ec1:{subj:'ec',title:'1.º Teste',name:'Temas 0, 1 e 2 · Atividade económica, necessidades e consumo',when:'2026-10-28',keys:['e8','e0','e0b','e1','e2','e3','e4','e5','e6','e7']},
+ ec1:{subj:'ec',title:'1.º Teste',name:'Temas 1 e 2 · Atividade económica, necessidades e consumo',when:'2026-10-28',keys:['e1','e2','e3','e4','e5','e6','e7','e8','e0','e0b'],mix:['e1','e2','e3','e4','e5','e6','e7'],extraFrom:'e8'},
 };
 const QS=[...QS_PT,...QS_EC,...QS_NEW];
 
@@ -834,7 +848,7 @@ function build(t){
  if(t.startsWith('sub:')){const key=t.slice(4);return fresh(QS.map((q,i)=>(q[0]+':'+q[1])===key?i:-1).filter(i=>i>=0),size())}
  if(t===SAV())return shuffle(S.saved.filter(inCur)).slice(0,size());
  if(t===ERR())return shuffle(S.wrong.filter(inCur)).slice(0,size());
- if(t===ALL()){const ks=T_().keys,n=size();let o=[];ks.forEach((k,j)=>{const per=Math.floor(n/ks.length)+(j<n%ks.length?1:0);o=o.concat(fresh(idsOf(k),per))});return shuffle(o)}
+ if(t===ALL()){const ks=T_().mix||T_().keys,n=size();let o=[];ks.forEach((k,j)=>{const per=Math.floor(n/ks.length)+(j<n%ks.length?1:0);o=o.concat(fresh(idsOf(k),per))});return shuffle(o)}
  return fresh(idsOf(t),size())}
 function tname(t){if(t.startsWith('sub:'))return SUBN[t.slice(4)]||'Treino';if(t.startsWith('all:'))return 'Mistura (como no teste)';if(t.startsWith('err:'))return 'Os meus erros';if(t.startsWith('sav:'))return 'Guardadas';return TOPICS[t].n}
 
@@ -853,7 +867,7 @@ function tick(){const now=Date.now();if(view.name==='quiz'&&lastAct&&cur){const 
  const day=new Date().toISOString().slice(0,10);if(!S.tday||S.tday.d!==day)S.tday={d:day};S.tday[cur]=(S.tday[cur]||0)+d}lastAct=now}
 function fmtT(s){s=Math.round(s/60);if(s<1)return 'menos de 1 min';const h=Math.floor(s/60),m=s%60;return h?`${h} h ${m} min`:`${m} min`}
 function recAdd(k,good){const r=S.rec[k]=S.rec[k]||[];r.push(good?1:0);if(r.length>20)r.shift()}
-function prep(){const ks=T_().keys;let tot=0,weak=null,ws=2;ks.forEach(k=>{const cv=cover(k).p/100;const r=S.rec[k]||[];const acc=r.length?r.reduce((a,b)=>a+b,0)/r.length:0;const conf=Math.min(r.length/10,1);const sc=0.4*cv+0.6*acc*conf;tot+=sc;if(sc<ws){ws=sc;weak=TOPICS[k].n}});return {p:Math.round(tot/ks.length*100),weak}}
+function prep(){const ks=T_().mix||T_().keys;let tot=0,weak=null,ws=2;ks.forEach(k=>{const cv=cover(k).p/100;const r=S.rec[k]||[];const acc=r.length?r.reduce((a,b)=>a+b,0)/r.length:0;const conf=Math.min(r.length/10,1);const sc=0.4*cv+0.6*acc*conf;tot+=sc;if(sc<ws){ws=sc;weak=TOPICS[k].n}});return {p:Math.round(tot/ks.length*100),weak}}
 function stats(t){const h=S.history.filter(x=>x.t===t);if(!h.length)return null;const p=h.map(x=>Math.round(x.c/x.n*100));return {n:h.length,last:p[p.length-1],best:Math.max(...p),avg:Math.round(p.reduce((a,b)=>a+b,0)/p.length),prev:p.length>1?p[p.length-2]:null}}
 
 // ===================== AÇÕES =====================
@@ -926,7 +940,7 @@ function subj(){const s=SUBJ.find(x=>x.k===subjCur);const L=Object.keys(TESTS).f
 function test(){const T=T_(),s=SUBJ.find(x=>x.k===T.subj);
  const back=Object.keys(TESTS).filter(t=>TESTS[t].subj===T.subj).length>1?`subjCur='${T.subj}';go('subj')`:"go('home')";
  const tl=T.keys.map((k,i)=>{const P=TOPICS[k],st=stats(k),cv=cover(k);
-  return `<button class="topic" style="--c:${P.c}" onclick="start('${k}')"><div><div class="n">${i+1}. ${P.n}</div><div class="s">${P.s}</div>
+  return `${T.extraFrom===k?'<p class="muted small" style="margin:10px 2px 0"><b>Fora da matriz do teste</b> · para treino extra</p>':''}<button class="topic" style="--c:${P.c}" onclick="start('${k}')"><div><div class="n">${i+1}. ${P.n}</div><div class="s">${P.s}</div>
   <div class="cov"><div class="bar"><i style="width:${cv.p}%"></i></div><span>${cv.s}/${cv.n} vistas</span></div></div>
   <span class="best">${st?`<b>${st.best}%</b><br>melhor`:'—'}</span></button>`}).join('');
  const tot=T.keys.reduce((a,k)=>{const c=cover(k);return [a[0]+c.s,a[1]+c.n]},[0,0]);const tp=tot[1]?Math.round(tot[0]/tot[1]*100):0;
@@ -941,7 +955,7 @@ function test(){const T=T_(),s=SUBJ.find(x=>x.k===T.subj);
  <p class="small">Tempo de estudo: <b>${fmtT(tm)}</b>${td?` · hoje ${fmtT(td)}`:''} · ${tot[0]}/${tot[1]} perguntas vistas (${tp}%)</p></div>
  <div class="row"><span class="muted small">Perguntas por ronda</span><div class="seg">${[10,20,30].map(n=>`<button class="${size()===n?'on':''}" onclick="setSize(${n})">${n}</button>`).join('')}</div></div>
  <div class="list">
- <button class="topic" style="--c:var(--accent)" onclick="start('${ALL()}')"><div><div class="n">Mistura tudo</div><div class="s">Um pouco de cada matéria, como no teste</div></div><span class="best">${sa?`<b>${sa.best}%</b><br>melhor`:'—'}</span></button>
+ <button class="topic" style="--c:var(--accent)" onclick="start('${ALL()}')"><div><div class="n">Mistura tudo</div><div class="s">${T.mix?'Só a matéria da matriz, como no teste':'Um pouco de cada matéria, como no teste'}</div></div><span class="best">${sa?`<b>${sa.best}%</b><br>melhor`:'—'}</span></button>
  ${tl}</div>
  <div class="pill2"><button onclick="start('${ERR()}')" ${nw?'':'disabled'}>Os meus erros<span>${nw} para rever</span></button>
  <button onclick="start('${SAV()}')" ${ns?'':'disabled'}>Guardadas<span>${ns} para rever</span></button></div>

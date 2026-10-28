@@ -860,7 +860,7 @@ function cdBox(T){const n=daysTo(T.when);if(n===null||n<0)return '';
 function tagFor(k){const L=Object.entries(TESTS).filter(([,T])=>T.subj===k);if(!L.length)return 'Em breve';
  const up=L.map(([,T])=>daysTo(T.when)).filter(n=>n!==null&&n>=0).sort((a,b)=>a-b);
  if(up.length)return up[0]===0?'Teste hoje':up[0]===1?'Teste amanhã':`Teste daqui a ${up[0]} dias`;
- return L.length===1?'1 teste para treinar':`${L.length} testes para treinar`}
+ return L.some(([,T])=>!T.when)?'Teste com data por definir':''}
 
 let lastAct=0;
 function tick(){const now=Date.now();if(view.name==='quiz'&&lastAct&&cur){const d=Math.min((now-lastAct)/1000,120);S.time[cur]=(S.time[cur]||0)+d;

@@ -173,6 +173,8 @@ button:disabled{cursor:default}
 .fig .poem .r{padding-left:22px}
 .fig .poem .st{margin-bottom:8px}
 .ttc td,.ttc th{text-align:center!important}
+.fig table.per{border-collapse:collapse;font-size:10px;width:100%}.fig .per th{font-weight:600;color:var(--muted);padding:1px 2px;text-align:center}.fig .per th:first-child,.fig .per .pn{text-align:left;font-size:10px;padding-right:6px;white-space:normal;min-width:90px;border:0}.fig .per td{border:0}
+.tl td,.tl th{text-align:left!important;vertical-align:top}
 .fig p{margin:0;font-size:14px;line-height:1.55}
 .fig .fs{font-size:11px;color:var(--muted)}
 .fig table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
@@ -1075,6 +1077,129 @@ const QS_FI = [
 ];
 const TT_FIGS={"tt_0": {"h": ["P", "Q"], "r": [["V", "V"], ["V", "F"], ["F", "V"], ["F", "F"]]}, "tt_1": {"h": ["P", "Q"], "r": [["V", "V"], ["V", "F"], ["F", "V"], ["F", "F"]]}, "tt_2": {"h": ["P", "Q"], "r": [["V", "V"], ["V", "F"], ["F", "V"], ["F", "F"]]}, "tt_3": {"h": ["P", "Q"], "r": [["V", "V"], ["V", "F"], ["F", "V"], ["F", "F"]]}, "tt_4": {"h": ["P", "Q"], "r": [["V", "V"], ["V", "F"], ["F", "V"], ["F", "F"]]}, "tt_5": {"h": ["P", "Q", "R"], "r": [["V", "V", "V"], ["V", "V", "F"], ["V", "F", "V"], ["V", "F", "F"], ["F", "V", "V"], ["F", "V", "F"], ["F", "F", "V"], ["F", "F", "F"]]}, "tt_6": {"h": ["P", "Q", "R"], "r": [["V", "V", "V"], ["V", "V", "F"], ["V", "F", "V"], ["V", "F", "F"], ["F", "V", "V"], ["F", "V", "F"], ["F", "F", "V"], ["F", "F", "F"]]}, "tt_7": {"h": ["P", "Q", "R"], "r": [["V", "V", "V"], ["V", "V", "F"], ["V", "F", "V"], ["V", "F", "F"], ["F", "V", "V"], ["F", "V", "F"], ["F", "F", "V"], ["F", "F", "F"]]}, "tt_8": {"h": ["P", "Q", "R"], "r": [["V", "V", "V"], ["V", "V", "F"], ["V", "F", "V"], ["V", "F", "F"], ["F", "V", "V"], ["F", "V", "F"], ["F", "F", "V"], ["F", "F", "F"]]}, "tt_9": {"h": ["P", "Q", "R"], "r": [["V", "V", "V"], ["V", "V", "F"], ["V", "F", "V"], ["V", "F", "F"], ["F", "V", "V"], ["F", "V", "F"], ["F", "F", "V"], ["F", "F", "F"]]}, "tt_10": {"h": ["P", "Q"], "r": [["V", "V"], ["V", "F"], ["F", "V"], ["F", "F"]]}, "tt_11": {"h": ["P", "Q", "R"], "r": [["V", "V", "V"], ["V", "V", "F"], ["V", "F", "V"], ["V", "F", "F"], ["F", "V", "V"], ["F", "V", "F"], ["F", "F", "V"], ["F", "F", "F"]]}, "tt_12": {"h": ["P", "Q"], "r": [["V", "V"], ["V", "F"], ["F", "V"], ["F", "F"]]}, "tt_13": {"h": ["P", "Q"], "r": [["V", "V"], ["V", "F"], ["F", "V"], ["F", "F"]]}, "tt_14": {"h": ["P", "Q"], "r": [["V", "V"], ["V", "F"], ["F", "V"], ["F", "F"]]}, "tt_15": {"h": ["P", "Q"], "r": [["V", "V"], ["V", "F"], ["F", "V"], ["F", "F"]]}, "tt_16": {"h": ["P", "Q"], "r": [["V", "V"], ["V", "F"], ["F", "V"], ["F", "F"]]}};
 
+// Educação Física — Vida Saudável (apresentação do professor, 22 slides)
+// [tópico, subtópico, pergunta, certa, [erradas], explicação, figura?]
+const QS_EF = [
+// ---------- G1 · ESTILO DE VIDA SAUDÁVEL ----------
+['g1','est','Estilo de vida refere-se a…','aspetos comportamentais: padrões de consumo, rotinas, hábitos ou forma de vida adaptada ao dia a dia',['apenas à prática de desporto de competição','às características genéticas herdadas dos pais','apenas ao tipo de alimentação de cada pessoa'],'Definição do professor.'],
+['g1','est','Segundo a apresentação, um dos pilares de um bom estilo de vida é…','a atividade física',['a genética','a puberdade','a altura'],'"A atividade física é um dos pilares de um bom estilo de vida."'],
+['g1','est','Qual destes NÃO é dado como exemplo de um bom estilo de vida?','a genética',['o repouso','a hidratação','o controlo do stress'],'Exemplos: atividade física, alimentação, hidratação, repouso, controlo do stress, meio ambiente.'],
+['g1','sel','Seleciona TODOS os exemplos de um bom estilo de vida referidos pelo professor.',['a atividade física','o repouso','o controlo do stress','o meio ambiente'],['a puberdade'],'A lista completa: atividade física, alimentação, hidratação, repouso, controlo do stress, meio ambiente.'],
+['g1','fat','Os fatores que influenciam o estilo de vida dividem-se em…','controláveis e não controláveis',['internos e externos','físicos e psicológicos','individuais e coletivos'],'Controláveis: alimentação, atividade física. Não controláveis: genética, puberdade.'],
+['g1','fat','A alimentação e a atividade física são fatores…','controláveis',['não controláveis','genéticos','hormonais'],'Dependem das nossas escolhas.'],
+['g1','fat','A genética e a puberdade são fatores…','não controláveis',['controláveis','alimentares','ambientais'],'Não dependem das nossas escolhas.'],
+['g1','fat','A genética influencia a aparência física porque…','herdamos os genes dos progenitores, o que se pode expressar, por exemplo, na altura',['depende da alimentação que fazemos','muda com o treino','é controlada pela atividade física'],'É um fator não controlável.'],
+['g1','fat','Na puberdade, o corpo muda de aparência porque…','são produzidas em maiores concentrações as hormonas sexuais masculinas e femininas',['se pratica mais desporto','se come mais','se dorme menos'],'Fator não controlável.'],
+['g1','fat','Segundo o professor, os hábitos alimentares…','podem estimular ou não o desenvolvimento de doenças, por exemplo a obesidade',['não têm relação com a saúde','só afetam os adultos','são um fator não controlável'],'Alimentação = fator controlável.'],
+['g1','fat','Atividades simples como caminhar podem melhorar a saúde se forem feitas…','com regularidade e intensidade suficientes',['só uma vez por mês','apenas em competição','sempre em ginásio'],'Slide sobre fatores controláveis.'],
+['g1','vf','Verdadeiro ou falso? A puberdade é um fator controlável do estilo de vida.',F,[V],'Falso: é não controlável (tal como a genética).'],
+['g1','vf','Verdadeiro ou falso? O controlo do stress é um exemplo de um bom estilo de vida.',V,[F],'Está na lista do professor.'],
+
+// ---------- G2 · ATIVIDADE FÍSICA ----------
+['g2','rec','Quanto tempo de atividade física por dia se recomenda às crianças e jovens?','pelo menos 60 minutos',['pelo menos 30 minutos','pelo menos 10 minutos','pelo menos 150 minutos'],'Pode ser distribuído ao longo do dia.'],
+['g2','rec','Os 60 minutos diários recomendados aos jovens devem ser de atividade física de intensidade…','moderada a vigorosa (preferencialmente aeróbia)',['baixa','apenas vigorosa','apenas de alongamentos'],'Slide 8.'],
+['g2','rec','Quantos dias por semana se recomenda aos jovens atividade aeróbia vigorosa (e de fortalecimento muscular e ósseo)?','pelo menos 3',['pelo menos 1','pelo menos 5','todos os dias'],'Slide 8.'],
+['g2','rec','Quanto tempo de atividade física moderada se recomenda aos adultos?','pelo menos 150 minutos por semana',['pelo menos 60 minutos por dia','pelo menos 75 minutos por semana','pelo menos 10 minutos por semana'],'Ou 75 minutos por semana de atividade intensa.'],
+['g2','rec','Para os adultos, 75 minutos por semana correspondem a atividade física…','intensa',['moderada','baixa','de alongamentos'],'150 min moderada ou 75 min intensa.'],
+['g2','rec','Segundo o professor, "todas as atividades devem…"','acelerar a respiração e aumentar a temperatura corporal',['ser feitas em competição','durar pelo menos 2 horas seguidas','ser feitas de manhã'],'Por isso podem distribuir-se ao longo do dia.'],
+['g2','rec','"Fazer alguma atividade física é muito melhor do que não fazer nenhuma." 10 minutos por dia de AF de intensidade baixa…','é melhor do que nada e já confere benefícios para a saúde',['não tem qualquer benefício','é prejudicial','só conta para os adultos'],'Slide 9.'],
+['g2','int','Qual é o sinal de atividade física MODERADA?','respiração acelerada, mas ainda permite manter uma conversa',['respiração muito acelerada, sendo muito difícil conversar','respiração normal, sem esforço','não conseguir respirar'],'Corresponde aos 150 min por semana.'],
+['g2','int','Qual é o sinal de atividade física INTENSA?','respiração muito acelerada, sendo muito difícil manter uma conversa',['respiração acelerada, mas consegue-se conversar','respiração normal','sono e cansaço'],'Corresponde aos 75 min por semana.'],
+['g2','int','Durante uma corrida consegues ir a conversar com um amigo, apesar de respirares mais depressa. A intensidade é…','moderada',['intensa','baixa','máxima'],'O "teste da conversa".'],
+['g2','ctx','Os contextos de prática de atividade física referidos são…','Educação Física, Preparação Física e Desporto',['apenas o desporto federado','apenas o ginásio','escola, casa e trabalho'],'Slide 7.'],
+['g2','ctx','Qual destes é um exemplo de atividade física dado pelo professor?','saltar à corda',['ver televisão','jogar no computador','ler'],'Exemplos: andar/correr, nadar, skate, saltar à corda, pedalar, dançar.'],
+['g2','ben','Qual destes é um benefício da atividade física referido pelo professor?','melhora a concentração e a aprendizagem',['aumenta o stress','reduz a coordenação','piora o sono'],'Outros: confiança, saúde, coordenação, peso saudável, sono, músculos e ossos, bem-estar.'],
+['g2','sel','Seleciona TODOS os benefícios da atividade física referidos pelo professor.',['melhora o sono','fortalece músculos e ossos','promove a confiança e as competências sociais','desenvolve a coordenação'],['aumenta a gordura corporal'],'Também: mantém a saúde e a condição física, peso saudável, concentração e aprendizagem, bem-estar.'],
+['g2','sel','Seleciona TODOS os exemplos de atividade física dados pelo professor.',['nadar','pedalar','dançar','skate'],['jogar xadrez'],'Andar/correr, nadar, skate, saltar à corda, pedalar, dançar.'],
+['g2','nec','Para que a atividade física seja promotora de boa saúde é necessário, entre outros…','repouso, hidratação e higiene',['apenas treinar muitas horas','apenas uma boa genética','evitar beber água durante o exercício'],'Lista: capacidades motoras, composição corporal, alimentação, hidratação, repouso, higiene, qualidade do meio ambiente, afetividade.'],
+['g2','sel','Seleciona TODOS os fatores necessários para que a atividade física promova a saúde.',['afetividade','qualidade do meio ambiente','composição corporal','desenvolvimento das capacidades motoras'],['genética'],'Lista do slide 10 (sem a genética).'],
+['g2','vf','Verdadeiro ou falso? Os 60 minutos diários de atividade física dos jovens têm de ser feitos de seguida.',F,[V],'Falso: podem ser distribuídos ao longo do dia.'],
+['g2','vf','Verdadeiro ou falso? Recomenda-se aos adultos pelo menos 150 minutos por semana de atividade física moderada.',V,[F],'Ou 75 min de atividade intensa.'],
+['g2','vf','Verdadeiro ou falso? A afetividade é um dos fatores para que a atividade física seja promotora de saúde.',V,[F],'Está na lista do slide 10.'],
+
+// ---------- G3 · CAPACIDADES MOTORAS ----------
+['g3','def','Capacidades motoras são…','qualidades gerais do indivíduo, relacionadas com o seu desempenho numa diversidade de habilidades/tarefas',['tarefas com uma finalidade específica, como jogar basquetebol','apenas a força muscular','técnicas aprendidas num desporto'],'Referem-se à potencialidade individual para executar habilidades motoras.'],
+['g3','def','A diferença entre capacidade motora e habilidade motora é que…','a capacidade é um potencial físico definido geneticamente; a habilidade é uma tarefa com uma finalidade específica',['a habilidade é genética e a capacidade é aprendida','são a mesma coisa','a capacidade só existe nos atletas'],'"Todos nascemos com uma determinada força ou resistência, mas precisamos de aprender a dançar ou a jogar basquetebol."'],
+['g3','def','Jogar basquetebol é um exemplo de…','habilidade motora',['capacidade motora condicional','capacidade motora coordenativa','composição corporal'],'É uma tarefa com finalidade específica, que se aprende.'],
+['g3','def','A resistência é um exemplo de…','capacidade motora',['habilidade motora','composição corporal','fator não controlável'],'É uma qualidade física com que nascemos e que se pode desenvolver.'],
+['g3','def','Segundo o professor, a força, a resistência, a velocidade e a flexibilidade…','são um potencial com que todos nascemos e que pode ser desenvolvido através do treino',['não podem ser treinadas','só se desenvolvem depois dos 18 anos','são habilidades motoras'],'"…algo que pode ser alcançado através do treino."'],
+['g3','def','A capacidade motora é um potencial definido geneticamente que…','pode ser atingido ou não',['é sempre atingido','nunca pode ser treinado','só existe nos rapazes'],'Depende do treino.'],
+['g3','tip','As capacidades motoras dividem-se em…','condicionais e coordenativas',['controláveis e não controláveis','aeróbias e anaeróbias','individuais e coletivas'],'Slide 13.'],
+['g3','tip','As capacidades motoras CONDICIONAIS são…','resistência, força, velocidade e flexibilidade',['orientação, equilíbrio, ritmo, reação e coordenação','alimentação, hidratação e repouso','andar, correr e nadar'],'Têm uma dimensão quantitativa.'],
+['g3','tip','As capacidades motoras COORDENATIVAS são…','orientação, equilíbrio, ritmo, reação e coordenação',['resistência, força, velocidade e flexibilidade','força máxima e força rápida','IMC e composição corporal'],'Têm uma dimensão qualitativa.'],
+['g3','tip','As capacidades condicionais têm uma dimensão…','quantitativa (ex.: metros, kg, n.º de passos)',['qualitativa (ex.: satisfaz, bom, muito bom)','apenas genética','apenas emocional'],'Relacionam-se com os processos de obtenção de energia.'],
+['g3','tip','As capacidades coordenativas têm uma dimensão…','qualitativa (ex.: satisfaz, bom, muito bom)',['quantitativa (ex.: metros, kg)','apenas energética','apenas genética'],'Relacionam-se com o controlo do movimento.'],
+['g3','tip','As capacidades condicionais estão relacionadas com…','os processos de obtenção de energia',['o controlo do movimento pelo sistema nervoso central','a análise da informação pelos órgãos dos sentidos','a puberdade'],'As coordenativas é que dependem do sistema nervoso central.'],
+['g3','tip','As capacidades coordenativas dependem…','do sistema nervoso central (controlo do movimento)',['dos processos de obtenção de energia','apenas dos músculos','da alimentação'],'E da capacidade dos órgãos dos sentidos analisarem a informação sobre o meio.'],
+['g3','tip','O equilíbrio é uma capacidade motora…','coordenativa',['condicional','genética e não treinável','alimentar'],'Coordenativas: orientação, equilíbrio, ritmo, reação, coordenação.'],
+['g3','tip','A flexibilidade é uma capacidade motora…','condicional',['coordenativa','habilidade motora','não treinável'],'Condicionais: resistência, força, velocidade, flexibilidade.'],
+['g3','tip','A velocidade é uma capacidade motora…','condicional',['coordenativa','habilidade','composição corporal'],'Condicionais: resistência, força, velocidade, flexibilidade.'],
+['g3','tip','O ritmo é uma capacidade motora…','coordenativa',['condicional','quantitativa','energética'],'Coordenativas: orientação, equilíbrio, ritmo, reação, coordenação.'],
+['g3','tip','Medir quantos metros alguém corre em 12 minutos avalia uma capacidade…','condicional (resistência)',['coordenativa (orientação)','coordenativa (ritmo)','habilidade motora'],'Medida em unidades (metros): dimensão quantitativa.'],
+['g3','tip','Avaliar um aluno com "bom" no equilíbrio na trave avalia uma capacidade…','coordenativa',['condicional','genética','energética'],'Avaliação qualitativa.'],
+['g3','sel','Seleciona TODAS as capacidades motoras coordenativas.',['orientação','reação','ritmo'],['força'],'Força é condicional.'],
+['g3','sel','Seleciona TODAS as capacidades motoras condicionais.',['resistência','força','flexibilidade'],['equilíbrio'],'Equilíbrio é coordenativa.'],
+['g3','per','Observa o gráfico. O período de desenvolvimento das várias capacidades…','é diferente de capacidade para capacidade',['é igual para todas','acontece só depois dos 18 anos','não depende da idade'],'"O período de desenvolvimento de cada uma das capacidades é diferente."','ef_per'],
+['g3','per','Observa o gráfico. Quais capacidades têm o período ótimo de desenvolvimento mais cedo (infância)?','flexibilidade e velocidade',['força máxima e resistência anaeróbia','força rápida e força de resistência','resistência anaeróbia e força rápida'],'Começam por volta dos 6–7 anos.','ef_per'],
+['g3','per','Observa o gráfico. Quais capacidades têm o período ótimo de desenvolvimento mais tarde (fim da adolescência)?','força máxima e resistência anaeróbia',['flexibilidade e velocidade','aquisição e estabilização motoras','velocidade e flexibilidade'],'Só aparecem no fim da escala de idades.','ef_per'],
+['g3','per','Observa o gráfico. Que capacidade tem o período ótimo mais longo?','resistência aeróbia',['força máxima','resistência anaeróbia','força rápida'],'Estende-se desde a infância até ao fim da escala.','ef_per'],
+['g3','vf','Verdadeiro ou falso? Saber dançar é uma capacidade motora com que nascemos.',F,[V],'Falso: é uma habilidade motora, que se aprende.'],
+['g3','vf','Verdadeiro ou falso? As capacidades coordenativas são avaliadas de forma qualitativa.',V,[F],'Ex.: satisfaz, bom, muito bom.'],
+
+// ---------- G4 · COMPOSIÇÃO CORPORAL E IMC ----------
+['g4','imc','O IMC (Índice de Massa Corporal) representa…','a relação entre o peso e a altura de uma pessoa',['a percentagem de gordura corporal','a força muscular','a quantidade de água no corpo'],'Permite ver se o peso está adequado à altura.'],
+['g4','imc','O IMC é um indicador da aptidão…','morfológica',['cardiorrespiratória','coordenativa','psicológica'],'Slide 14.'],
+['g4','imc','A fórmula do IMC é…','IMC = peso (kg) / altura² (m)',['IMC = altura / peso','IMC = peso × altura','IMC = peso / altura (cm)'],'P em quilogramas, H em metros, ao quadrado.'],
+['g4','imc','O Manuel pesa 55 kg e mede 1,60 m. O IMC dele é…','21,48',['34,38','13,43','88,00'],'55 / (1,60 × 1,60) = 55 / 2,56 = 21,48.'],
+['g4','imc','A Joana pesa 50 kg e mede 1,60 m. O IMC dela é…','19,53',['31,25','17,50','12,20'],'50 / 2,56 = 19,53.'],
+['g4','imc','O Rui pesa 72 kg e mede 1,80 m. O IMC dele é…','22,22',['40,00','12,50','25,92'],'72 / (1,80 × 1,80) = 72 / 3,24 = 22,22.'],
+['g4','imc','Para calcular o IMC, a altura tem de estar em…','metros, ao quadrado',['centímetros','metros, sem elevar ao quadrado','quilogramas'],'H em metros, H².'],
+['g4','imc','Observa a figura. Duas pessoas têm 1,80 m e 100 kg (IMC 30), mas uma tem 30 % de massa gorda e a outra 15 %. Isto mostra que…','o IMC não distingue gordura de músculo: a composição corporal pode ser diferente com o mesmo IMC',['o IMC mede a gordura corporal','as duas pessoas têm a mesma composição corporal','a altura não conta para o IMC'],'"Mesmo peso, composições corporais diferentes."','ef_cc'],
+['g4','cc','A composição corporal quantifica os principais componentes do organismo, que são…','ossos, músculos e gordura corporal',['peso e altura','água e sangue','força e velocidade'],'Slide 14.'],
+['g4','cc','A análise da composição corporal permite…','compreender as modificações resultantes de alterações metabólicas e identificar riscos de saúde',['medir a velocidade de reação','avaliar o ritmo','calcular as horas de sono'],'Slide 14.'],
+['g4','cc','Qual destes é um objetivo da avaliação da composição corporal?','avaliar a eficácia de um programa de nutrição e/ou atividade física',['medir a altura dos pais','escolher a modalidade desportiva preferida','avaliar a coordenação'],'Slide 15.'],
+['g4','sel','Seleciona TODOS os objetivos da avaliação da composição corporal.',['auxiliar na prescrição de exercício físico','monitorizar as alterações ao longo do crescimento','identificar distúrbios associados à acumulação regional de gordura','identificar distúrbios ligados a níveis baixos/elevados de gordura'],['medir a velocidade de reação'],'O 5.º objetivo é avaliar a eficácia de um programa de nutrição e/ou atividade física.'],
+['g4','peso','Um peso saudável depende…','do equilíbrio entre a energia que se ingere e a que se gasta na atividade física',['apenas da genética','apenas da altura','de nunca comer gorduras'],'Slide 16.'],
+['g4','peso','O dispêndio energético contribui para…','o controlo do peso e do IMC',['aumentar a altura','melhorar o ritmo','a puberdade'],'Slide 16.'],
+['g4','vf','Verdadeiro ou falso? Duas pessoas com o mesmo IMC têm sempre a mesma percentagem de gordura.',F,[V],'Falso: mesmo peso, composições corporais diferentes.','ef_cc'],
+['g4','vf','Verdadeiro ou falso? Na fórmula do IMC, a altura é elevada ao quadrado.',V,[F],'IMC = P / H².'],
+
+// ---------- G5 · ALIMENTAÇÃO E HIDRATAÇÃO ----------
+['g5','ali','Segundo o professor, os bons hábitos alimentares adquiridos na infância…','tendem a persistir na idade adulta',['desaparecem na adolescência','não têm efeito na saúde','só importam depois dos 18 anos'],'Slide 17.'],
+['g5','ali','Os malefícios de uma alimentação deficiente, excessiva ou desequilibrada…','não se fazem sentir no imediato, mas podem surgir em poucos anos, antes ainda de se ser adulto',['sentem-se sempre no próprio dia','só aparecem na velhice','não existem nos jovens'],'Slide 17.'],
+['g5','roda','Na roda dos alimentos, O grupo com maior proporção (28 %) é…','cereais e derivados, tubérculos',['hortícolas','fruta','laticínios'],'Pão, massa, arroz, batata…'],
+['g5','roda','Na roda dos alimentos, O grupo com menor proporção (2 %) é…','gorduras e óleos',['leguminosas','carne, pescado e ovos','fruta'],'Azeite, óleos, manteiga.'],
+['g5','roda','Na roda dos alimentos, Os hortícolas correspondem a…','23 %',['20 %','18 %','28 %'],'Hortícolas 23 %, fruta 20 %.'],
+['g5','roda','Na roda dos alimentos, A fruta corresponde a…','20 %',['23 %','28 %','5 %'],'Fruta 20 %.'],
+['g5','roda','Na roda dos alimentos, Os laticínios correspondem a…','18 %',['20 %','5 %','4 %'],'Leite, iogurte, queijo.'],
+['g5','roda','Na roda dos alimentos, A carne, o pescado e os ovos correspondem a…','5 %',['18 %','4 %','2 %'],'Carne, pescado e ovos 5 %; leguminosas 4 %.'],
+['g5','roda','Na roda dos alimentos, As leguminosas correspondem a…','4 %',['5 %','2 %','18 %'],'Feijão, grão, lentilhas…'],
+['g5','roda','Na roda dos alimentos, O que está no centro da roda?','a água',['o azeite','o leite','o pão'],'A água não tem percentagem: está presente em todos os grupos e deve beber-se diariamente.'],
+['g5','hid','Que percentagem do nosso peso é água?','70 %',['30 %','50 %','90 %'],'Slide 19.'],
+['g5','hid','A atividade desportiva pode esgotar as reservas de água do organismo devido às perdas…','pelo suor e pelas vias respiratórias',['apenas pela urina','pela alimentação','pelos músculos'],'Slide 19.'],
+['g5','hid','O que faz arrefecer o corpo durante o exercício é…','a evaporação da água do suor à superfície da pele',['beber água fria','o próprio suor, mesmo sem evaporar','a respiração lenta'],'"O que faz arrefecer o corpo é a evaporação da água do suor produzido."'],
+['g5','hid','Ao transpirarmos, a temperatura corporal…','baixa, porque a água do suor evapora à superfície da pele',['sobe','mantém-se sempre igual','baixa porque perdemos peso'],'Slide 19.'],
+['g5','vf','Verdadeiro ou falso? Cerca de 70 % do nosso peso é água.',V,[F],'Slide 19.'],
+['g5','vf','Verdadeiro ou falso? Os problemas de uma má alimentação só aparecem na idade adulta.',F,[V],'Falso: podem surgir em poucos anos, antes ainda de se ser adulto.'],
+['g5','vf','Verdadeiro ou falso? Na roda dos alimentos, as gorduras e os óleos são o grupo com maior proporção.',F,[V],'Falso: são o de menor (2 %). O maior é cereais e derivados, tubérculos (28 %).'],
+
+// ---------- G6 · REPOUSO, HIGIENE E MEIO AMBIENTE ----------
+['g6','rep','É durante o descanso que o corpo…','se reconstitui, restabelece e reforça',['perde força','deixa de crescer','gasta mais energia'],'Slide 20.'],
+['g6','rep','O descanso reduzido pode levar ao…','overtraining, com impacto negativo na saúde e na condição física e psicológica',['aumento imediato do rendimento','melhor recuperação','aumento da flexibilidade'],'Slide 20.'],
+['g6','rep','Overtraining é…','treino em excesso, sem descanso suficiente, que prejudica a saúde e a condição física',['um tipo de alongamento','um método de hidratação','descansar demasiado'],'Resulta do descanso reduzido.'],
+['g6','hig','Depois da atividade física deve-se tomar banho para…','eliminar os produtos da sudação e limpar a pele',['aumentar a temperatura corporal','hidratar o corpo','melhorar o ritmo'],'"Ato fundamental de higiene física."'],
+['g6','hig','No balneário, o praticante deve…','usar sempre chinelos e não partilhar toalhas',['andar descalço para arejar os pés','partilhar a toalha com um colega','evitar tomar banho'],'Para evitar infeções da pele e das unhas.'],
+['g6','hig','Usar chinelos no balneário serve para evitar, por exemplo…','o pé de atleta (infeção cutânea)',['o overtraining','a desidratação','a obesidade'],'Infeções cutâneas e das unhas.'],
+['g6','amb','Observa o esquema. No centro do esquema está…','desporto e sustentabilidade',['saúde e alimentação','escola e família','treino e competição'],'Ligado a 5 áreas.','ef_amb_q'],
+['g6','amb','Observa o esquema. "Incentiva o investimento e o emprego" corresponde a…','crescimento económico',['equidade social','qualidade ambiental','desenvolvimento humano'],'Slide 22.','ef_amb_q'],
+['g6','amb','Observa o esquema. "Melhora a saúde pública e o bem-estar" corresponde a…','desenvolvimento humano',['crescimento económico','coesão político-institucional','equidade social'],'É parte integrante dos esforços de educação e divulgação.','ef_amb_q'],
+['g6','amb','Observa o esquema. "Promove a estabilidade, a tolerância e a integração; fomenta a igualdade de género e a coesão social" corresponde a…','equidade social',['crescimento económico','qualidade ambiental','coesão político-institucional'],'Slide 22.','ef_amb_q'],
+['g6','amb','Observa o esquema. "Fomenta a paz e o respeito pelas regras democráticas" corresponde a…','coesão político-institucional',['equidade social','desenvolvimento humano','crescimento económico'],'Slide 22.','ef_amb_q'],
+['g6','amb','Observa o esquema. A "qualidade ambiental" refere-se…','à influência de qualquer atividade sobre o meio ambiente, que pode beneficiar mais ou menos a atividade humana',['ao investimento e ao emprego','à igualdade de género','à paz e às regras democráticas'],'Slide 22.','ef_amb_q'],
+['g6','vf','Verdadeiro ou falso? Descansar pouco pode prejudicar a condição física.',V,[F],'Pode levar ao overtraining.'],
+['g6','vf','Verdadeiro ou falso? Partilhar toalhas no balneário não tem riscos.',F,[V],'Falso: pode transmitir infeções da pele e das unhas.'],
+];
+
 // Cartões de estudo — Filosofia, Lógica formal (a partir do resumo da Susana)
 const EX=(l,c)=>`<div class="ex">${l.map(x=>`<div>${x}</div>`).join('')}<div class="cc">${c}</div></div>`;
 const STUDY_FI={
@@ -1118,6 +1243,70 @@ const STUDY_FI={
 ],
 };
 
+// Matemática A — Funções: cartões de estudo (a partir do resumo da Susana). Gráficos desenhados em SVG.
+function PL(o){
+ const W=300,H=o.h||200,pad=16,[x0,x1,y0,y1]=o.r;
+ const X=x=>pad+(x-x0)/(x1-x0)*(W-2*pad), Y=y=>H-pad-(y-y0)/(y1-y0)*(H-2*pad);
+ let g='';
+ if(o.grid!==false){for(let x=Math.ceil(x0);x<=x1;x++)g+=`<line x1="${X(x)}" y1="${Y(y0)}" x2="${X(x)}" y2="${Y(y1)}" style="stroke:var(--line)" stroke-width=".6"/>`;
+  for(let y=Math.ceil(y0);y<=y1;y++)g+=`<line x1="${X(x0)}" y1="${Y(y)}" x2="${X(x1)}" y2="${Y(y)}" style="stroke:var(--line)" stroke-width=".6"/>`}
+ g+=`<line x1="${X(x0)}" y1="${Y(0)}" x2="${X(x1)}" y2="${Y(0)}" style="stroke:var(--muted)" stroke-width="1.2"/><line x1="${X(0)}" y1="${Y(y0)}" x2="${X(0)}" y2="${Y(y1)}" style="stroke:var(--muted)" stroke-width="1.2"/>`;
+ g+=`<text x="${X(x1)-4}" y="${Y(0)-5}" font-size="10" text-anchor="end" style="fill:var(--muted)" font-style="italic">x</text><text x="${X(0)+5}" y="${Y(y1)+10}" font-size="10" style="fill:var(--muted)" font-style="italic">y</text>`;
+ if(o.ticks!==false){for(let x=Math.ceil(x0);x<=x1;x++)if(x&&(o.tx||1)&&x%(o.tx||1)===0)g+=`<text x="${X(x)}" y="${Y(0)+11}" font-size="8" text-anchor="middle" style="fill:var(--muted)">${String(x).replace('-','−')}</text>`;
+  for(let y=Math.ceil(y0);y<=y1;y++)if(y&&y%(o.ty||1)===0)g+=`<text x="${X(0)-4}" y="${Y(y)+3}" font-size="8" text-anchor="end" style="fill:var(--muted)">${String(y).replace('-','−')}</text>`}
+ (o.c||[]).forEach(c=>{let pts=c.p;if(c.f){pts=[];const a=c.d?c.d[0]:x0,b=c.d?c.d[1]:x1;for(let i=0;i<=120;i++){const x=a+(b-a)*i/120,y=c.f(x);if(y>=y0-1&&y<=y1+1)pts.push([x,y]);else pts.push(null)}}
+  let d='',pen=false;pts.forEach(p=>{if(!p){pen=false;return}d+=(pen?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)+' ';pen=true});
+  g+=`<path d="${d}" fill="none" style="stroke:${c.col||'var(--ink)'}" stroke-width="${c.w||2}" ${c.dash?'stroke-dasharray="4 3"':''} stroke-linejoin="round"/>`});
+ (o.seg||[]).forEach(([a,b,col])=>{g+=`<line x1="${X(a)}" y1="${Y(0)}" x2="${X(b)}" y2="${Y(0)}" style="stroke:${col}" stroke-width="4"/>`});
+ (o.pt||[]).forEach(([x,y,open,lab,dx,dy])=>{g+=`<circle cx="${X(x)}" cy="${Y(y)}" r="3.4" style="fill:${open?'var(--card)':'var(--accent)'};stroke:var(--accent)" stroke-width="1.5"/>`;if(lab)g+=`<text x="${X(x)+(dx||5)}" y="${Y(y)+(dy||-6)}" font-size="9" font-weight="600" style="fill:var(--accent)">${lab}</text>`});
+ (o.lab||[]).forEach(([x,y,t,anc])=>{g+=`<text x="${X(x)}" y="${Y(y)}" font-size="9" text-anchor="${anc||'start'}" style="fill:var(--ink)">${t}</text>`});
+ return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:420px;display:block;margin:0 auto" font-family="inherit">${g}</svg>`}
+const mini=(f,cap,col)=>`<div style="text-align:center;font-size:12px">${PL({r:[-3,3,-3,3],h:120,ticks:false,c:[{f,col:col||'var(--ink)'}]})}${cap}</div>`;
+const G3=(a,b,c)=>`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">${a}${b}${c}</div>`;
+const MODEL=PL({r:[-6,7,-3,4],h:220,c:[{p:[[-5,-1],[-3,3],[2,-2],[6,2]]}],seg:[[-4.5,0,'#2d5fa8'],[4,6,'#2d5fa8'],[-5,-4.5,'#c0552b'],[0,4,'#c0552b']],
+ pt:[[-5,-1,0,'mín. rel. −1',-20,14],[-3,3,0,'máx. abs. 3',-28,-7],[2,-2,0,'mín. abs. −2',-22,15],[6,2,0,'máx. rel. 2',-48,-7],[-4.5,0,0],[0,0,0],[4,0,0]]});
+const STUDY_MA={
+1:[
+ {t:'A ideia principal',h:`<p>Uma <b>função f de A em B</b> é uma regra que associa a <b>cada</b> elemento x de A <b>um e um só</b> elemento y = f(x) de B.</p><div class="formula">f : A → B, &nbsp;x ↦ f(x)</div><div class="warn">Cada objeto tem só uma imagem. Dois objetos podem ter a mesma imagem — isso é permitido.</div><div class="box"><b>Exemplo: f(x) = 2x</b><p>A = {1, 2, 3} &nbsp;→&nbsp; B = {2, 4, 6, 8}<br>1 ↦ 2 · 2 ↦ 4 · 3 ↦ 6</p><p class="note">O 8 não é imagem de ninguém: o contradomínio é {2, 4, 6} e o conjunto de chegada é {2, 4, 6, 8}.</p></div>`},
+ {t:'Vocabulário',h:`<table class="st"><tr><td><b>Objeto</b></td><td>Um valor x do domínio (variável independente).</td></tr><tr><td><b>Imagem</b></td><td>O valor f(x) que corresponde a x (variável dependente).</td></tr><tr><td><b>Domínio D<sub>f</sub></b></td><td>Conjunto de todos os objetos (os valores que podemos usar).</td></tr><tr><td><b>Conjunto de chegada</b></td><td>Onde as imagens "podem cair" (no exemplo, B).</td></tr><tr><td><b>Contradomínio D′<sub>f</sub></b></td><td>Conjunto das imagens que são mesmo atingidas. Está dentro do conjunto de chegada.</td></tr><tr><td><b>Gráfico</b></td><td>Conjunto de todos os pontos (x, f(x)) com x no domínio.</td></tr></table>`},
+ {t:'4 formas de representar a mesma função',h:`<div class="two"><div><b>Tabela</b><table class="st tt"><tr><td>x</td><td>1</td><td>2</td><td>3</td></tr><tr><td>f(x)</td><td>2</td><td>4</td><td>6</td></tr></table></div><div><b>Expressão</b>f(x) = 2x, com x ∈ {1, 2, 3}</div><div><b>Gráfico</b>${PL({r:[-0.5,4,-0.5,7],h:150,pt:[[1,2],[2,4],[3,6]],ty:2})}</div><div><b>Em palavras</b>"A cada número de A faz corresponder o seu dobro."</div></div>`},
+ {t:'Teste da reta vertical',h:`<p>Um desenho é gráfico de uma função se <b>qualquer reta vertical</b> o cortar <b>no máximo uma vez</b>.</p><p>Se alguma reta vertical corta em 2 pontos, há um x com 2 imagens → <b>não é função</b>.</p><div class="two"><div style="text-align:center"><b style="color:var(--ok)">✓ É função</b>${PL({r:[-3,3,-3,3],h:140,ticks:false,c:[{f:x=>x*x/2-1.5},{p:[[1,-3],[1,3]],col:'var(--muted)',dash:1,w:1.2}]})}</div><div style="text-align:center"><b style="color:var(--bad)">✗ Não é função</b>${PL({r:[-3,3,-3,3],h:140,ticks:false,c:[{p:Array.from({length:61},(_,i)=>{const t=i/60*2*Math.PI;return[2*Math.cos(t),2*Math.sin(t)]})},{p:[[1,-3],[1,3]],col:'var(--muted)',dash:1,w:1.2}],pt:[[1,1.732],[1,-1.732]]})}</div></div>`},
+ {t:'Domínio, imagens e objetos',h:`<div class="box"><b>Domínio a partir da expressão</b><p>Sem restrições, o domínio é ℝ (todos os reais).</p><p>Num contexto real só vale o que faz sentido (ex.: tempo t ≥ 0).</p></div><div class="box"><b>Calcular imagens e objetos</b><p><b>Imagem de 3:</b> substituir → f(3).</p><p><b>Objeto(s) com imagem 5:</b> resolver a equação f(x) = 5.</p></div>`},
+],
+2:[
+ {t:'O exemplo-modelo',h:`<p>Quase tudo nos testes começa por <b>ler um gráfico</b>. Função f de domínio [−5, 6]:</p><div class="fig">${MODEL}<div class="fs"><span style="color:#2d5fa8">■</span> f(x) &gt; 0 (acima do eixo) · <span style="color:#c0552b">■</span> f(x) &lt; 0 (abaixo do eixo) · ● zeros: −4,5; 0; 4</div></div><p>Cresce em [−5, −3], decresce em [−3, 2], cresce em [2, 6].</p>`},
+ {t:'Tabela de variação (monotonia)',h:`<div class="fig">${MODEL}</div><table class="st tt"><tr><th>x</th><th>−5</th><th></th><th>−3</th><th></th><th>2</th><th></th><th>6</th></tr><tr><td><b>f(x)</b></td><td>−1</td><td>↗</td><td>3</td><td>↘</td><td>−2</td><td>↗</td><td>2</td></tr><tr><td>ext.</td><td>mín.</td><td></td><td>máx.</td><td></td><td>mín.</td><td></td><td>máx.</td></tr></table><p>Crescente em [−5, −3] e em [2, 6]; decrescente em [−3, 2].</p>`},
+ {t:'Tabela de sinal (zeros e sinal)',h:`<div class="fig">${MODEL}</div><table class="st tt"><tr><th>x</th><th>−5</th><th></th><th>−4,5</th><th></th><th>0</th><th></th><th>4</th><th></th><th>6</th></tr><tr><td><b>f(x)</b></td><td>−</td><td style="color:#c0552b">−</td><td>0</td><td style="color:#2d5fa8">+</td><td>0</td><td style="color:#c0552b">−</td><td>0</td><td style="color:#2d5fa8">+</td><td>+</td></tr></table><p>Zeros: −4,5; 0; 4. Contradomínio: [−2, 3]. Ordenada na origem: f(0) = 0.</p>`},
+ {t:'Zeros, monotonia e extremos',h:`<div class="box b1"><b>Zeros e sinal</b><p><b>Zero</b> = objeto cuja imagem é 0 → onde o gráfico <b>toca o eixo x</b>. Resolve-se f(x) = 0.</p><p><b>Positiva:</b> gráfico acima do eixo x. <b>Negativa:</b> abaixo.</p></div><div class="box b2"><b>Monotonia</b><p><b>Crescente:</b> quando x aumenta, f(x) aumenta (o gráfico "sobe" da esquerda para a direita).</p><p><b>Decrescente:</b> "desce". <b>Constante:</b> fica igual (segmento horizontal).</p></div><div class="box b3"><b>Extremos</b><p><b>Absoluto:</b> o maior/menor valor de toda a função. <b>Relativo:</b> o maior/menor só ali à volta.</p><p>O <b>máximo</b> é um y; o <b>maximizante</b> é o x onde acontece.</p></div><div class="warn">Os intervalos de monotonia escrevem-se com valores de <b>x</b>; o contradomínio escreve-se com valores de <b>y</b>. Um extremo absoluto é sempre também relativo.</div>`},
+],
+3:[
+ {t:'Função afim f(x) = mx + b',h:`<p>O gráfico é uma <b>reta</b>.</p><ul class="dots"><li><b>m = declive:</b> m &gt; 0 crescente · m &lt; 0 decrescente · m = 0 constante.</li><li><b>b = ordenada na origem</b> (onde corta o eixo y).</li><li><b>Zero:</b> mx + b = 0 ⇔ x = −b/m (se m ≠ 0).</li><li>A partir de 2 pontos: <b>m = (y₂ − y₁) / (x₂ − x₁)</b>.</li><li>Se b = 0: f(x) = mx é <b>linear</b> (proporcionalidade direta).</li></ul>${G3(mini(x=>x*0.8+0.3,'m &gt; 0 ↗'),mini(x=>-x*0.8+0.3,'m &lt; 0 ↘'),mini(()=>1,'m = 0 →'))}`},
+ {t:'Quadrática: 3 formas de escrever',h:`<p>O gráfico é uma <b>parábola</b>. A mesma função pode aparecer escrita de 3 formas, e cada uma "mostra" uma coisa diferente:</p><div class="box"><b>Forma geral: ax² + bx + c</b><p>a ≠ 0. Mostra a ordenada na origem: f(0) = c.</p><p class="note">Ex.: x² − 2x − 3</p></div><div class="box"><b>Forma canónica: a(x − h)² + k</b><p>Mostra o vértice V(h, k) e o eixo x = h.</p><p class="note">Ex.: (x − 1)² − 4</p></div><div class="box"><b>Forma fatorizada: a(x − x₁)(x − x₂)</b><p>Mostra os zeros x₁ e x₂ (só existe se houver zeros).</p><p class="note">Ex.: (x + 1)(x − 3)</p></div>`},
+ {t:'Exemplo: f(x) = x² − 2x − 3',h:`<div class="fig">${PL({r:[-3,5,-5,5],h:220,c:[{f:x=>x*x-2*x-3},{p:[[1,-5],[1,5]],col:'var(--muted)',dash:1,w:1}],pt:[[-1,0,0,'zero',-24,-6],[3,0,0,'zero',4,-6],[1,-4,0,'V(1, −4)',6,4],[0,-3,0,'f(0) = −3',-52,4]],lab:[[1.1,4.5,'eixo: x = 1']]})}</div><ol class="num"><li><b>Vértice:</b> h = −b / (2a) = 2/2 = 1 e k = f(1) = −4.</li><li><b>Concavidade</b> (sinal de a): a &gt; 0 ∪ → tem mínimo · a &lt; 0 ∩ → tem máximo.</li><li><b>Zeros:</b> −1 e 3. <b>D′</b> = [−4, +∞[. Decrescente em ]−∞, 1], crescente em [1, +∞[.</li></ol><div class="warn"><b>Truque:</b> os zeros são simétricos em relação ao eixo. O vértice está a meio: h = (x₁ + x₂)/2 = (−1 + 3)/2 = 1.</div>`},
+ {t:'Concavidade',h:`<div class="two"><div style="text-align:center">${PL({r:[-3,3,-3,3],h:140,ticks:false,c:[{f:x=>x*x-2}]})}<b>a &gt; 0 ∪</b>tem mínimo</div><div style="text-align:center">${PL({r:[-3,3,-3,3],h:140,ticks:false,c:[{f:x=>-x*x+2}]})}<b>a &lt; 0 ∩</b>tem máximo</div></div>`},
+],
+4:[
+ {t:'Fórmula resolvente',h:`<p>Para ax² + bx + c = 0, com a ≠ 0:</p><div class="formula" style="font-size:18px">x = <span style="display:inline-block;vertical-align:middle;text-align:center"><span style="display:block;border-bottom:1.5px solid currentColor;padding:0 4px">−b ± √(b² − 4ac)</span><span style="display:block">2a</span></span></div><p>O que está dentro da raiz é o <b>binómio discriminante</b>:</p><div class="formula">Δ = b² − 4ac</div>`},
+ {t:'O discriminante diz quantos zeros há',h:`<p><b>a &gt; 0</b> (∪)</p>${G3(`<div style="text-align:center;font-size:12px">${PL({r:[-3,3,-3,3],h:260,ticks:false,c:[{f:x=>x*x-2,w:4}]})}<b>Δ &gt; 0</b><br>2 zeros</div>`,`<div style="text-align:center;font-size:12px">${PL({r:[-3,3,-3,3],h:260,ticks:false,c:[{f:x=>x*x,w:4}]})}<b>Δ = 0</b><br>1 zero (duplo)</div>`,`<div style="text-align:center;font-size:12px">${PL({r:[-3,3,-3,3],h:260,ticks:false,c:[{f:x=>x*x+1,w:4}]})}<b>Δ &lt; 0</b><br>nenhum zero</div>`)}<p><b>a &lt; 0</b> (∩)</p>${G3(`<div style="text-align:center;font-size:12px">${PL({r:[-3,3,-3,3],h:260,ticks:false,c:[{f:x=>-x*x+2,w:4}]})}<b>Δ &gt; 0</b><br>2 zeros</div>`,`<div style="text-align:center;font-size:12px">${PL({r:[-3,3,-3,3],h:260,ticks:false,c:[{f:x=>-x*x,w:4}]})}<b>Δ = 0</b><br>1 zero (duplo)</div>`,`<div style="text-align:center;font-size:12px">${PL({r:[-3,3,-3,3],h:260,ticks:false,c:[{f:x=>-x*x-1,w:4}]})}<b>Δ &lt; 0</b><br>nenhum zero</div>`)}<div class="warn">Δ &lt; 0 não quer dizer "erro": a função existe, só que o gráfico nunca toca o eixo x (é sempre positiva ou sempre negativa).</div>`},
+ {t:'Equações incompletas (sem fórmula!)',h:`<div class="box"><b>Sem c: ax² + bx = 0</b><p>Põe x em evidência: x(ax + b) = 0 ⇔ x = 0 ∨ x = −b/a</p></div><div class="box"><b>Sem b: ax² + c = 0</b><p>⇔ x² = −c/a → x = ±√(−c/a) (se −c/a ≥ 0)</p></div><div class="box"><b>Já fatorizada</b><p>Lei do anulamento do produto: A·B = 0 ⇔ A = 0 ∨ B = 0</p></div>`},
+ {t:'Inequações do 2.º grau em 4 passos',h:`<p class="note">Ex.: x² − x − 6 ≤ 0</p><ol class="num"><li>Passar tudo para um lado (do outro fica 0).</li><li>Achar os zeros: Δ = 1 + 24 = 25 → x = (1 ± 5)/2 → −2 e 3.</li><li>Esboçar a parábola: a = 1 &gt; 0 → ∪.</li><li>Ler onde está abaixo (≤ 0) ou acima (≥ 0) do eixo.</li></ol><div class="fig">${PL({r:[-4,5,-7,7],h:200,ty:2,c:[{f:x=>x*x-x-6}],seg:[[-2,3,'#2f7d5b']],pt:[[-2,0,0,'−2',-14,-6],[3,0,0,'3',4,-6]],lab:[[0.5,-4.5,'≤ 0 aqui','middle']]})}</div><p><b>≤ 0</b> → x ∈ [−2, 3] ("entre os zeros")<br><b>&gt; 0</b> → x ∈ ]−∞, −2[ ∪ ]3, +∞[ ("fora")</p><div class="warn">Com ≤ ou ≥ os zeros entram (parêntese reto [ ] virado para dentro); com &lt; ou &gt; ficam de fora.</div>`},
+],
+5:[
+ {t:'A regra de ouro',h:`<div class="warn"><b>Mexer fora de f</b> → afeta o y (vertical, faz o que parece).<br><b>Mexer dentro</b> → afeta o x (horizontal, faz o contrário).</div><p class="note">Nos gráficos seguintes: tracejado = gráfico original de f · cheio = gráfico transformado.</p>`},
+ {t:'Translações',h:`${(()=>{const f=x=>0.5*(x-0)*(x-0)-1.5;return `<div class="two"><div><b>f(x) + 1 · translação vertical</b>${PL({r:[-3,3,-3,3],h:140,ticks:false,c:[{f,dash:1,col:'var(--muted)'},{f:x=>f(x)+1,col:'#3b82d6'}]})}Sobe 1. Se fosse −1, descia.<br>Ponto: (x, y) → (x, y + 1)</div><div><b>f(x + 2) · translação horizontal</b>${PL({r:[-4,3,-3,3],h:140,ticks:false,c:[{f,dash:1,col:'var(--muted)'},{f:x=>f(x+2),col:'#3b82d6'}]})}Anda 2 para a <strong>esquerda</strong>! O sinal é o contrário do que parece.<br>Ponto: (x, y) → (x − 2, y)</div></div>`})()}`},
+ {t:'Dilatação e contração',h:`${(()=>{const f=x=>Math.sin(x*1.2)*1.2;return `<div class="two"><div><b>2 · f(x) · dilatação vertical</b>${PL({r:[-3,3,-3,3],h:140,ticks:false,c:[{f,dash:1,col:'var(--muted)'},{f:x=>2*f(x),col:'#3b82d6'}]})}Estica na vertical. Com 0 &lt; a &lt; 1 encolhe. Os zeros não mudam.<br>Ponto: (x, y) → (x, 2y)</div><div><b>f(2x) · contração horizontal</b>${PL({r:[-3,3,-3,3],h:140,ticks:false,c:[{f,dash:1,col:'var(--muted)'},{f:x=>f(2*x),col:'#3b82d6'}]})}Aperta na horizontal (divide os x por 2). A ordenada na origem não muda.<br>Ponto: (x, y) → (x/2, y)</div></div>`})()}`},
+ {t:'Reflexões',h:`${(()=>{const f=x=>0.4*x*x*x/2+0.5*x+0.6;return `<div class="two"><div><b>−f(x) · reflexão no eixo x</b>${PL({r:[-3,3,-3,3],h:140,ticks:false,c:[{f,dash:1,col:'var(--muted)'},{f:x=>-f(x),col:'#3b82d6'}]})}Vira de cima para baixo (é o caso a = −1).<br>Ponto: (x, y) → (x, −y)</div><div><b>f(−x) · reflexão no eixo y</b>${PL({r:[-3,3,-3,3],h:140,ticks:false,c:[{f,dash:1,col:'var(--muted)'},{f:x=>f(-x),col:'#3b82d6'}]})}Espelha esquerda ↔ direita (é o caso b = −1).<br>Ponto: (x, y) → (−x, y)</div></div>`})()}`},
+ {t:'Tudo junto: a forma canónica',h:`<p><b>y = a(x − h)² + k</b> parte de y = x² e:</p><ul class="dots"><li><b>a:</b> estica/encolhe e, se negativo, vira ao contrário;</li><li><b>h:</b> anda h na horizontal (repara no menos: (x − 1) → direita 1);</li><li><b>k:</b> sobe ou desce k.</li></ul><div class="fig">${PL({r:[-3,4,-4,5],h:200,c:[{f:x=>x*x,dash:1,col:'var(--muted)'},{f:x=>2*(x-1)*(x-1)-3,col:'#3b82d6'}],pt:[[1,-3,0,'V(1, −3)',6,4]],lab:[[-2.9,4.4,'y = x²']]})}</div><p>Ex.: 2(x − 1)² − 3: o vértice passa de (0, 0) para (1, −3), e a parábola fica mais "fechada".</p><div class="formula">Ordem segura: primeiro esticar/refletir, depois transladar.</div>`},
+],
+6:[
+ {t:'Funções definidas por ramos',h:`<p>Uma expressão diferente para cada parte do domínio.</p><div class="formula" style="text-align:left">f(x) = { x + 3 &nbsp;se x &lt; −1<br><span style="padding-left:46px">x² &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;se x ≥ −1</span></div><div class="fig">${PL({r:[-4,3,-2,5],h:200,c:[{f:x=>x+3,d:[-4,-1]},{f:x=>x*x,d:[-1,2.3]}],pt:[[-1,2,1,'não pertence',-58,-6],[-1,1,0,'pertence',6,10]]})}</div><ul class="dots"><li>Para calcular f(a): ver em que ramo cai a. <b>f(−1) = (−1)² = 1</b></li><li>● bola cheia: o ponto pertence · ○ bola vazia: não pertence.</li><li><b>Zeros:</b> resolver em cada ramo e confirmar se a solução está nesse ramo.</li></ul>`},
+ {t:'Função módulo',h:`<p><b>|x| = distância de x a 0.</b> Nunca é negativa.</p><div class="formula" style="text-align:left">|x| = { x &nbsp;&nbsp;se x ≥ 0<br><span style="padding-left:34px">−x se x &lt; 0</span></div><div class="fig">${PL({r:[-3,5,-1,3.5],h:170,c:[{f:Math.abs},{f:x=>Math.abs(x-2),col:'#3b82d6'}],lab:[[-2.9,3.1,'y = |x|'],[3.2,2.6,'y = |x − 2|']]})}</div><p>Gráfico em V, vértice na origem; D′ = [0, +∞[.</p><p>|x − 2| = distância de x a 2: o V anda 2 para a direita.</p><p class="note">|5| = 5 · |−5| = 5 · |0| = 0</p>`},
+ {t:'Equações e inequações com módulo',h:`<p class="note">Para k &gt; 0 (ex.: k = 3):</p><table class="st"><tr><td><b>|x| = 3</b></td><td>x = 3 ∨ x = −3</td></tr><tr><td><b>|x| &lt; 3</b> → "entre"</td><td>−3 &lt; x &lt; 3</td></tr><tr><td><b>|x| &gt; 3</b> → "fora"</td><td>x &lt; −3 ∨ x &gt; 3</td></tr><tr><td><b>|x| = 0</b></td><td>⇔ x = 0</td></tr><tr><td><b>|x| = −2</b></td><td>impossível</td></tr></table><div class="box"><b>Funciona igual com expressões</b><p>|x − 2| &lt; 3 ⇔ −3 &lt; x − 2 &lt; 3 ⇔ −1 &lt; x &lt; 5</p></div>`},
+ {t:'Os 6 erros que mais custam pontos',h:`<ol class="num"><li>f(x + 2) anda para a <b>esquerda</b>, não para a direita.</li><li>Contradomínio ≠ conjunto de chegada.</li><li>Máximo é um <b>y</b>; maximizante é um <b>x</b>.</li><li>(x − 3)² tem vértice em x = 3, não em −3.</li><li>Esquecer de passar tudo para um lado antes de resolver uma inequação.</li><li>Nos ramos: esquecer de ver se a solução pertence ao ramo.</li></ol><p class="note">Pode também aparecer, conforme a escola e o professor: paridade (funções pares e ímpares), polinómios (divisão, regra de Ruffini) e taxa média de variação. Confirma no manual.</p>`},
+],
+};
+
+
 
 // ===================== CONFIGURAÇÃO =====================
 // Disciplinas: on=true quando houver perguntas. Para acrescentar, criar o banco de perguntas, os TOPICS e um teste em TESTS.
@@ -1159,6 +1348,12 @@ const TOPICS={
  f7:{n:'Valor de verdade das conectivas',s:'Quando é verdadeira, quando é falsa',c:'#2f7d5b'},
  f8:{n:'Tabelas de verdade: construção',s:'Número de linhas e distribuição de V e F',c:'#a23b4c'},
  f8b:{n:'Tabelas de verdade: calcular',s:'Fórmulas dos slides, linha a linha',c:'#6b4fa0'},
+ g1:{n:'Estilo de vida saudável',s:'Definição, exemplos, fatores controláveis e não controláveis',c:'#2f7d5b'},
+ g2:{n:'Atividade física',s:'Recomendações, intensidade, benefícios',c:'#2d5fa8'},
+ g3:{n:'Capacidades motoras',s:'Capacidade vs. habilidade, condicionais e coordenativas',c:'#6b4fa0'},
+ g4:{n:'Composição corporal e IMC',s:'Fórmula, cálculo, objetivos da avaliação',c:'#b5651d'},
+ g5:{n:'Alimentação e hidratação',s:'Roda dos alimentos, água e arrefecimento',c:'#a23b4c'},
+ g6:{n:'Repouso, higiene e meio ambiente',s:'Overtraining, balneário, desporto e sustentabilidade',c:'#1f7f86'},
  e8:{n:'Ficha diagnóstica',s:'Inflação, percentagens, facto vs. opinião (não está na matriz)',c:'#1d2b44'},
  e7:{n:'Sociedade de consumo',s:'Obsolescência, consumismo, consumerismo, sustentabilidade',c:'#2f6b3a'},
 };
@@ -1189,9 +1384,23 @@ const TESTS={
   {n:'O quadrado da oposição',s:'As relações e como negar corretamente',keys:['f5']},
   {n:'Conectivas e formalização',s:'¬ ∧ ∨ ⊻ → ↔ e passar frases para fórmulas',keys:['f6','f6b']},
   {n:'Tabelas de verdade',s:'Valor de cada conectiva e construir a tabela',keys:['f7','f8','f8b']}],keys:['f1','f2','f3','f3b','f3c','f4','f5','f6','f6b','f7','f8','f8b']},
+ ef1:{subj:'ef',title:'Teste de conhecimentos',name:'Vida saudável',when:'2026-11-16',study:'STUDY_EF',units:[
+  {n:'Estilo de vida saudável',s:'O que é, exemplos e fatores que o influenciam',keys:['g1']},
+  {n:'Atividade física',s:'Quanto, com que intensidade e porquê',keys:['g2']},
+  {n:'Capacidades motoras',s:'Condicionais, coordenativas e período de desenvolvimento',keys:['g3']},
+  {n:'Composição corporal e IMC',s:'Calcular o IMC e avaliar a composição corporal',keys:['g4']},
+  {n:'Alimentação e hidratação',s:'Roda dos alimentos, água e arrefecimento',keys:['g5']},
+  {n:'Repouso, higiene e meio ambiente',s:'Descanso, balneário, desporto e sustentabilidade',keys:['g6']}],keys:['g1','g2','g3','g4','g5','g6']},
+ ma1:{subj:'ma',title:'Funções',name:'Estudo',when:null,study:'STUDY_MA',units:[
+  {n:'O que é uma função?',s:'Definição, vocabulário e formas de representar',keys:[]},
+  {n:'Ler um gráfico',s:'Zeros, sinal, monotonia, extremos, contradomínio',keys:[]},
+  {n:'Função afim e função quadrática',s:'Retas e parábolas: o que significa cada parâmetro',keys:[]},
+  {n:'Equações e inequações do 2.º grau',s:'Fórmula resolvente, discriminante, inequações',keys:[]},
+  {n:'Transformações de gráficos',s:'a·f(x), f(bx), f(x + c) e f(x) + d',keys:[]},
+  {n:'Funções por ramos e módulo',s:'Ramos, distância a zero e os 6 erros mais comuns',keys:[]}],keys:[]},
  ec1:{subj:'ec',title:'1.º Teste',name:'Temas 1 e 2 · Atividade económica, necessidades e consumo',when:'2026-10-28',keys:['e1','e2','e3','e4','e5','e6','e7','e8','e0','e0b'],mix:['e1','e2','e3','e4','e5','e6','e7'],extraFrom:'e8'},
 };
-const QS=[...QS_PT,...QS_EC,...QS_NEW,...QS_FI];
+const QS=[...QS_PT,...QS_EC,...QS_NEW,...QS_FI,...QS_EF];
 
 Object.assign(SUBN,{'f1:log':'Utilidade da lógica','f1:tese':'Tese e argumento','f1:prop':'Proposição','f2:ded':'Dedutivo vs. indutivo','f3:con':'Verdade, validade, solidez','f3b:sl':'Argumentos dos slides','f3c:ex':'Exercícios: classificar','f3c:val':'Exercícios: só validade','f4:tip':'Tipos A, E, I, O','f4:id':'Identificar o tipo','f5:rel':'Relações do quadrado','f5:neg':'Negação (contraditória)','f5:val':'Deduzir valores de verdade','f6:con':'Conectivas e símbolos','f6b:form':'Formalização','f7:val':'Valores de verdade','f8:lin':'Número de linhas','f8:col':'Colunas de P, Q, R, S','f8b:col':'Coluna final','f8b:lin':'Valor numa linha','f8b:base':'Tabelas básicas'});
 Object.assign(SUBN,{'e8:dia':'Economia no dia a dia','e8:pct':'Percentagens e taxa de variação','e8:infl':'Gráfico da inflação','e8:doc':'Leitura de documento (facto/opinião)','e8:sel':'Factos vs. opiniões'});
@@ -1218,6 +1427,55 @@ Object.assign(FIGS,{
  c_ermida:`<div class="ft">Sedia-m' eu na ermida de Sam Simiom</div>`+poem([["Sedia-m' eu na ermida de Sam Simiom","e cercarom-mi as ondas, que grandes som!"],["Estando na ermida ant' o altar,","cercarom-mi as ondas grandes do mar;"],["E cercarom-mi as ondas, que grandes som:","nom ei [i] barqueiro, nen remador;"],["E cercarom-mi as ondas do alto mar:","nom ei [i] barqueiro, nem sei remar;"],["Nom ei [i] barqueiro, nem remador;","morrerei [eu] fremosa no mar maior;"],["Nom ei [i] barqueiro, nem sei remar;","morrerei eu fremosa no alto mar;"]],"eu atendend' o meu amigo! / eu atendend' o meu amigo!"),
  c_meogo:`<div class="ft">Excerto (Pero Meogo)</div>`+poem([["Digades, filha, mia filha velida,","porque tardastes na fontana fria?"]],""),
 });
+// Educação Física — figuras recriadas e cartões de estudo (a partir da apresentação do professor)
+const EF_PER_ROWS=[['Aquisição e estabilização motoras',[4,5],[1,5]],['Resistência aeróbia',[4,10],[2,10]],['Resistência anaeróbia',[10,10],[8,10]],['Força máxima',[10,10],[10,10]],['Força rápida',[9,10],[7,10]],['Força de resistência',[8,10],[7,10]],['Velocidade',[1,6],[1,6]],['Flexibilidade',[1,4],[0,5]]];
+const efPer=()=>{const M=[6,7,8,9,11,13,14,15,16,17,18],Fm=[6,7,8,9,10,11,12,13,14,15,16];
+ const cell=(r,i,c)=>`<td style="padding:0"><div style="height:9px;margin:1px 0;background:${i>=r[0]&&i<=r[1]?c:'transparent'}"></div></td>`;
+ return `<div class="ft">Período ótimo de desenvolvimento</div><div style="overflow-x:auto"><table class="per"><tr><th>Masculino</th>${M.map(x=>`<th>${x}</th>`).join('')}</tr><tr><th>Feminino</th>${Fm.map(x=>`<th>${x}</th>`).join('')}</tr>${EF_PER_ROWS.map(([n,m,f])=>`<tr><td class="pn" rowspan="2">${n}</td>${M.map((_,i)=>cell(m,i,'#d64040')).join('')}</tr><tr>${M.map((_,i)=>cell(f,i,'#e8b923')).join('')}</tr>`).join('')}</table></div><div class="fs"><span style="color:#d64040">■</span> masculino · <span style="color:#e8b923">■</span> feminino · idades. Recriado (aproximado) a partir do gráfico do professor.</div>`};
+Object.assign(FIGS,{
+ ef_per:efPer(),
+ ef_cc:`<div class="ft">Mesmo peso, composições corporais diferentes</div>${tbl(['','Pessoa 1','Pessoa 2'],[['Altura','1,80 m','1,80 m'],['Peso','100 kg','100 kg'],['IMC','30 kg/m²','30 kg/m²'],['Massa gorda','30 %','15 %']])}`,
+ ef_roda:`<div class="ft">A roda dos alimentos</div>${bars([['Cereais e derivados, tubérculos',28,'28 %'],['Hortícolas',23,'23 %'],['Fruta',20,'20 %'],['Laticínios',18,'18 %'],['Carne, pescado e ovos',5,'5 %'],['Leguminosas',4,'4 %'],['Gorduras e óleos',2,'2 %']],28)}<div class="fs">No centro da roda: a água.</div>`,
+ ef_amb:`<div class="ft">Desporto e sustentabilidade</div><div class="tl">${tbl(['Área','O que faz'],[['Equidade social','Promove a estabilidade, a tolerância e a integração. Fomenta a igualdade de género e a coesão social.'],['Coesão político-institucional','Fomenta a paz e o respeito pelas regras democráticas.'],['Crescimento económico','Incentiva o investimento e o emprego.'],['Desenvolvimento humano','Melhora a saúde pública e o bem-estar. É parte integrante dos esforços de educação e das atividades de divulgação.'],['Qualidade ambiental','Influência de qualquer atividade sobre o meio ambiente. O ambiente, dependendo da sua qualidade, pode beneficiar mais ou menos o desenvolvimento da atividade humana.']])}</div>`,
+});
+// nas perguntas sobre o esquema, não mostrar a coluna que dá a resposta: versão "cega"
+FIGS.ef_amb_q=`<div class="ft">Desporto e sustentabilidade</div><p>No centro: <b>Desporto e sustentabilidade</b>, ligado a cinco áreas: equidade social, coesão político-institucional, crescimento económico, desenvolvimento humano e qualidade ambiental.</p>`;
+const STUDY_EF={
+1:[
+ {t:'Vida saudável',h:`<p>A matéria tem seis partes:</p><ul class="dots"><li>Estilos de vida saudável</li><li>A importância da alimentação</li><li>A importância da hidratação e do arrefecimento do organismo</li><li>A importância do repouso</li><li>A importância da higiene</li><li>A importância do meio ambiente</li></ul>`},
+ {t:'O que é um estilo de vida?',h:`<p>Refere-se a um conjunto de <b>aspetos comportamentais</b>, tais como: padrões de consumo, rotinas, hábitos ou forma de vida adaptada ao dia a dia.</p><div class="formula">A atividade física é um dos pilares de um bom estilo de vida.</div><p><b>Exemplos de um bom estilo de vida:</b></p><ul class="dots"><li>a atividade física;</li><li>a alimentação;</li><li>a hidratação;</li><li>o repouso;</li><li>o controlo do stress;</li><li>o meio ambiente.</li></ul>`},
+ {t:'Fatores que influenciam o estilo de vida',h:`<div class="box b3"><b>Controláveis</b><p><b>Alimentação saudável:</b> os hábitos alimentares podem estimular ou não o desenvolvimento de doenças, por exemplo a obesidade.</p><p><b>Atividade física:</b> atividades simples como caminhar, se realizadas com regularidade e intensidade suficientes, podem melhorar a nossa saúde.</p></div><div class="box b1"><b>Não controláveis</b><p><b>Genética:</b> influencia a aparência física, na medida em que herdamos os genes dos progenitores; pode expressar-se, por exemplo, na altura.</p><p><b>Puberdade:</b> são produzidas em maiores concentrações as hormonas sexuais masculinas e femininas, que fazem o corpo mudar de aparência.</p></div>`},
+],
+2:[
+ {t:'Crianças e jovens: pelo menos 60 minutos por dia',h:`<div class="formula">Fazer alguma atividade física é muito melhor do que não fazer nenhuma.</div><ul class="dots"><li><b>Pelo menos 60 min por dia</b> de atividade física de intensidade <b>moderada a vigorosa</b> (preferencialmente aeróbia).</li><li><b>Pelo menos 3 dias por semana</b>: atividade aeróbia de intensidade <b>vigorosa</b> (também de fortalecimento muscular e ósseo).</li><li>Pode distribuir-se ao longo do dia: "todas as atividades devem <b>acelerar a respiração e aumentar a temperatura corporal</b>".</li></ul><p><b>Exemplos:</b> andar/correr, nadar, skate, saltar à corda, pedalar, dançar.</p><p><b>Contextos de prática:</b> Educação Física, Preparação Física, Desporto.</p>`},
+ {t:'Benefícios da atividade física',h:`<ul class="ck"><li class="y">Promove a confiança e as competências sociais.</li><li class="y">Mantém a saúde e a condição física.</li><li class="y">Desenvolve a coordenação.</li><li class="y">Mantém um peso saudável.</li><li class="y">Melhora a concentração e a aprendizagem.</li><li class="y">Melhora o sono.</li><li class="y">Fortalece músculos e ossos.</li><li class="y">Estimula o bem-estar.</li></ul>`},
+ {t:'Adultos: pelo menos 150 minutos por semana',h:`<p>Recomenda-se que os adultos acumulem pelo menos <b>150 minutos por semana</b> de atividade física <b>moderada</b>.</p><table class="st"><tr><th>Tempo de AF</th><th>Sinais</th></tr><tr><td>10 min por dia</td><td>Intensidade baixa: é melhor do que nada e já confere benefícios para a saúde.</td></tr><tr><td>150 min por semana de AF <b>moderada</b></td><td>Respiração acelerada, mas ainda permite manter uma conversa.</td></tr><tr><td>75 min por semana de AF <b>intensa</b></td><td>Respiração muito acelerada, sendo muito difícil manter uma conversa.</td></tr></table>`},
+ {t:'Para a AF promover a saúde, é necessário…',h:`<ul class="dots"><li>Desenvolvimento das capacidades motoras</li><li>Composição corporal</li><li>Alimentação</li><li>Hidratação</li><li>Repouso</li><li>Higiene</li><li>Qualidade do meio ambiente</li><li>Afetividade</li></ul>`},
+],
+3:[
+ {t:'Capacidades motoras',h:`<p><b>Capacidades motoras</b> são qualidades gerais do indivíduo, relacionadas com o seu desempenho numa diversidade de habilidades/tarefas. Referem-se à potencialidade individual para a execução de habilidades motoras.</p><p>Todos nascemos com um potencial para desenvolvermos a <b>força, a resistência, a velocidade e a flexibilidade</b>, algo que pode ser alcançado através do <b>treino</b>.</p>`},
+ {t:'Capacidade vs. habilidade motora',h:`<div class="box b1"><b>Capacidade motora</b><p>Refere-se às qualidades físicas de uma pessoa: um potencial definido geneticamente que pode ser atingido ou não.</p></div><div class="box b2"><b>Habilidade motora</b><p>Refere-se a uma tarefa com uma finalidade específica a ser atingida.</p></div><div class="warn">Todos nascemos com uma determinada força ou resistência, mas precisamos de <b>aprender</b> a dançar ou a jogar basquetebol.</div>`},
+ {t:'Condicionais e coordenativas',h:`<div class="box b3"><b>Capacidades condicionais</b><p>Dimensão <b>quantitativa</b> do movimento (ex.: metros, kg, n.º de passos…). Relacionadas com os processos de <b>obtenção de energia</b>.</p><div class="formula">Resistência · Força · Velocidade · Flexibilidade</div></div><div class="box b2"><b>Capacidades coordenativas</b><p>Dimensão <b>qualitativa</b> do movimento (ex.: satisfaz, bom, muito bom…). Relacionadas com o <b>controlo do movimento</b> e dependem do <b>sistema nervoso central</b>. Capacidade dos órgãos dos sentidos analisarem a informação sobre o meio.</p><div class="formula">Orientação · Equilíbrio · Ritmo · Reação · Coordenação</div></div>`},
+ {t:'O período de desenvolvimento é diferente',h:`<p>O período de desenvolvimento de cada uma das capacidades é diferente:</p><div class="fig">${efPer()}</div><p class="note">Mais cedo: flexibilidade e velocidade. Mais tarde: força máxima e resistência anaeróbia. A resistência aeróbia tem o período mais longo.</p>`},
+],
+4:[
+ {t:'O Índice de Massa Corporal (IMC)',h:`<p>O IMC é um indicador da <b>aptidão morfológica</b> e representa a relação entre o <b>peso</b> e a <b>altura</b> de uma pessoa. Permite determinar se o peso está adequado ou não à altura.</p><div class="formula">IMC = P / H²<br><span style="font-weight:400;font-size:13px">P – peso (quilogramas) · H – altura (metros)</span></div><div class="box"><b>Exemplo</b><p>O Manuel pesa 55 kg e mede 1,60 m.<br>IMC = 55 / 1,60² = 55 / 2,56 = <b>21,48</b></p></div>`},
+ {t:'Composição corporal',h:`<p>A composição corporal quantifica os principais componentes do organismo humano: <b>ossos, músculos e gordura corporal</b>.</p><p>Possibilita compreender as modificações resultantes de alterações metabólicas e <b>identificar riscos de saúde</b>.</p><div class="fig">${FIGS.ef_cc}</div><p class="note">O IMC é igual, mas a massa gorda não: o IMC não distingue gordura de músculo.</p>`},
+ {t:'Objetivos da avaliação da composição corporal',h:`<ul class="dots"><li>Identificar possíveis distúrbios de saúde associados a níveis baixos/elevados de gordura corporal;</li><li>Identificar possíveis distúrbios associados à acumulação regional de gordura;</li><li>Avaliar a eficácia de um programa de nutrição e/ou atividade física na alteração dos valores da CC;</li><li>Auxiliar na prescrição de exercício físico;</li><li>Monitorizar as alterações da composição corporal ao longo do crescimento.</li></ul>`},
+ {t:'Peso saudável e energia',h:`<p>Devemos:</p><ul class="dots"><li>Saber que um peso saudável depende do <b>equilíbrio de energia</b> entre aquilo que se ingere e aquilo que se gasta na AF realizada ao longo do dia;</li><li>Perceber o contributo do <b>dispêndio energético</b> para o controlo do peso e do IMC;</li><li>Identificar diferentes opções de AF para dar resposta a necessidades diversas de dispêndio energético.</li></ul>`},
+],
+5:[
+ {t:'A importância da alimentação',h:`<p>A alimentação pode ter um impacto <b>positivo ou negativo</b> na nossa saúde, no crescimento e no desenvolvimento — a curto e a longo prazo.</p><p>Se tivermos bons hábitos alimentares <b>desde a infância</b>, estes tendem a persistir na idade adulta.</p><div class="warn">Os malefícios de uma alimentação deficiente e/ou excessiva e desequilibrada não se fazem sentir no imediato, mas os problemas de saúde podem surgir em poucos anos, <b>antes ainda de serem adultos</b>.</div>`},
+ {t:'A roda dos alimentos',h:`<div class="fig">${FIGS.ef_roda}</div>`},
+ {t:'Hidratação e arrefecimento do organismo',h:`<div class="formula">70 % do nosso peso é água.</div><p>A atividade desportiva pode levar ao défice ou esgotamento das reservas de água do organismo, devido às perdas pelo <b>suor</b> e pelas <b>vias respiratórias</b>.</p><p>Ao transpirarmos, a água do suor evapora-se à superfície da pele, baixando a temperatura corporal.</p><div class="warn">O que faz arrefecer o corpo é a <b>evaporação</b> da água do suor produzido.</div>`},
+],
+6:[
+ {t:'A importância do repouso',h:`<p>É durante o descanso que o corpo se <b>reconstitui, restabelece e reforça</b>. Estes processos têm um grande impacto na condição física e na saúde.</p><div class="warn">O descanso reduzido e, consequentemente, o <b>overtraining</b> podem ter um impacto negativo na saúde e na condição física e psicológica.</div>`},
+ {t:'A importância da higiene',h:`<p>Após a atividade física deve-se <b>tomar banho</b>: é um ato fundamental de higiene física, que elimina os produtos da sudação e limpa a pele.</p><ul class="ck"><li class="n">Partilhar toalhas</li><li class="y">Usar sempre chinelos no balneário</li></ul><p class="note">Assim evita-se o contágio de agentes que provocam infeções cutâneas e das unhas (pé de atleta, por exemplo).</p>`},
+ {t:'A importância do meio ambiente',h:`<div class="fig">${FIGS.ef_amb}</div>`},
+],
+};
+
 
 
 const KEY='estudo10-v1';
@@ -1261,7 +1519,7 @@ function cdBox(T){const n=daysTo(T.when);if(n===null||n<0)return '';
 function tagFor(k){const L=Object.entries(TESTS).filter(([,T])=>T.subj===k);if(!L.length)return 'Em breve';
  const up=L.map(([,T])=>daysTo(T.when)).filter(n=>n!==null&&n>=0).sort((a,b)=>a-b);
  if(up.length)return up[0]===0?'Teste hoje':up[0]===1?'Teste amanhã':`Teste daqui a ${up[0]} dias`;
- return L.some(([,T])=>!T.when)?'Teste com data por definir':''}
+ return L.some(([,T])=>!T.when&&T.keys.length)?'Teste com data por definir':L.some(([,T])=>!T.keys.length)?'Para estudar':''}
 
 let lastAct=0;
 function tick(){const now=Date.now();if(view.name==='quiz'&&lastAct&&cur){const d=Math.min((now-lastAct)/1000,120);S.time[cur]=(S.time[cur]||0)+d;
@@ -1312,7 +1570,7 @@ document.addEventListener('keydown',e=>{if(view.name==='study'){if(e.key==='Arro
 
 // ===== Calculadora (aparece nas perguntas com contas) =====
 const CALCQ=['Um casaco custava 60','Umas calças custavam 45','Um produto de 50 €','O preço de um café passou','O preço de um bilhete passou','Um salário passou','A família Silva tem','Uma família ganha 2000','Numa turma de 25','A Rita recebe 900','Observa o gráfico. De 2023 para 2024','Num país entraram 30 mil','População residente 8000','População ativa 5000','População ativa 4500','País com 10 milhões','Nascimentos 80 000','Crescimento efetivo −14 000','Num país há 2 milhões','A taxa de desemprego passou de 8,9%','Uma economia produz só cereais','Uma economia produz só bicicletas','Uma família gasta 3600','Uma família gasta 450','Despesa total de 2000','Observa a figura. As perdas alimentares'];
-const needsCalc=q=>CALCQ.some(k=>q[2].startsWith(k));
+const needsCalc=q=>(q[1]==='imc'&&/\d,\d/.test(q[2]))||CALCQ.some(k=>q[2].startsWith(k));
 let calc={open:false,ex:'',rs:''};
 function cParse(str){let i=0;const s=str.replace(/×/g,'*').replace(/÷/g,'/').replace(/,/g,'.').replace(/−/g,'-');
  const peek=()=>s[i],num=()=>{let j=i;while(i<s.length&&/[0-9.]/.test(s[i]))i++;if(j===i)throw 0;return parseFloat(s.slice(j,i))};
@@ -1334,6 +1592,9 @@ function toggleCalc(){calc.open=!calc.open;render()}
 // ===================== ECRÃS =====================
 function header(back,title){return `<div class="top">${back?`<button class="back" aria-label="Voltar" onclick="${back}">‹</button>`:''}<h2>${title}</h2></div>`}
 function render(){$('#app').innerHTML=({home,subj,test,unit,study,quiz:qview,result,prog})[view.name]()}
+function studyOnly(T,s){return `${header(`subjCur='${T.subj}';go('subj')`,s.n+' · '+T.title)}
+ <div class="testcard" style="background:${s.c};color:#fff"><span class="k">Só estudo, por enquanto</span><span class="t">${T.title}</span><span class="small" style="opacity:.85">${T.units.reduce((a,u,i)=>a+STUDY()[i+1].length,0)} cartões em ${T.units.length} unidades</span></div>
+ <div class="list">${T.units.map((u,i)=>`<button class="topic" style="--c:${s.c}" onclick="unitCur=${i};openStudy()"><div><div class="n">${i+1}. ${u.n}</div><div class="s">${u.s}</div></div><span class="best">${STUDY()[i+1].length} cartões</span></button>`).join('')}</div>`}
 function unit(){const T=T_(),u=T.units[unitCur],c=SUBJ.find(x=>x.k===T.subj).c,st=stats('unit:'+cur+':'+unitCur),cards=STUDY()?STUDY()[unitCur+1]:null;
  const tl=u.keys.map(k=>{const P=TOPICS[k],s2=stats(k),cv=cover(k);return `<button class="topic" style="--c:${P.c}" onclick="start('${k}')"><div><div class="n">${P.n}</div><div class="s">${cv.s}/${cv.n} vistas</div></div><span class="best">${s2?`<b>${s2.best}%</b><br>melhor`:'—'}</span></button>`}).join('');
  return `${header("go('test')",'Unidade '+(unitCur+1))}
@@ -1343,11 +1604,11 @@ function unit(){const T=T_(),u=T.units[unitCur],c=SUBJ.find(x=>x.k===T.subj).c,s
  <div class="row"><span class="muted small">Perguntas por ronda</span><div class="seg">${[10,20,30].map(n=>`<button class="${size()===n?'on':''}" onclick="setSize(${n})">${n}</button>`).join('')}</div></div>
  <p class="muted small" style="margin:4px 2px 0">Ou treinar só uma parte:</p><div class="list">${tl}</div>`}
 function study(){const T=T_(),u=T.units[unitCur],cards=STUDY()[unitCur+1],k=cards[studyI],n=cards.length,c=SUBJ.find(x=>x.k===T.subj).c;
- return `${header("go('unit')",u.n)}
+ return `${header(T.keys.length?"go('unit')":"go('test')",u.n)}
  <div class="sdots">${cards.map((_,i)=>`<i class="${i===studyI?'on':i<studyI?'done':''}" style="--c:${c}"></i>`).join('')}</div>
  <div class="card scard"><span class="qchip">Cartão ${studyI+1} de ${n}</span><h2>${k.t}</h2><div class="sbody">${k.h}</div></div>
  <div class="snav"><button class="ghost" onclick="stepStudy(-1)" ${studyI?'':'disabled style="opacity:.4"'}>‹ Anterior</button>
- ${studyI<n-1?`<button class="big" onclick="stepStudy(1)">Seguinte ›</button>`:`<button class="big" onclick="start('unit:${cur}:${unitCur}')">Testar agora</button>`}</div>`}
+ ${studyI<n-1?`<button class="big" onclick="stepStudy(1)">Seguinte ›</button>`:(u.keys.length?`<button class="big" onclick="start('unit:${cur}:${unitCur}')">Testar agora</button>`:unitCur<T.units.length-1?`<button class="big" onclick="unitCur++;openStudy()">Unidade seguinte ›</button>`:`<button class="big" onclick="go('test')">Terminar</button>`)}</div>`}
 
 function home(){
  return `<div class="hello"><h1>Estudo 10.º ano</h1><p class="muted">Escolhe a disciplina.</p></div>
@@ -1358,7 +1619,7 @@ function home(){
 function subj(){const s=SUBJ.find(x=>x.k===subjCur);const L=Object.keys(TESTS).filter(t=>TESTS[t].subj===subjCur);
  return `${header("go('home')",s.n)}<div class="list">${L.map(t=>{const T=TESTS[t];return `<button class="testcard" style="background:${s.c};color:#fff" onclick="openTest('${t}')"><span class="k">${T.when?fmtDate(T.when):'Data por definir'}</span><span class="t">${T.title} · ${T.name}</span></button>`}).join('')}</div>`}
 
-function test(){const T=T_(),s=SUBJ.find(x=>x.k===T.subj);
+function test(){const T=T_(),s=SUBJ.find(x=>x.k===T.subj);if(!T.keys.length)return studyOnly(T,s);
  const back=`subjCur='${T.subj}';go('subj')`;
  const tl=T.units?T.units.map((u,i)=>{const ids=u.keys.flatMap(idsOf),sn=ids.filter(x=>S.seen[x]).length,cp=ids.length?Math.round(sn/ids.length*100):0,st=stats('unit:'+cur+':'+i);
   return `<button class="topic" style="--c:${SUBJ.find(x=>x.k===T.subj).c}" onclick="openUnit(${i})"><div><div class="n">${i+1}. ${u.n}</div><div class="s">${u.s}</div>

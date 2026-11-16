@@ -60,6 +60,9 @@ button:disabled{cursor:default}
 .topic{display:flex;align-items:center;gap:12px;background:var(--card);border:1.5px solid var(--c);border-radius:12px;padding:12px 14px;width:100%}
 .topic>div{flex:1;min-width:0}
 .topic .n{font-weight:600}
+.topic.lock{opacity:.45;border-style:dashed}
+.fig .pwx{display:flex;align-items:center;gap:8px;font-size:15px;align-self:center}.fig .pwx .pwb{width:9px;align-self:stretch;border:2px solid var(--ink);border-right:0;border-radius:9px 0 0 9px}.fig .pwx table{width:auto}.fig .pwx td{border:0;padding:3px 12px 3px 0;text-align:left;white-space:nowrap}
+.fig table.tbx td{text-align:center;padding:5px 4px}.fig table.tbx td:first-child{font-weight:600}
 .topic .s{font-size:13px;color:var(--muted)}
 .topic .best{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.35}
 .topic .best b{color:var(--ink);font-size:14px}
@@ -1251,7 +1254,7 @@ function PL(o){
  if(o.grid!==false){for(let x=Math.ceil(x0);x<=x1;x++)g+=`<line x1="${X(x)}" y1="${Y(y0)}" x2="${X(x)}" y2="${Y(y1)}" style="stroke:var(--line)" stroke-width=".6"/>`;
   for(let y=Math.ceil(y0);y<=y1;y++)g+=`<line x1="${X(x0)}" y1="${Y(y)}" x2="${X(x1)}" y2="${Y(y)}" style="stroke:var(--line)" stroke-width=".6"/>`}
  g+=`<line x1="${X(x0)}" y1="${Y(0)}" x2="${X(x1)}" y2="${Y(0)}" style="stroke:var(--muted)" stroke-width="1.2"/><line x1="${X(0)}" y1="${Y(y0)}" x2="${X(0)}" y2="${Y(y1)}" style="stroke:var(--muted)" stroke-width="1.2"/>`;
- g+=`<text x="${X(x1)-4}" y="${Y(0)-5}" font-size="10" text-anchor="end" style="fill:var(--muted)" font-style="italic">x</text><text x="${X(0)+5}" y="${Y(y1)+10}" font-size="10" style="fill:var(--muted)" font-style="italic">y</text>`;
+ g+=`<text x="${X(x1)-4}" y="${Y(0)-5}" font-size="10" text-anchor="end" style="fill:var(--muted)" font-style="italic">${o.xl||'x'}</text><text x="${X(0)+5}" y="${Y(y1)+10}" font-size="10" style="fill:var(--muted)" font-style="italic">${o.yl||'y'}</text>`;
  if(o.ticks!==false){for(let x=Math.ceil(x0);x<=x1;x++)if(x&&(o.tx||1)&&x%(o.tx||1)===0)g+=`<text x="${X(x)}" y="${Y(0)+11}" font-size="8" text-anchor="middle" style="fill:var(--muted)">${String(x).replace('-','−')}</text>`;
   for(let y=Math.ceil(y0);y<=y1;y++)if(y&&y%(o.ty||1)===0)g+=`<text x="${X(0)-4}" y="${Y(y)+3}" font-size="8" text-anchor="end" style="fill:var(--muted)">${String(y).replace('-','−')}</text>`}
  (o.c||[]).forEach(c=>{let pts=c.p;if(c.f){pts=[];const a=c.d?c.d[0]:x0,b=c.d?c.d[1]:x1;for(let i=0;i<=120;i++){const x=a+(b-a)*i/120,y=c.f(x);if(y>=y0-1&&y<=y1+1)pts.push([x,y]);else pts.push(null)}}
@@ -1306,6 +1309,216 @@ const STUDY_MA={
 ],
 };
 
+// Matemática A — Funções: treino por níveis (4.1 a 4.10 do resumo do manual + transformações e módulo do resumo da Susana).
+// Dentro de cada nível, as perguntas estão por ordem de dificuldade (do mais básico para o mais exigente).
+const QS_MA=[
+// ===================== NÍVEL 1 · 4.1 Formas de representar uma função =====================
+['m1','def','Uma correspondência de um conjunto A num conjunto B é uma função quando…','a cada elemento de A corresponde um e um só elemento de B',['a cada elemento de B corresponde um e um só elemento de A','todos os elementos de B são imagem de algum elemento de A','elementos diferentes de A têm sempre imagens diferentes'],'É a definição de função: todos os elementos de A têm de ter imagem, e essa imagem tem de ser única. Não é preciso que todos os elementos de B sejam usados, e dois elementos de A podem ter a mesma imagem.'],
+['m1','sag','Observa o diagrama. A correspondência de A em B é uma função?','Sim',['Não, porque o 8 não é imagem de nenhum elemento','Não, porque B tem mais elementos do que A','Não, porque as imagens são todas pares'],'Cada elemento de A (1, 2 e 3) tem exatamente uma seta a sair. Isso basta para ser função. Haver elementos de B sem seta a chegar (o 8) é permitido.','m1_s1'],
+['m1','sag','Observa o diagrama. A correspondência de A em B é uma função?','Não, porque o 25 tem duas imagens',['Sim, porque todos os elementos de A têm imagem','Não, porque o 0 é imagem de si próprio','Sim, porque todos os elementos de B são usados'],'Do 25 saem duas setas (para −5 e para 5). Numa função cada objeto tem uma e uma só imagem, por isso isto não é uma função.','m1_s2'],
+['m1','sag','Observa o diagrama. A correspondência de A em B é uma função?','Sim',['Não, porque −5 e 5 têm a mesma imagem','Não, porque o 25 recebe duas setas','Não, porque A tem mais elementos do que B'],'Cada elemento de A tem exatamente uma imagem. Dois objetos diferentes (−5 e 5) com a mesma imagem (25) é permitido: o que não pode é um objeto ter duas imagens.','m1_s3'],
+['m1','sag','Observa o diagrama. A correspondência de A em B é uma função?','Não, porque o 1 de A não tem imagem',['Sim, porque nenhum elemento tem duas imagens','Não, porque o 3 de B não é imagem','Sim, porque −1 e 0 têm imagens diferentes'],'Numa função, todos os elementos do conjunto de partida A têm de ter imagem. O 1 não tem nenhuma seta, por isso falha a definição.','m1_s4'],
+['m1','tab','A tabela representa a função que a cada número faz corresponder o seu simétrico. Qual é o valor que falta?','−7/2',['7/2','2/7','−2/7'],'O simétrico de um número é o mesmo número com o sinal trocado. O simétrico de 7/2 é −7/2 (não confundir com o inverso, 2/7).','m1_t1'],
+['m1','tab','A tabela representa uma função de x em y?','Não, porque o 2 tem duas imagens',['Sim, porque cada y aparece uma só vez','Sim, porque há tantos valores de x como de y','Não, porque os valores de y são todos diferentes'],'O objeto 2 aparece duas vezes, com imagens diferentes (6 e 7). Um objeto não pode ter duas imagens.','m1_t2'],
+['m1','tab','A tabela representa uma função de x em y?','Sim',['Não, porque todos os objetos têm a mesma imagem','Não, porque o 4 aparece como x e como y','Não, porque y não depende de x'],'Cada x tem uma só imagem (o 4). Todos os objetos terem a mesma imagem é permitido: é uma função constante.','m1_t3'],
+['m1','exp','Qual é a expressão analítica da função que a cada raio x de um círculo faz corresponder a sua área A?','A(x) = πx²',['A(x) = 2πx','A(x) = πx','A(x) = 2πx²'],'A área do círculo é π vezes o raio ao quadrado. 2πx é o perímetro, não a área.'],
+['m1','exp','Qual é a expressão analítica da função que a cada número real faz corresponder o seu dobro mais 1?','f(x) = 2x + 1',['f(x) = 2(x + 1)','f(x) = x² + 1','f(x) = x/2 + 1'],'Primeiro o dobro (2x), depois mais 1: 2x + 1. Em 2(x + 1) somava-se 1 primeiro e só depois se fazia o dobro.'],
+['m1','exp','Considera f(x) = 3x − 1. Qual é a imagem de 2?','5',['6','7','1'],'Substitui x por 2: f(2) = 3 × 2 − 1 = 6 − 1 = 5.'],
+['m1','graf','O gráfico representa a função f que a cada número real faz corresponder o seu dobro. Qual é a imagem de 3?','6',['3/2','5','8'],'f(x) = 2x, logo f(3) = 6. No gráfico, sobe-se na vertical a partir de x = 3 até à reta e lê-se y = 6.','m1_g5'],
+['m1','graf','O gráfico representa a função f que a cada número real faz corresponder o seu dobro. Qual é o objeto cuja imagem é 4?','2',['8','4','1/2'],'Procura-se x tal que 2x = 4, ou seja x = 2. No gráfico, a partir de y = 4 vai-se na horizontal até à reta e desce-se até x = 2.','m1_g5'],
+['m1','rv','O que diz o teste da reta vertical?','Um gráfico é de uma função se nenhuma reta vertical o intersetar em mais do que um ponto',['Um gráfico é de uma função se todas as retas verticais o intersetarem em dois pontos','Um gráfico é de uma função se nenhuma reta horizontal o intersetar em mais do que um ponto','Um gráfico é de uma função se for uma linha contínua sem interrupções'],'Uma reta vertical corresponde a um valor fixo de x. Se cortar o gráfico em dois pontos, esse x teria duas imagens, o que não pode acontecer numa função.'],
+['m1','rv','Este gráfico pode representar uma função?','Sim',['Não, porque o gráfico sobe e desce','Não, porque há retas horizontais que o cortam em três pontos','Não, porque não passa na origem'],'Qualquer reta vertical corta este gráfico no máximo uma vez. Retas horizontais a cortar várias vezes não interessam: significa só que vários objetos têm a mesma imagem.','m1_g1'],
+['m1','rv','Este gráfico pode representar uma função de x em y?','Não',['Sim','Só se o domínio for ℝ','Só se a curva fosse mais aberta'],'Há retas verticais (por exemplo x = 2) que cortam a curva em dois pontos. Esse valor de x teria duas imagens.','m1_g2'],
+['m1','rv','Este conjunto de pontos pode representar uma função de x em y?','Não, porque x = 4 tem duas imagens',['Sim, porque são pontos isolados','Não, porque x = 2 e x = 3 têm a mesma imagem','Sim, porque nenhum ponto está no eixo x'],'Os pontos (4, 3) e (4; 4,5) estão na mesma vertical: o objeto 4 teria duas imagens. Que 2 e 3 tenham a mesma imagem não é problema.','m1_g3'],
+['m1','rv','Esta circunferência pode ser o gráfico de uma função de x em y?','Não',['Sim','Só a metade de baixo não','Sim, se o raio for 2'],'Uma reta vertical como x = 0 corta a circunferência em dois pontos, (0, 2) e (0, −2). Logo não é gráfico de uma função.','m1_g4'],
+// ===================== NÍVEL 2 · 4.2 Conceitos associados às funções =====================
+['m2','voc','Se f(3) = 7, então…','3 é um objeto e 7 é a sua imagem',['7 é um objeto e 3 é a sua imagem','3 e 7 são ambos imagens','3 é um zero de f'],'Em f(3) = 7, o 3 é o valor que entra (objeto, variável independente) e o 7 é o que sai (imagem, variável dependente).'],
+['m2','voc','Numa função y = f(x), qual é a variável independente?','x',['y','f','f(x)'],'O x escolhe-se livremente dentro do domínio, por isso é a variável independente. O y = f(x) depende do x escolhido: é a variável dependente.'],
+['m2','voc','O contradomínio de uma função é…','o conjunto das imagens',['o conjunto dos objetos','o conjunto de chegada','o conjunto de partida'],'O contradomínio é formado pelas imagens que são mesmo atingidas. O conjunto dos objetos é o domínio. O conjunto de chegada pode ter elementos a mais.'],
+['m2','voc','O contradomínio de uma função é sempre igual ao conjunto de chegada.','Falso',['Verdadeiro'],'O contradomínio está contido no conjunto de chegada, mas pode ser mais pequeno: basta haver elementos do conjunto de chegada que não sejam imagem de nenhum objeto.'],
+['m2','sag','Observa o diagrama. Qual é o domínio de f?','{−2, 0, 1, 3}',['{−4, 0, 2, 6}','{−4, −1, 0, 2, 5, 6}','{−2, 0, 1, 3, 6}'],'O domínio é o conjunto de partida A, onde estão os objetos: −2, 0, 1 e 3.','m2_s1'],
+['m2','sag','Observa o diagrama. Qual é o contradomínio de f?','{−4, 0, 2, 6}',['{−4, −1, 0, 2, 5, 6}','{−2, 0, 1, 3}','{−1, 5}'],'O contradomínio são só as imagens atingidas: f(−2) = −4, f(0) = 0, f(1) = 2, f(3) = 6. O −1 e o 5 estão no conjunto de chegada mas não são imagem de nada.','m2_s1'],
+['m2','sag','Observa o diagrama. Qual é o conjunto de chegada de f?','{−4, −1, 0, 2, 5, 6}',['{−4, 0, 2, 6}','{−2, 0, 1, 3}','{−1, 5}'],'O conjunto de chegada é B, com todos os seus elementos, mesmo os que não recebem nenhuma seta.','m2_s1'],
+['m2','sag','Observa o diagrama. Qual é o objeto cuja imagem é 6?','3',['6','12','2'],'Procura-se a seta que chega ao 6: parte do 3. Confirma: f(3) = 2 × 3 = 6.','m2_s1'],
+['m2','conj','Seja f(x) = x², com domínio {−2, −1, 0, 1, 2}. Qual é o contradomínio de f?','{0, 1, 4}',['{−4, −1, 0, 1, 4}','{−2, −1, 0, 1, 2}','{0, 1, 2, 4}'],'Calcula as imagens: (−2)² = 4, (−1)² = 1, 0² = 0, 1² = 1, 2² = 4. Sem repetir: {0, 1, 4}. O quadrado nunca é negativo.'],
+['m2','temp','Observa o gráfico. Qual é o domínio da função T?','[0, 24]',['[6, 16]','[5, 15]','[0, 16]'],'O domínio é o conjunto dos objetos, que aqui são as horas: de 0 a 24, lidas no eixo horizontal.','m2_temp'],
+['m2','temp','Observa o gráfico. Qual é o contradomínio da função T?','[6, 16]',['[0, 24]','[8, 10]','[0, 16]'],'O contradomínio lê-se no eixo vertical: a temperatura vai do mínimo 6 °C ao máximo 16 °C e passa por todos os valores intermédios.','m2_temp'],
+['m2','temp','Observa o gráfico. A temperatura máxima foi atingida a que horas?','Às 15 h',['Às 16 h','Às 24 h','Às 5 h'],'O ponto mais alto do gráfico é (15, 16): às 15 h (objeto) a temperatura era de 16 °C (imagem). Não confundir a hora com a temperatura.','m2_temp'],
+['m2','temp','Observa o gráfico. Em que intervalo de tempo a temperatura esteve a aumentar?','[5, 15]',['[0, 15]','[6, 16]','[15, 24]'],'Entre as 5 h (mínimo) e as 15 h (máximo) o gráfico sobe: a função é crescente em [5, 15]. Os intervalos de monotonia indicam-se com valores de x (horas).','m2_temp'],
+['m2','temp','Na situação do gráfico, qual é a variável dependente?','A temperatura T',['A hora h','O dia','O gráfico'],'A temperatura depende da hora a que se mede. A hora é a variável independente; a temperatura é a dependente.','m2_temp'],
+['m2','graf','Observa o gráfico da função f. Qual é o domínio de f?','[−2, 4]',['[−1, 3]','[−3, 5]','[0, 4]'],'O domínio vê-se no eixo x: o gráfico começa em x = −2 e acaba em x = 4.','m2_g'],
+['m2','graf','Observa o gráfico da função f. Qual é o contradomínio de f?','[−1, 3]',['[−2, 4]','[0, 3]','[1, 3]'],'O contradomínio vê-se no eixo y: o ponto mais baixo tem y = −1 e o mais alto y = 3.','m2_g'],
+['m2','graf','Observa o gráfico da função f. Qual é o valor de f(0)?','3',['0','−2','4'],'f(0) é a ordenada do ponto do gráfico com x = 0, ou seja, onde o gráfico corta o eixo y: (0, 3).','m2_g'],
+// ===================== NÍVEL 3 · 4.3 Função afim =====================
+['m3','par','Na função afim f(x) = −3x + 5, qual é o declive da reta?','−3',['5','3','−3x'],'Em f(x) = ax + b, o declive é a, o número que multiplica x. Aqui a = −3.'],
+['m3','par','Na função afim f(x) = −3x + 5, qual é a ordenada na origem?','5',['−3','5/3','0'],'Em f(x) = ax + b, a ordenada na origem é b, o ponto onde a reta corta o eixo y. Confirma: f(0) = 5.'],
+['m3','mon','Uma função afim f(x) = ax + b é crescente quando…','a > 0',['b > 0','a < 0','b < 0'],'É o declive a que decide a monotonia: a > 0 crescente, a < 0 decrescente, a = 0 constante. O b só diz onde a reta corta o eixo y.'],
+['m3','mon','A função f(x) = 4 − 2x é…','decrescente',['crescente','constante','crescente e depois decrescente'],'Escrita como f(x) = −2x + 4, tem declive a = −2 < 0, por isso é decrescente. Cuidado com a ordem: o declive é o número que acompanha o x, esteja onde estiver.'],
+['m3','zero','Qual é o zero de f(x) = 2x − 6?','3',['−6','−3','6'],'Zero: f(x) = 0 ⇔ 2x − 6 = 0 ⇔ 2x = 6 ⇔ x = 3. O −6 é a ordenada na origem, não o zero.'],
+['m3','zero','Qual é o zero de f(x) = −2x − 1?','−1/2',['1/2','−1','2'],'−2x − 1 = 0 ⇔ −2x = 1 ⇔ x = −1/2. Também se pode usar x = −b/a = −(−1)/(−2) = −1/2.'],
+['m3','zero','Quantos zeros tem a função f(x) = 3?','Nenhum',['Um','Dois','Uma infinidade'],'f(x) = 3 é constante e nunca vale 0. Uma função constante f(x) = b com b ≠ 0 não tem zeros.'],
+['m3','zero','Quantos zeros tem a função f(x) = 0?','Uma infinidade',['Nenhum','Um','Dois'],'Todos os números reais têm imagem 0, por isso todos são zeros: f tem uma infinidade de zeros.'],
+['m3','sinal','Para que valores de x a função f(x) = 2x − 6 é negativa?','x ∈ ]−∞, 3[',['x ∈ ]3, +∞[','x ∈ ]−∞, −6[','x ∈ ]−6, +∞['],'O zero é 3 e a função é crescente (a = 2 > 0): antes do zero é negativa, depois é positiva. Logo f(x) < 0 para x < 3.'],
+['m3','sinal','Para que valores de x a função f(x) = −x + 4 é positiva?','x ∈ ]−∞, 4[',['x ∈ ]4, +∞[','x ∈ ]−4, +∞[','x ∈ ]−∞, −4['],'O zero é 4 (−x + 4 = 0 ⇔ x = 4). Como a = −1 < 0, a reta desce: é positiva antes do zero e negativa depois.'],
+['m3','sinal','Se f(x) = b com b ≠ 0, então o sinal de f…','é igual ao sinal de b para todo o x',['muda no ponto x = b','é positivo para x > 0 e negativo para x < 0','é sempre positivo'],'Uma função constante vale sempre b. Se b > 0 é sempre positiva, se b < 0 é sempre negativa.'],
+['m3','dom','Qual é o contradomínio de f(x) = 3x + 1?','ℝ',['[1, +∞[','{1}','{3}'],'Se a ≠ 0, a reta é inclinada e atinge todos os valores reais: D′ = ℝ.'],
+['m3','dom','Qual é o contradomínio de f(x) = −4?','{−4}',['ℝ',']−∞, −4]','{0}'],'Se a = 0, a função é constante e a única imagem é b: D′ = {b} = {−4}.'],
+['m3','graf','Qual é a expressão analítica da função afim representada?','f(x) = 2x + 1',['f(x) = x + 2','f(x) = 2x − 1','f(x) = x/2 + 1'],'A reta corta o eixo y em 1, logo b = 1. Passa de (0, 1) para (1, 3): quando x aumenta 1, y aumenta 2, logo a = 2.','m3_g1'],
+['m3','graf','Observa a reta, gráfico de f(x) = ax + b. Que sinais têm a e b?','a > 0 e b < 0',['a > 0 e b > 0','a < 0 e b < 0','a < 0 e b > 0'],'A reta sobe da esquerda para a direita, logo a > 0. Corta o eixo y abaixo da origem, logo b < 0.','m3_g2'],
+['m3','graf','Observa a reta, gráfico de f(x) = ax + b. Que sinais têm a e b?','a < 0 e b > 0',['a > 0 e b > 0','a < 0 e b < 0','a > 0 e b < 0'],'A reta desce da esquerda para a direita, logo a < 0. Corta o eixo y acima da origem, logo b > 0.','m3_g3'],
+['m3','graf','Qual é a expressão da função representada?','f(x) = 2',['f(x) = 2x','x = 2','f(x) = x + 2'],'A reta é horizontal à altura 2: todos os objetos têm imagem 2. É a função constante f(x) = 2 (a = 0, b = 2). x = 2 seria uma reta vertical, que nem sequer é função.','m3_g4'],
+['m3','par','Uma reta passa nos pontos (1, 2) e (3, 8). Qual é o seu declive?','3',['2','6','1/3'],'Declive = (y₂ − y₁)/(x₂ − x₁) = (8 − 2)/(3 − 1) = 6/2 = 3. Se dividires ao contrário (2/6) obténs 1/3, que está errado.'],
+// ===================== NÍVEL 4 · 4.4 y = ax² =====================
+['m4','def','Uma função quadrática tem expressão f(x) = ax² + bx + c, com…','a ≠ 0',['b ≠ 0','c ≠ 0','a > 0'],'Se a fosse 0, desaparecia o x² e a função passava a ser afim. b e c podem ser 0, e a pode ser negativo.'],
+['m4','def','Qual destas funções é quadrática?','f(x) = 3x − x²',['f(x) = 2x + 1','f(x) = 5/x','f(x) = x³ + 1'],'3x − x² = −x² + 3x é da forma ax² + bx + c com a = −1 ≠ 0. A ordem dos termos não importa.'],
+['m4','car','Qual é o vértice da parábola de f(x) = 5x²?','(0, 0)',['(5, 0)','(0, 5)','(1, 5)'],'Todas as funções do tipo y = ax² têm vértice na origem. O a só muda a abertura e o sentido da parábola.'],
+['m4','car','Qual é o eixo de simetria da parábola de f(x) = −3x²?','O eixo Oy, de equação x = 0',['O eixo Ox, de equação y = 0','A reta x = −3','A reta y = −3'],'Para y = ax², o vértice é (0, 0) e o eixo de simetria é a reta vertical que passa por ele: x = 0, que é o eixo Oy.'],
+['m4','car','A parábola de f(x) = −2x² tem a concavidade…','voltada para baixo',['voltada para cima','voltada para a esquerda','depende do valor de x'],'O sinal de a decide: a > 0 concavidade para cima, a < 0 concavidade para baixo. Aqui a = −2 < 0.'],
+['m4','car','Qual é o contradomínio de f(x) = 2x²?','[0, +∞[',['ℝ','[2, +∞[',']−∞, 0]'],'Com a > 0 a parábola abre para cima e o ponto mais baixo é o vértice (0, 0). As imagens são todas ≥ 0: D′ = [0, +∞[ = ℝ₀⁺.'],
+['m4','car','Qual é o contradomínio de f(x) = −x²/2?',']−∞, 0]',['[0, +∞[','ℝ',']−∞, −1/2]'],'Com a < 0 a parábola abre para baixo e o ponto mais alto é o vértice (0, 0). As imagens são todas ≤ 0: D′ = ]−∞, 0] = ℝ₀⁻.'],
+['m4','car','Qual é o extremo da função f(x) = 4x²?','Mínimo 0',['Máximo 0','Mínimo 4','Não tem extremos'],'Com a = 4 > 0, a concavidade é para cima e o vértice (0, 0) é o ponto mais baixo: mínimo 0, atingido em x = 0.'],
+['m4','mon','Qual é a monotonia de f(x) = −x²?','Crescente em ]−∞, 0] e decrescente em [0, +∞[',['Decrescente em ]−∞, 0] e crescente em [0, +∞[','Sempre decrescente','Crescente em ℝ'],'Com a < 0 a parábola é um “monte”: sobe até ao vértice (x = 0) e depois desce.'],
+['m4','sin','Qual é o sinal de f(x) = 3x²?','Positiva em ℝ \\ {0}',['Positiva em ℝ','Negativa em ℝ \\ {0}','Positiva em ]0, +∞['],'x² é positivo para qualquer x ≠ 0, e multiplicar por 3 não muda o sinal. Em x = 0 a função vale 0, por isso não é positiva aí.'],
+['m4','calc','Seja f(x) = 3x². Qual é o valor de f(−2)?','12',['−12','36','−36'],'f(−2) = 3 × (−2)² = 3 × 4 = 12. Primeiro a potência, depois a multiplicação. (−2)² = 4 é positivo.'],
+['m4','graf','Na figura estão os gráficos de y = x², y = 2x² e y = x²/2. Qual das curvas é o gráfico de y = 2x²?','A curva A',['A curva B','A curva C','Não é possível saber'],'Quanto maior |a|, mais “fechada” é a parábola. Para x = 1: x² dá 1, 2x² dá 2 e x²/2 dá 0,5. A curva mais fechada, A, é a de y = 2x².','m4_g1'],
+['m4','graf','Qual pode ser a expressão da função representada?','y = −x²/2',['y = x²/2','y = −x²/2 + 1','y = −2x²'],'Vértice na origem e concavidade para baixo: y = ax² com a < 0. Passa em (2, −2): a × 4 = −2, logo a = −1/2.','m4_g2'],
+['m4','tra','O gráfico de g(x) = 3x² obtém-se do gráfico de f(x) = x² por…','uma dilatação vertical de coeficiente 3',['uma contração vertical de coeficiente 3','uma translação de 3 unidades para cima','uma reflexão em relação ao eixo Ox'],'g(x) = 3 · f(x): todas as ordenadas são multiplicadas por 3. Como 3 > 1, é uma dilatação vertical (a parábola fica mais fechada).'],
+['m4','tra','O gráfico de g(x) = x²/4 obtém-se do gráfico de f(x) = x² por…','uma contração vertical de coeficiente 1/4',['uma dilatação vertical de coeficiente 4','uma translação de vetor (0, 1/4)','uma reflexão em relação ao eixo Oy'],'As ordenadas são multiplicadas por 1/4. Como 0 < 1/4 < 1, é uma contração vertical: a parábola fica mais aberta.'],
+['m4','tra','O gráfico de g(x) = −2x² obtém-se do gráfico de f(x) = x² por…','uma reflexão em relação ao eixo Ox seguida de uma dilatação vertical de coeficiente 2',['uma reflexão em relação ao eixo Oy seguida de uma dilatação vertical de coeficiente 2','uma contração vertical de coeficiente 2','uma translação de vetor (0, −2)'],'O sinal menos vira a parábola para baixo (reflexão no eixo Ox) e o 2 estica-a na vertical (|a| = 2 > 1).'],
+// ===================== NÍVEL 5 · 4.5 y = a(x − h)² =====================
+['m5','vert','Qual é o vértice da parábola de f(x) = 3/2 (x − 1)²?','(1, 0)',['(−1, 0)','(0, 1)','(3/2, 1)'],'Em y = a(x − h)², o vértice é (h, 0). Em (x − 1), h = 1.'],
+['m5','vert','Qual é o vértice da parábola de g(x) = −(x + 2)²?','(−2, 0)',['(2, 0)','(0, −2)','(−1, −2)'],'Escreve (x + 2) como (x − (−2)): h = −2. O vértice é (−2, 0). O erro clássico é responder 2.'],
+['m5','vert','Qual é o zero de f(x) = 2(x − 3)²?','3',['−3','2','6'],'2(x − 3)² = 0 ⇔ x − 3 = 0 ⇔ x = 3. O único zero é a abcissa do vértice, h.'],
+['m5','vert','Qual é a equação do eixo de simetria da parábola de f(x) = 5(x + 4)²?','x = −4',['x = 4','y = −4','x = 5'],'O eixo de simetria é a reta vertical que passa pelo vértice (h, 0) = (−4, 0): x = −4.'],
+['m5','tra','O gráfico de y = a(x − 5)² obtém-se do de y = ax² por uma translação de vetor…','(5, 0)',['(−5, 0)','(0, 5)','(0, −5)'],'y = a(x − h)² resulta de y = ax² por uma translação de vetor (h, 0): desloca-se h na horizontal. Com (x − 5), h = 5, ou seja, 5 unidades para a direita.'],
+['m5','car','Qual é o contradomínio de f(x) = 4(x − 7)²?','[0, +∞[',['[7, +∞[','ℝ',']−∞, 0]'],'Como a = 4 > 0, a parábola abre para cima e o mínimo é 0 (o vértice (7, 0) está no eixo x). D′ = [0, +∞[. O 7 é um x, não um y.'],
+['m5','car','Qual é o sinal de g(x) = −(x + 2)²?','Negativa em ℝ \\ {−2}',['Positiva em ℝ \\ {−2}','Negativa em ℝ','Negativa em ]−2, +∞['],'Com a < 0 a parábola fica toda abaixo do eixo x, exceto o vértice (−2, 0), onde vale 0.'],
+['m5','mon','Qual é a monotonia de f(x) = 2(x − 3)²?','Decrescente em ]−∞, 3] e crescente em [3, +∞[',['Crescente em ]−∞, 3] e decrescente em [3, +∞[','Decrescente em ]−∞, −3] e crescente em [−3, +∞[','Crescente em ℝ'],'Com a > 0 a parábola é um “vale”: desce até ao vértice (x = 3) e depois sobe.'],
+['m5','car','Qual é o extremo de g(x) = −(x + 2)²?','Máximo 0, em x = −2',['Mínimo 0, em x = −2','Máximo −2, em x = 0','Máximo 0, em x = 2'],'Com a < 0 o vértice (−2, 0) é o ponto mais alto. O máximo é o valor de y (0); o maximizante é o valor de x (−2).'],
+['m5','calc','Seja f(x) = 2(x − 1)². Qual é o valor de f(3)?','8',['16','4','10'],'f(3) = 2 × (3 − 1)² = 2 × 2² = 2 × 4 = 8. Primeiro o parêntese, depois a potência e só depois a multiplicação.'],
+['m5','car','Uma função f(x) = a(x − h)², com a > 0, tem mínimo igual a…','0',['h','a','−h'],'O vértice (h, 0) está sempre no eixo x. Com a > 0 é o ponto mais baixo, por isso o mínimo (um valor de y) é 0. O h é o minimizante.'],
+['m5','sin','Para que valores de x é f(x) = (x − 5)² positiva?','x ∈ ℝ \\ {5}',['x ∈ ℝ','x ∈ ]5, +∞[','x ∈ ]−5, +∞['],'Um quadrado é positivo exceto quando a base é 0. (x − 5)² = 0 só para x = 5.'],
+['m5','car','Qual é a concavidade da parábola de y = −3(x − 2)²?','Voltada para baixo',['Voltada para cima','Voltada para a direita','Voltada para baixo só para x > 2'],'O sinal de a decide a concavidade, esteja a parábola onde estiver. a = −3 < 0.'],
+['m5','graf','Qual é a expressão da função representada?','y = (x + 1)²',['y = (x − 1)²','y = x² + 1','y = x² − 1'],'O vértice é (−1, 0), no eixo x: é do tipo a(x − h)² com h = −1, ou seja (x + 1)². Passa em (0, 1), o que confirma a = 1.','m5_g'],
+['m5','qv','Qual das funções tem este quadro de variação?','f(x) = −(x + 2)²',['f(x) = (x + 2)²','f(x) = −(x − 2)²','f(x) = −x² − 2'],'Cresce e depois decresce, com máximo 0 em x = −2: concavidade para baixo (a < 0) e vértice (−2, 0). Em −x² − 2 o máximo seria −2, em x = 0.','m5_qv'],
+// ===================== NÍVEL 6 · 4.6 y = ax² + k =====================
+['m6','vert','Qual é o vértice da parábola de f(x) = 4/3 x² + 2?','(0, 2)',['(2, 0)','(4/3, 2)','(0, 4/3)'],'Em y = ax² + k o vértice é (0, k). Aqui k = 2.'],
+['m6','tra','O gráfico de y = x² + 3 obtém-se do de y = x² por uma translação de vetor…','(0, 3)',['(3, 0)','(0, −3)','(−3, 0)'],'Somar k fora do x² move o gráfico na vertical: translação de vetor (0, k). Aqui sobe 3.'],
+['m6','car','Qual é o contradomínio de f(x) = 4/3 x² + 2?','[2, +∞[',['[0, +∞[','ℝ',']−∞, 2]'],'a > 0, concavidade para cima, mínimo no vértice (0, 2). Todas as imagens são ≥ 2.'],
+['m6','car','Qual é o contradomínio de g(x) = −x² + 5?',']−∞, 5]',['[5, +∞[',']−∞, 0]','ℝ'],'a = −1 < 0, concavidade para baixo, máximo no vértice (0, 5). Todas as imagens são ≤ 5.'],
+['m6','zero','Quais são os zeros de f(x) = x² − 9?','−3 e 3',['Só 3','9 e −9','Não tem zeros'],'x² − 9 = 0 ⇔ x² = 9 ⇔ x = 3 ∨ x = −3. Atenção: um quadrado igual a 9 tem duas soluções.'],
+['m6','zero','Quantos zeros tem f(x) = 2x² + 3?','Nenhum',['Um','Dois','Três'],'2x² + 3 = 0 ⇔ x² = −3/2, impossível (um quadrado não é negativo). Visto de outra forma: a > 0 e o vértice (0, 3) está acima do eixo x.'],
+['m6','zero','Quais são os zeros de g(x) = −2x² + 8?','−2 e 2',['−4 e 4','Só 2','Não tem zeros'],'−2x² + 8 = 0 ⇔ x² = 4 ⇔ x = 2 ∨ x = −2. Como a < 0 e k > 0 (sinais opostos), há dois zeros.'],
+['m6','zero','A função f(x) = ax² + k, com a > 0 e k < 0, tem…','dois zeros',['nenhum zero','um zero','uma infinidade de zeros'],'O vértice (0, k) fica abaixo do eixo x e a parábola abre para cima: tem de cortar o eixo x em dois pontos.'],
+['m6','sin','Para que valores de x é f(x) = x² − 4 negativa?','x ∈ ]−2, 2[',['x ∈ ]−∞, −2[ ∪ ]2, +∞[','x ∈ ]−4, 4[','x ∈ [−2, 2]'],'Zeros −2 e 2; concavidade para cima. A parábola está abaixo do eixo x entre os zeros. Em −2 e 2 vale 0, que não é negativo: intervalo aberto.'],
+['m6','sin','Qual das funções tem este quadro de sinal?','f(x) = x² − 9',['f(x) = −x² + 9','f(x) = x² + 9','f(x) = (x − 3)²'],'Zeros em −3 e 3, positiva fora e negativa entre eles: concavidade para cima (a > 0) e vértice abaixo do eixo x. x² − 9 cumpre tudo. −x² + 9 teria os sinais trocados.','m6_qs'],
+['m6','mon','Qual é a monotonia de g(x) = −3/4 x² + 3?','Crescente em ]−∞, 0] e decrescente em [0, +∞[',['Decrescente em ]−∞, 0] e crescente em [0, +∞[','Crescente em ]−∞, 3] e decrescente em [3, +∞[','Decrescente em ℝ'],'a < 0: a parábola sobe até ao vértice (0, 3) e depois desce. A mudança é em x = 0 (abcissa do vértice), não em 3.'],
+['m6','car','Qual é o extremo da função g(x) = −x² + 5?','Máximo 5',['Mínimo 5','Máximo 0','Máximo −5'],'a < 0, concavidade para baixo: o vértice (0, 5) é o ponto mais alto. Máximo 5, atingido em x = 0.'],
+['m6','calc','Seja f(x) = 2x² − 1. Qual é o valor de f(−3)?','17',['35','−19','19'],'f(−3) = 2 × (−3)² − 1 = 2 × 9 − 1 = 17. O quadrado aplica-se só ao −3, não ao 2 × (−3).'],
+['m6','sin','Para que valores de x é f(x) = x² − 4 positiva?','x ∈ ]−∞, −2[ ∪ ]2, +∞[',['x ∈ ]−2, 2[','x ∈ ]4, +∞[','x ∈ ]2, +∞['],'Zeros −2 e 2, concavidade para cima: positiva fora dos zeros. Não esquecer a parte da esquerda.'],
+['m6','zero','A parábola de y = −x² − 1 corta o eixo x?','Não, fica toda abaixo do eixo x',['Sim, em x = −1','Sim, em x = 1 e x = −1','Toca-o só no vértice'],'a < 0 e o vértice é (0, −1), já abaixo do eixo x. Como abre para baixo, nunca chega ao eixo x: −x² − 1 = 0 ⇔ x² = −1, impossível.'],
+['m6','graf','Qual é a expressão da função representada?','y = −x² + 4',['y = x² − 4','y = −x² − 4','y = −(x − 4)²'],'Concavidade para baixo (a < 0) e vértice (0, 4): y = ax² + 4. Os zeros são −2 e 2: a × 4 + 4 = 0, logo a = −1.','m6_g'],
+// ===================== NÍVEL 7 · 4.7 y = a(x − h)² + k =====================
+['m7','vert','Qual é o vértice da parábola de f(x) = 1/2 (x − 8)² − 2?','(8, −2)',['(−8, −2)','(−2, 8)','(8, 2)'],'Em y = a(x − h)² + k o vértice é (h, k). Aqui h = 8 e k = −2.'],
+['m7','vert','Qual é o vértice da parábola de f(x) = −2(x + 1)² + 3?','(−1, 3)',['(1, 3)','(−1, −3)','(−2, 3)'],'(x + 1) = (x − (−1)), logo h = −1; e k = 3. Vértice (−1, 3).'],
+['m7','tra','O gráfico de y = 3(x + 4)² − 1 obtém-se do de y = 3x² por uma translação de vetor…','(−4, −1)',['(4, −1)','(−4, 1)','(4, 1)'],'A translação tem vetor (h, k) = (−4, −1): 4 para a esquerda e 1 para baixo.'],
+['m7','car','Qual é o contradomínio de f(x) = −2(x + 1)² + 3?',']−∞, 3]',['[3, +∞[',']−∞, −1]','ℝ'],'a = −2 < 0: concavidade para baixo e máximo k = 3. O contradomínio usa o k (um y), nunca o h.'],
+['m7','car','Qual é a equação do eixo de simetria da parábola de f(x) = 3(x − 1)² + 2?','x = 1',['x = −1','y = 2','x = 2'],'O eixo de simetria é a reta vertical que passa no vértice (1, 2): x = 1.'],
+['m7','mon','Qual é a monotonia de f(x) = 3(x − 1)² + 2?','Decrescente em ]−∞, 1] e crescente em [1, +∞[',['Decrescente em ]−∞, 2] e crescente em [2, +∞[','Crescente em ]−∞, 1] e decrescente em [1, +∞[','Crescente em ℝ'],'a > 0, “vale” com vértice em x = 1: desce até x = 1 e depois sobe. Os intervalos de monotonia usam valores de x.'],
+['m7','zero','Quantos zeros tem f(x) = 3(x − 1)² + 2?','Nenhum',['Um','Dois','Não se pode saber sem fazer contas'],'a > 0 e k > 0: a parábola abre para cima e o ponto mais baixo (1, 2) já está acima do eixo x. Nunca toca no eixo x.'],
+['m7','zero','Quantos zeros tem f(x) = −(x + 5)² + 1?','Dois',['Nenhum','Um','Não se pode saber sem fazer contas'],'a < 0 e k > 0, sinais opostos: o vértice (−5, 1) está acima do eixo x e a parábola abre para baixo, por isso corta o eixo x duas vezes.'],
+['m7','zero','Quais são os zeros de f(x) = 1/2 (x − 4)² − 2?','2 e 6',['4 e −2','−2 e 2','0 e 8'],'1/2 (x − 4)² − 2 = 0 ⇔ (x − 4)² = 4 ⇔ x − 4 = 2 ∨ x − 4 = −2 ⇔ x = 6 ∨ x = 2.'],
+['m7','zero','Quais são os zeros de f(x) = −2(x + 1)² + 8?','−3 e 1',['−1 e 8','3 e −1','−5 e 3'],'−2(x + 1)² + 8 = 0 ⇔ (x + 1)² = 4 ⇔ x + 1 = 2 ∨ x + 1 = −2 ⇔ x = 1 ∨ x = −3.'],
+['m7','sin','Para que valores de x é f(x) = (x − 2)² − 1 negativa?','x ∈ ]1, 3[',['x ∈ ]−∞, 1[ ∪ ]3, +∞[','x ∈ ]−1, 1[','x ∈ [1, 3]'],'Zeros: (x − 2)² = 1 ⇔ x = 3 ∨ x = 1. Concavidade para cima: negativa entre os zeros, sem os incluir.'],
+['m7','sin','Observa o quadro de sinal. Para que valores de x é f(x) ≥ 0?','x ∈ ]−∞, 2] ∪ [6, +∞[',['x ∈ [2, 6]','x ∈ ]−∞, 2[ ∪ ]6, +∞[','x ∈ ]2, 6['],'f(x) ≥ 0 quer dizer positiva ou zero: os intervalos com + e também os zeros 2 e 6 (parênteses retos fechados).','m7_qs'],
+['m7','graf','Qual é a expressão da função representada?','y = (x − 2)² − 1',['y = (x + 2)² − 1','y = (x − 2)² + 1','y = (x + 2)² + 1'],'Vértice (2, −1): h = 2 e k = −1, logo y = a(x − 2)² − 1. Passa em (1, 0): a × 1 − 1 = 0, logo a = 1.','m7_g'],
+['m7','num','Uma função f(x) = a(x − h)² + k com k = 0 tem…','exatamente um zero',['nenhum zero','dois zeros','um zero só se a > 0'],'Com k = 0 o vértice (h, 0) está no eixo x: a parábola toca o eixo x só nesse ponto, seja a positivo ou negativo.'],
+// ===================== NÍVEL 8 · 4.8 y = ax² + bx + c =====================
+['m8','cn','Pelos casos notáveis, (x + 5)² é igual a…','x² + 10x + 25',['x² + 25','x² + 5x + 25','x² + 10x + 10'],'(a + b)² = a² + 2ab + b²: x² + 2 × x × 5 + 5² = x² + 10x + 25. Esquecer o termo do meio (2ab) é o erro mais comum.'],
+['m8','cn','Pelos casos notáveis, (x − 4)² é igual a…','x² − 8x + 16',['x² − 16','x² + 8x + 16','x² − 8x − 16'],'(a − b)² = a² − 2ab + b²: x² − 2 × x × 4 + 16. O último termo é +16, porque (−4)² é positivo.'],
+['m8','exp','Escrita na forma ax² + bx + c, a expressão 3(x − 1)² + 2 fica…','3x² − 6x + 5',['3x² − 6x + 3','3x² − 3x + 5','9x² − 6x + 5'],'3(x² − 2x + 1) + 2 = 3x² − 6x + 3 + 2 = 3x² − 6x + 5. O 3 multiplica os três termos do parêntese.'],
+['m8','exp','Escrita na forma ax² + bx + c, a expressão 2(x − 3)² + 5 fica…','2x² − 12x + 23',['2x² − 6x + 14','2x² − 12x + 14','4x² − 12x + 23'],'2(x² − 6x + 9) + 5 = 2x² − 12x + 18 + 5 = 2x² − 12x + 23.'],
+['m8','can','Escrita na forma a(x − h)² + k, a expressão x² − 6x + 11 fica…','(x − 3)² + 2',['(x + 3)² + 2','(x − 6)² + 11','(x − 3)² + 11'],'Completa o quadrado: x² − 6x + 9 − 9 + 11 = (x − 3)² + 2. Soma-se e subtrai-se (6/2)² = 9.'],
+['m8','can','Escrita na forma a(x − h)² + k, a expressão x² − 10x + 27 fica…','(x − 5)² + 2',['(x + 5)² + 2','(x − 5)² + 27','(x − 10)² + 2'],'x² − 10x + 25 − 25 + 27 = (x − 5)² + 2. O vértice da parábola é (5, 2).'],
+['m8','vert','Qual é a abcissa do vértice da parábola de f(x) = ax² + bx + c?','−b/(2a)',['b/(2a)','−b/a','−2a/b'],'As coordenadas do vértice são (−b/(2a), f(−b/(2a))). Depois de obter o x, calcula-se a imagem para ter o y.'],
+['m8','vert','Qual é o vértice da parábola de f(x) = x² + 4x + 1?','(−2, −3)',['(2, 13)','(−2, 1)','(−4, 1)'],'x = −b/(2a) = −4/2 = −2; f(−2) = 4 − 8 + 1 = −3. Vértice (−2, −3).'],
+['m8','vert','Qual é o vértice da parábola de f(x) = 2x² − 8x + 1?','(2, −7)',['(−2, 25)','(4, 1)','(2, −15)'],'x = −b/(2a) = 8/4 = 2; f(2) = 2 × 4 − 16 + 1 = −7.'],
+['m8','vert','Qual é o vértice da parábola de f(x) = −x² + 2x + 3?','(1, 4)',['(−1, 0)','(1, 2)','(2, 3)'],'x = −b/(2a) = −2/(−2) = 1; f(1) = −1 + 2 + 3 = 4.'],
+['m8','car','Qual é o contradomínio de f(x) = −x² + 2x + 3?',']−∞, 4]',['[4, +∞[',']−∞, 1]','ℝ'],'a = −1 < 0, concavidade para baixo. O vértice é (1, 4), logo o máximo é 4.'],
+['m8','car','Onde corta o eixo y o gráfico de f(x) = 2x² − 5x + 7?','No ponto (0, 7)',['No ponto (7, 0)','No ponto (0, 2)','No ponto (0, −5)'],'Para cortar o eixo y, x = 0: f(0) = 7. Na forma ax² + bx + c, c é a ordenada na origem.'],
+['m8','zero','Quais são os zeros de f(x) = −x² + 2x + 3?','−1 e 3',['1 e −3','1 e 4','0 e 2'],'Na forma canónica: −(x − 1)² + 4 = 0 ⇔ (x − 1)² = 4 ⇔ x = 3 ∨ x = −1.'],
+['m8','vert','Seja f(x) = 2x² − x − 1. Qual é o vértice da parábola?','(1/4, −9/8)',['(−1/4, −7/8)','(1/2, −1)','(1/4, −1)'],'x = −b/(2a) = 1/4; f(1/4) = 2 × 1/16 − 1/4 − 1 = 1/8 − 2/8 − 8/8 = −9/8.'],
+// ===================== NÍVEL 9 · 4.9 Equações e inequações do 2.º grau =====================
+['m9','can','Qual é a forma canónica da equação x(x + 3) = 4?','x² + 3x − 4 = 0',['x² + 3x + 4 = 0','x² + 3 = 4','x² + 3x = 4'],'Forma canónica: ax² + bx + c = 0, tudo de um lado e zero do outro. x² + 3x = 4 ⇔ x² + 3x − 4 = 0.'],
+['m9','can','Na equação −x² + 2x + 3 = 0, quais são os valores de a, b e c?','a = −1, b = 2, c = 3',['a = 1, b = 2, c = 3','a = −1, b = 3, c = 2','a = 2, b = −1, c = 3'],'a é o coeficiente de x² (−1), b o de x (2) e c o termo independente (3). O sinal faz parte do coeficiente.'],
+['m9','del','O binómio discriminante de ax² + bx + c = 0 é…','Δ = b² − 4ac',['Δ = b² + 4ac','Δ = −b ± √(b² − 4ac)','Δ = 4ac − b²'],'Δ = b² − 4ac é o que está dentro da raiz na fórmula resolvente.'],
+['m9','del','Se Δ < 0, a equação do 2.º grau…','não tem soluções',['tem duas soluções','tem uma solução dupla','tem uma solução negativa'],'Na fórmula resolvente teríamos a raiz quadrada de um número negativo, que não existe em ℝ: equação impossível.'],
+['m9','del','Quantas soluções tem x² − 6x + 9 = 0?','Uma',['Duas','Nenhuma','Três'],'Δ = 36 − 36 = 0: uma solução (dupla). Também se vê porque x² − 6x + 9 = (x − 3)², que só é 0 em x = 3.'],
+['m9','del','Quantas soluções tem x² + 2x + 5 = 0?','Nenhuma',['Uma','Duas','Uma infinidade'],'Δ = 2² − 4 × 1 × 5 = 4 − 20 = −16 < 0. Equação impossível.'],
+['m9','del','Qual é o valor de Δ na equação 3x² − 2x − 1 = 0?','16',['−8','8','4'],'Δ = (−2)² − 4 × 3 × (−1) = 4 + 12 = 16. Cuidado com os sinais: menos vezes menos dá mais.'],
+['m9','eq','Qual é o conjunto-solução de x² = 9?','{−3, 3}',['{3}','{9}','{−9, 9}'],'x² = 9 ⇔ x = 3 ∨ x = −3. Esquecer a solução negativa é um erro frequente.'],
+['m9','eq','Qual é o conjunto-solução de x² = 5x?','{0, 5}',['{5}','{0}','{−5, 5}'],'x² − 5x = 0 ⇔ x(x − 5) = 0 ⇔ x = 0 ∨ x = 5. Dividir ambos os membros por x faz perder a solução 0.'],
+['m9','eq','Qual é o conjunto-solução de x² − 5x + 6 = 0?','{2, 3}',['{−2, −3}','{1, 6}','{−1, 6}'],'Δ = 25 − 24 = 1; x = (5 ± 1)/2, ou seja x = 3 ∨ x = 2.'],
+['m9','eq','Qual é o conjunto-solução de 2x² − 2x − 24 = 0?','{−3, 4}',['{3, −4}','{−6, 8}','{−4, 6}'],'Divide por 2: x² − x − 12 = 0. Δ = 1 + 48 = 49; x = (1 ± 7)/2, ou seja x = 4 ∨ x = −3.'],
+['m9','ineq','Para resolver uma inequação do 2.º grau como x² + 4x − 5 > 0, o primeiro passo é…','determinar os zeros de x² + 4x − 5',['dividir tudo por x','passar o 5 para o outro lado e tirar a raiz','resolver como se fosse uma equação e dar essa resposta'],'Primeiro os zeros, depois o esquema do sinal (concavidade e zeros) e só então se escreve o conjunto-solução.'],
+['m9','ineq','Observa o esquema do sinal. Qual é o conjunto-solução de x² − 2x − 3 < 0?',']−1, 3[',[']−∞, −1[ ∪ ]3, +∞[','[−1, 3]','{−1, 3}'],'Queremos f(x) < 0: a parte da parábola abaixo do eixo x, que fica entre os zeros. Sem os zeros, porque ali f(x) = 0.','m9_es'],
+['m9','ineq','Qual é o conjunto-solução de x² + 4x − 5 > 0?',']−∞, −5[ ∪ ]1, +∞[',[']−5, 1[','[−5, 1]',']−∞, −1[ ∪ ]5, +∞['],'Zeros: −5 e 1. Concavidade para cima: positiva fora dos zeros. Desigualdade estrita, logo intervalos abertos.'],
+['m9','ineq','Qual é o conjunto-solução de −x² − 3x + 4 ≥ 0?','[−4, 1]',[']−∞, −4] ∪ [1, +∞[',']−4, 1[','[−1, 4]'],'Zeros: −x² − 3x + 4 = 0 ⇔ x = 1 ∨ x = −4. Concavidade para baixo: positiva entre os zeros. Com ≥ incluem-se os zeros.'],
+['m9','ineq','Qual é o conjunto-solução de x² − 4 ≤ 0?','[−2, 2]',[']−2, 2[',']−∞, −2] ∪ [2, +∞[',']−∞, 2]'],'Zeros −2 e 2, concavidade para cima: negativa entre os zeros. Com ≤ incluem-se os zeros.'],
+['m9','ineq','Qual é o conjunto-solução de x² + 1 > 0?','ℝ',['∅',']−1, 1[',']1, +∞['],'x² + 1 nunca tem zeros (Δ < 0) e a concavidade é para cima: está sempre acima do eixo x. Qualquer x serve.'],
+['m9','ineq','Qual é o conjunto-solução de x² + 1 < 0?','∅',['ℝ',']−1, 1[','{−1, 1}'],'x² + 1 é sempre positivo (no mínimo vale 1), por isso nunca é negativo: a inequação é impossível.'],
+['m9','ineq','Qual é o conjunto-solução de (x − 3)² > 0?','ℝ \\ {3}',['ℝ',']3, +∞[','∅'],'Um quadrado é sempre ≥ 0 e só é 0 quando x − 3 = 0, isto é, x = 3. Para todos os outros x é positivo.'],
+// ===================== NÍVEL 10 · 4.10 Funções definidas por ramos =====================
+['m10','def','Uma função definida por ramos é uma função…','definida por expressões diferentes em diferentes partes do domínio',['cujo gráfico tem sempre buracos','que tem mais do que uma imagem para alguns objetos','que só está definida em intervalos fechados'],'Continua a ser uma função (cada objeto tem uma só imagem); só que a regra muda conforme a parte do domínio em que o x está.'],
+['m10','img','Considera a função f. Qual é o valor de f(−2)?','5',['−7','1','3'],'−2 ≤ 0, usa-se o primeiro ramo: f(−2) = (−2)² + 1 = 4 + 1 = 5.','m10_f'],
+['m10','img','Considera a função f. Qual é o valor de f(0)?','1',['0','−3','2'],'0 ≤ 0, por isso 0 cai no primeiro ramo: f(0) = 0² + 1 = 1. O segundo ramo é só para 0 < x, que não inclui o 0.','m10_f'],
+['m10','img','Considera a função f. Qual é o valor de f(2)?','1',['5','4','3'],'2 está em 0 < x ≤ 2 (o 2 está incluído), por isso usa-se o ramo constante: f(2) = 1. O ramo 2x − 3 é só para x > 2.','m10_f'],
+['m10','img','Considera a função f. Qual é o valor de f(3)?','3',['10','1','9'],'3 > 2, usa-se o terceiro ramo: f(3) = 2 × 3 − 3 = 3.','m10_f'],
+['m10','img','Considera a função g. Qual é o valor de g(1)?','−6',['4','−4','2'],'1 ≤ 1, por isso usa-se o primeiro ramo: g(1) = 2 × 1² − 8 = −6. O segundo ramo é só para 1 < x.','m10_g'],
+['m10','img','Considera a função g. Qual é o valor de g(−3)?','10',['−26','12','28'],'−3 ≤ 1, primeiro ramo: g(−3) = 2 × (−3)² − 8 = 2 × 9 − 8 = 10. (−3)² = 9, positivo.','m10_g'],
+['m10','dom','Considera a função g. Qual é o domínio de g?',']−∞, 4]',['ℝ',']−∞, 1]','[1, 4]'],'Juntando as partes: x ≤ 1 com 1 < x ≤ 4 dá todos os x ≤ 4. Não há expressão para x > 4, por isso esses x não estão no domínio.','m10_g'],
+['m10','zero','Considera a função g. Quais são os zeros de g?','−2 e 3',['−2, 2 e 3','2 e 3','−2 e 2'],'Ramo 1: 2x² − 8 = 0 ⇔ x = 2 ∨ x = −2; só −2 cumpre x ≤ 1. Ramo 2: 6 − 2x = 0 ⇔ x = 3, e 1 < 3 ≤ 4, serve. Zeros: −2 e 3.','m10_g'],
+['m10','zero','Considera a função h. Quais são os zeros de h?','−3 e 0',['Só 0','−3, 0 e 3','Só −3'],'Ramo 1: x + 3 = 0 ⇔ x = −3, e −3 < −1, serve. Ramo 2: x² = 0 ⇔ x = 0, e 0 ≥ −1, serve.','m10_h'],
+['m10','zero','Considera a função p. Quais são os zeros de p?','Só 1',['0 e 1','Só 0','Não tem zeros'],'Ramo 1: −x = 0 ⇔ x = 0, mas este ramo só vale para x < 0, por isso 0 não serve aqui. Ramo 2: x − 1 = 0 ⇔ x = 1, e 1 ≥ 0, serve. Confirma: p(0) usa o segundo ramo e dá −1, não 0.','m10_p'],
+['m10','eq','Considera a função f. Quais são as soluções de f(x) = 5?','−2 e 4',['2, −2 e 4','Só 4','−2 e 2'],'Ramo 1: x² + 1 = 5 ⇔ x = ±2; só −2 cumpre x ≤ 0. Ramo 2: 1 = 5, impossível. Ramo 3: 2x − 3 = 5 ⇔ x = 4 > 2, serve.','m10_f'],
+['m10','graf','No gráfico de k, uma bola vazia indica que o ponto não pertence ao gráfico. Qual é o valor de k(1)?','2',['−1','1','Não existe'],'Em x = 1 há uma bola vazia em (1, −1) e uma bola cheia em (1, 2). Conta a bola cheia: k(1) = 2.','m10_k'],
+['m10','graf','O gráfico representa uma função f de domínio ℝ, formada por uma parte de parábola e dois segmentos de reta. Qual é a expressão de f para x > 2?','f(x) = 2x − 3',['f(x) = x² + 1','f(x) = 1','f(x) = 2x + 1'],'Para x > 2 o gráfico é uma reta que passa em (2, 1) e (3, 3): declive 2. Ordenada na origem: 1 − 2 × 2 = −3. Logo 2x − 3.','m10_gf'],
+['m10','graf','O gráfico representa uma função f de domínio ℝ. Qual é a expressão de f no intervalo ]0, 2]?','f(x) = 1',['f(x) = x² + 1','f(x) = x','f(x) = 2x − 3'],'Entre x = 0 e x = 2 o gráfico é um segmento horizontal à altura 1: a função é constante igual a 1 nesse intervalo.','m10_gf'],
+// ===================== NÍVEL 11 · Transformações de gráficos (resumo) =====================
+['m11','reg','O gráfico de g(x) = f(x) + 3 obtém-se do gráfico de f…','deslocando-o 3 unidades para cima',['deslocando-o 3 unidades para a direita','deslocando-o 3 unidades para a esquerda','deslocando-o 3 unidades para baixo'],'Somar fora de f mexe no y e faz o que parece: + 3 sobe 3. Translação de vetor (0, 3).'],
+['m11','reg','O gráfico de g(x) = f(x + 2) obtém-se do gráfico de f…','deslocando-o 2 unidades para a esquerda',['deslocando-o 2 unidades para a direita','deslocando-o 2 unidades para cima','deslocando-o 2 unidades para baixo'],'Mexer dentro de f mexe no x e faz o contrário do que parece: x + 2 anda 2 para a esquerda. Translação de vetor (−2, 0).'],
+['m11','reg','O gráfico de g(x) = f(x − 1) obtém-se do gráfico de f…','deslocando-o 1 unidade para a direita',['deslocando-o 1 unidade para a esquerda','deslocando-o 1 unidade para baixo','deslocando-o 1 unidade para cima'],'Dentro de f, x − 1 anda para a direita (o contrário do sinal). Translação de vetor (1, 0).'],
+['m11','reg','O gráfico de g(x) = −f(x) obtém-se do gráfico de f por…','uma reflexão em relação ao eixo Ox',['uma reflexão em relação ao eixo Oy','uma translação para baixo','uma contração vertical'],'Todas as ordenadas trocam de sinal: (x, y) → (x, −y). O gráfico vira de cima para baixo.'],
+['m11','reg','O gráfico de g(x) = f(−x) obtém-se do gráfico de f por…','uma reflexão em relação ao eixo Oy',['uma reflexão em relação ao eixo Ox','uma translação para a esquerda','uma dilatação horizontal'],'O sinal menos está dentro de f, por isso afeta o x: (x, y) → (−x, y). Esquerda e direita trocam.'],
+['m11','reg','O gráfico de g(x) = 2 · f(x) obtém-se do gráfico de f por…','uma dilatação vertical de coeficiente 2',['uma contração horizontal de coeficiente 1/2','uma translação de 2 unidades para cima','uma dilatação horizontal de coeficiente 2'],'Multiplicar fora de f multiplica os y por 2: (x, y) → (x, 2y). Os zeros não mudam.'],
+['m11','reg','O gráfico de g(x) = f(2x) obtém-se do gráfico de f por…','uma contração horizontal de coeficiente 1/2',['uma dilatação horizontal de coeficiente 2','uma dilatação vertical de coeficiente 2','uma translação de 2 unidades para a esquerda'],'Dentro de f afeta o x e faz o contrário: os x são divididos por 2, (x, y) → (x/2, y). O gráfico aperta na horizontal.'],
+['m11','pt','O ponto (4, 1) pertence ao gráfico de f. Que ponto pertence ao gráfico de g(x) = f(x − 1) + 2?','(5, 3)',['(3, 3)','(5, −1)','(3, −1)'],'x − 1 dentro: anda 1 para a direita (x passa a 5). + 2 fora: sobe 2 (y passa a 3).'],
+['m11','pt','O ponto (4, 1) pertence ao gráfico de f. Que ponto pertence ao gráfico de g(x) = f(2x)?','(2, 1)',['(8, 1)','(4, 2)','(4, 1/2)'],'Dentro de f, os x são divididos por 2: (4, 1) → (2, 1). Confirma: g(2) = f(2 × 2) = f(4) = 1.'],
+['m11','pt','O ponto (4, 1) pertence ao gráfico de f. Que ponto pertence ao gráfico de g(x) = −f(x)?','(4, −1)',['(−4, 1)','(−4, −1)','(4, 1)'],'−f(x) troca o sinal do y: (4, 1) → (4, −1).'],
+['m11','pt','O ponto (4, 1) pertence ao gráfico de f. Que ponto pertence ao gráfico de g(x) = 3 · f(x)?','(4, 3)',['(12, 1)','(4/3, 1)','(4, 1/3)'],'Multiplicar fora de f multiplica o y: (4, 1) → (4, 3). O x não muda.'],
+['m11','zer','Os zeros de f são −1 e 3. Quais são os zeros de g(x) = f(x − 2)?','1 e 5',['−3 e 1','−1 e 3','−2 e 6'],'O gráfico anda 2 para a direita, por isso os zeros também: −1 + 2 = 1 e 3 + 2 = 5.'],
+['m11','zer','Os zeros de f são −1 e 3. Quais são os zeros de g(x) = 3 · f(x)?','−1 e 3',['−3 e 9','2 e 6','−1/3 e 1'],'3 · 0 = 0: onde f vale 0, g também vale 0. Uma dilatação vertical não mexe nos zeros.'],
+['m11','fig','Observa os gráficos. Qual é a expressão de g?','g(x) = f(x − 2)',['g(x) = f(x + 2)','g(x) = f(x) + 2','g(x) = f(x) − 2'],'O gráfico cheio é o tracejado deslocado 2 unidades para a direita (o vértice passou de x = 0 para x = 2). Para a direita corresponde a f(x − 2).','m11_a'],
+['m11','fig','Observa os gráficos. Qual é a expressão de g?','g(x) = −f(x)',['g(x) = f(−x)','g(x) = f(x) − 2','g(x) = −2f(x)'],'Cada ponto do tracejado aparece no cheio com o y de sinal trocado e o mesmo x (os dois cortam o eixo x no mesmo ponto): reflexão no eixo Ox.','m11_b'],
+['m11','fig','Observa os gráficos. Qual é a expressão de g?','g(x) = f(x) + 3',['g(x) = f(x + 3)','g(x) = f(x − 3)','g(x) = 3f(x)'],'O vértice passou de (0, −1) para (0, 2): o gráfico subiu 3, sem andar para os lados nem mudar de forma.','m11_c'],
+['m11','can','O gráfico de y = 2(x − 1)² − 3 obtém-se do de y = x² por uma dilatação vertical de coeficiente 2 seguida de uma translação de vetor…','(1, −3)',['(−1, −3)','(1, 3)','(−1, 3)'],'(x − 1) anda 1 para a direita e − 3 desce 3: vetor (1, −3). O vértice passa de (0, 0) para (1, −3).'],
+// ===================== NÍVEL 12 · Função módulo (resumo) =====================
+['m12','def','Qual é o valor de |−5|?','5',['−5','0','1/5'],'|x| é a distância de x a 0. O −5 está a 5 unidades do 0. Uma distância nunca é negativa.'],
+['m12','def','Qual destas igualdades é verdadeira?','|−3| = |3|',['|−3| = −3','|0| = 1','|−3| < 0'],'Tanto −3 como 3 estão a 3 unidades do 0, por isso |−3| = |3| = 3. O módulo nunca é negativo e |0| = 0.'],
+['m12','def','Escrita por ramos, a função |x| é…','x se x ≥ 0 e −x se x < 0',['−x se x ≥ 0 e x se x < 0','x se x > 0 e 0 se x < 0','x² se x ≥ 0 e −x² se x < 0'],'Se x é positivo ou zero, fica igual. Se x é negativo, troca-se o sinal (−x é positivo). Ex.: |−4| = −(−4) = 4.'],
+['m12','car','Qual é o contradomínio de f(x) = |x|?','[0, +∞[',['ℝ',']0, +∞[',']−∞, 0]'],'Como |x| é uma distância, nunca é negativo, e vale 0 em x = 0. Todos os valores ≥ 0 são atingidos.'],
+['m12','car','Qual é o contradomínio de f(x) = |x| + 2?','[2, +∞[',['[0, +∞[','ℝ',']−∞, 2]'],'|x| ≥ 0, logo |x| + 2 ≥ 2. O gráfico de |x| sobe 2 unidades.'],
+['m12','eq','Qual é o conjunto-solução de |x| = 3?','{−3, 3}',['{3}','∅','[−3, 3]'],'Os números a distância 3 do zero são 3 e −3.'],
+['m12','eq','Qual é o conjunto-solução de |x| = −2?','∅',['{−2, 2}','{−2}','{2}'],'Um módulo (distância) nunca pode ser negativo: equação impossível.'],
+['m12','eq','Qual é o conjunto-solução de |x − 2| = 4?','{−2, 6}',['{2, 6}','{−6, 2}','{6}'],'x − 2 = 4 ∨ x − 2 = −4 ⇔ x = 6 ∨ x = −2. São os números a distância 4 do 2.'],
+['m12','eq','Qual é o conjunto-solução de |2x − 1| = 5?','{−2, 3}',['{3}','{−3, 2}','{2, 3}'],'2x − 1 = 5 ∨ 2x − 1 = −5 ⇔ 2x = 6 ∨ 2x = −4 ⇔ x = 3 ∨ x = −2.'],
+['m12','ineq','Qual é o conjunto-solução de |x| < 3?',']−3, 3[',[']−∞, −3[ ∪ ]3, +∞[',']−∞, 3[','[−3, 3]'],'|x| < 3: números a menos de 3 do zero, ou seja, “entre”: −3 < x < 3. Sem os extremos, porque a desigualdade é estrita.'],
+['m12','ineq','Qual é o conjunto-solução de |x| > 3?',']−∞, −3[ ∪ ]3, +∞[',[']−3, 3[',']3, +∞[','[−3, 3]'],'|x| > 3: números a mais de 3 do zero, ou seja, “fora”: x < −3 ∨ x > 3. Esquecer a parte negativa é o erro típico.'],
+['m12','ineq','Qual é o conjunto-solução de |x − 2| < 3?',']−1, 5[',[']−5, 1[',']−∞, 5[',']−1, 3['],'−3 < x − 2 < 3 ⇔ −3 + 2 < x < 3 + 2 ⇔ −1 < x < 5. São os números a menos de 3 do 2.'],
+['m12','ineq','Qual é o conjunto-solução de |x + 1| ≥ 2?',']−∞, −3] ∪ [1, +∞[',['[−3, 1]',']−∞, −1] ∪ [3, +∞[','[1, +∞['],'x + 1 ≥ 2 ∨ x + 1 ≤ −2 ⇔ x ≥ 1 ∨ x ≤ −3. Com ≥ os extremos estão incluídos.'],
+['m12','graf','Qual é a expressão da função representada?','y = |x − 2|',['y = |x + 2|','y = |x| − 2','y = |x| + 2'],'É o “V” do módulo com vértice em (2, 0): o gráfico de |x| deslocado 2 para a direita. Dentro do módulo, x − 2 anda para a direita.','m12_g'],
+];
+
 
 
 // ===================== CONFIGURAÇÃO =====================
@@ -1354,6 +1567,18 @@ const TOPICS={
  g4:{n:'Composição corporal e IMC',s:'Fórmula, cálculo, objetivos da avaliação',c:'#b5651d'},
  g5:{n:'Alimentação e hidratação',s:'Roda dos alimentos, água e arrefecimento',c:'#a23b4c'},
  g6:{n:'Repouso, higiene e meio ambiente',s:'Overtraining, balneário, desporto e sustentabilidade',c:'#1f7f86'},
+ m1:{n:'4.1 Formas de representar uma função',s:'Definição, diagramas, tabelas, gráficos, teste da reta vertical',c:'#2d5fa8'},
+ m2:{n:'4.2 Conceitos associados às funções',s:'Objeto, imagem, domínio, conjunto de chegada, contradomínio',c:'#2d5fa8'},
+ m3:{n:'4.3 Função afim',s:'Declive, ordenada na origem, zero, sinal e monotonia',c:'#2d5fa8'},
+ m4:{n:'4.4 Funções do tipo y = ax²',s:'Vértice na origem, concavidade, dilatação e contração',c:'#2d5fa8'},
+ m5:{n:'4.5 Funções do tipo y = a(x − h)²',s:'Vértice (h, 0) e translação horizontal',c:'#2d5fa8'},
+ m6:{n:'4.6 Funções do tipo y = ax² + k',s:'Vértice (0, k), translação vertical e zeros',c:'#2d5fa8'},
+ m7:{n:'4.7 Funções do tipo y = a(x − h)² + k',s:'Vértice (h, k), zeros, sinal e variação',c:'#2d5fa8'},
+ m8:{n:'4.8 Funções do tipo y = ax² + bx + c',s:'Casos notáveis, completar o quadrado, vértice',c:'#2d5fa8'},
+ m9:{n:'4.9 Equações e inequações do 2.º grau',s:'Fórmula resolvente, discriminante, inequações',c:'#2d5fa8'},
+ m10:{n:'4.10 Funções definidas por ramos',s:'Imagens, zeros e gráficos de funções por ramos',c:'#2d5fa8'},
+ m11:{n:'Transformações de gráficos',s:'f(x) + k, f(x − h), a·f(x), f(bx), −f(x), f(−x)',c:'#2d5fa8'},
+ m12:{n:'Função módulo',s:'|x|, equações e inequações com módulo',c:'#2d5fa8'},
  e8:{n:'Ficha diagnóstica',s:'Inflação, percentagens, facto vs. opinião (não está na matriz)',c:'#1d2b44'},
  e7:{n:'Sociedade de consumo',s:'Obsolescência, consumismo, consumerismo, sustentabilidade',c:'#2f6b3a'},
 };
@@ -1397,10 +1622,10 @@ const TESTS={
   {n:'Função afim e função quadrática',s:'Retas e parábolas: o que significa cada parâmetro',keys:[]},
   {n:'Equações e inequações do 2.º grau',s:'Fórmula resolvente, discriminante, inequações',keys:[]},
   {n:'Transformações de gráficos',s:'a·f(x), f(bx), f(x + c) e f(x) + d',keys:[]},
-  {n:'Funções por ramos e módulo',s:'Ramos, distância a zero e os 6 erros mais comuns',keys:[]}],keys:[]},
+  {n:'Funções por ramos e módulo',s:'Ramos, distância a zero e os 6 erros mais comuns',keys:[]}],levels:true,keys:['m1','m2','m3','m4','m5','m6','m7','m8','m9','m10','m11','m12']},
  ec1:{subj:'ec',title:'1.º Teste',name:'Temas 1 e 2 · Atividade económica, necessidades e consumo',when:'2026-10-28',keys:['e1','e2','e3','e4','e5','e6','e7','e8','e0','e0b'],mix:['e1','e2','e3','e4','e5','e6','e7'],extraFrom:'e8'},
 };
-const QS=[...QS_PT,...QS_EC,...QS_NEW,...QS_FI,...QS_EF];
+const QS=[...QS_PT,...QS_EC,...QS_NEW,...QS_FI,...QS_EF,...QS_MA];
 
 Object.assign(SUBN,{'f1:log':'Utilidade da lógica','f1:tese':'Tese e argumento','f1:prop':'Proposição','f2:ded':'Dedutivo vs. indutivo','f3:con':'Verdade, validade, solidez','f3b:sl':'Argumentos dos slides','f3c:ex':'Exercícios: classificar','f3c:val':'Exercícios: só validade','f4:tip':'Tipos A, E, I, O','f4:id':'Identificar o tipo','f5:rel':'Relações do quadrado','f5:neg':'Negação (contraditória)','f5:val':'Deduzir valores de verdade','f6:con':'Conectivas e símbolos','f6b:form':'Formalização','f7:val':'Valores de verdade','f8:lin':'Número de linhas','f8:col':'Colunas de P, Q, R, S','f8b:col':'Coluna final','f8b:lin':'Valor numa linha','f8b:base':'Tabelas básicas'});
 Object.assign(SUBN,{'e8:dia':'Economia no dia a dia','e8:pct':'Percentagens e taxa de variação','e8:infl':'Gráfico da inflação','e8:doc':'Leitura de documento (facto/opinião)','e8:sel':'Factos vs. opiniões'});
@@ -1476,13 +1701,83 @@ const STUDY_EF={
 ],
 };
 
+// Matemática A — figuras das perguntas por níveis (carregado depois de FIGS existir).
+function SAG(A,B,pairs,la,lb){
+ const n=Math.max(A.length,B.length),H=Math.max(130,n*34+40),W=300,ax=80,bx=220;
+ const ya=i=>H/2+(i-(A.length-1)/2)*34, yb=i=>H/2+(i-(B.length-1)/2)*34;
+ let g=`<defs><marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" style="fill:var(--accent)"/></marker></defs>`;
+ g+=`<ellipse cx="${ax}" cy="${H/2}" rx="44" ry="${H/2-8}" fill="none" style="stroke:var(--muted)" stroke-width="1.3"/><ellipse cx="${bx}" cy="${H/2}" rx="44" ry="${H/2-8}" fill="none" style="stroke:var(--muted)" stroke-width="1.3"/>`;
+ g+=`<text x="${ax-44}" y="14" font-size="12" font-weight="700" style="fill:var(--ink)">${la||'A'}</text><text x="${bx+34}" y="14" font-size="12" font-weight="700" style="fill:var(--ink)">${lb||'B'}</text>`;
+ A.forEach((a,i)=>{g+=`<circle cx="${ax+12}" cy="${ya(i)}" r="2.6" style="fill:var(--ink)"/><text x="${ax+2}" y="${ya(i)+4}" font-size="12" text-anchor="end" style="fill:var(--ink)">${a}</text>`});
+ B.forEach((b,i)=>{g+=`<circle cx="${bx-12}" cy="${yb(i)}" r="2.6" style="fill:var(--ink)"/><text x="${bx-2}" y="${yb(i)+4}" font-size="12" style="fill:var(--ink)">${b}</text>`});
+ pairs.forEach(([i,j])=>{g+=`<line x1="${ax+16}" y1="${ya(i)}" x2="${bx-18}" y2="${yb(j)}" style="stroke:var(--accent)" stroke-width="1.4" marker-end="url(#ah)"/>`});
+ return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:340px;display:block;margin:0 auto" font-family="inherit">${g}</svg>`}
+const PW=(lhs,rows)=>`<div class="pwx"><span>${lhs} =</span><span class="pwb"></span><table>${rows.map(([e,c])=>`<tr><td>${e}</td><td>${c}</td></tr>`).join('')}</table></div>`;
+const TB=(r1,r2)=>`<table class="tbx"><tr>${r1.map(x=>`<td>${x}</td>`).join('')}</tr><tr>${r2.map(x=>`<td>${x}</td>`).join('')}</tr></table>`;
+const cosI=(P)=>x=>{for(let i=0;i<P.length-1;i++){const [a,ya]=P[i],[b,yb]=P[i+1];if(x>=a&&x<=b){const t=(1-Math.cos(Math.PI*(x-a)/(b-a)))/2;return ya+(yb-ya)*t}}return NaN};
+const DASH='var(--muted)',BL='#3b82d6';
+Object.assign(FIGS,{
+ // 4.1
+ m1_s1:SAG(['1','2','3'],['2','4','6','8'],[[0,0],[1,1],[2,2]]),
+ m1_s2:SAG(['0','25'],['0','−5','5'],[[0,0],[1,1],[1,2]]),
+ m1_s3:SAG(['0','−5','5'],['0','25'],[[0,0],[1,1],[2,1]]),
+ m1_s4:SAG(['−1','0','1'],['1','2','3'],[[0,0],[1,1]]),
+ m1_g1:PL({r:[-2,5,-2,5],h:200,c:[{f:x=>-0.35*(x+1)*(x-2.2)*(x-4.2)/1.6+1.3,d:[-1.6,4.4]}]}),
+ m1_g2:PL({r:[-1,5,-2,5],h:200,c:[{p:Array.from({length:61},(_,i)=>{const y=-0.8+i*0.094;return [0.5*(y-2)*(y-2)+0.3,y]})}]}),
+ m1_g3:PL({r:[-1,5,-1,5],h:200,pt:[[0,2],[1,1],[2,2],[3,2],[4,3],[4,4.5]]}),
+ m1_g4:PL({r:[-3,3,-3,3],h:300,c:[{p:Array.from({length:91},(_,i)=>[2*Math.cos(i*Math.PI/45),2*Math.sin(i*Math.PI/45)])}]}),
+ m1_g5:PL({r:[-2,5,-2,9],h:230,ty:1,c:[{f:x=>2*x,d:[-1,4.4]}],lab:[[3.3,8.3,'f']]}),
+ m1_g6:PL({r:[-3,4,-2,5],h:200,c:[{f:x=>x*x/2-1,d:[-3,3.2]}]}),
+ m1_t1:`<div class="ft">Função que a cada x faz corresponder o seu simétrico</div>${TB(['x','−1','0','3','7/2'],['y','1','0','−3','?'])}`,
+ m1_t2:TB(['x','1','2','2','3'],['y','5','6','7','8']),
+ m1_t3:TB(['x','1','2','3','4'],['y','4','4','4','4']),
+ // 4.2
+ m2_s1:`<div class="ft">f : A → B, x ↦ 2x</div>`+SAG(['−2','0','1','3'],['−4','−1','0','2','5','6'],[[0,0],[1,2],[2,3],[3,5]]),
+ m2_temp:`<div class="ft">Temperatura T (°C) ao longo de um dia, em função da hora h</div>`+PL({r:[-1,25,-1,18],h:240,tx:4,ty:2,grid:false,c:[{f:cosI([[0,8],[5,6],[15,16],[24,10]]),d:[0,24]}],xl:'h',yl:'T',pt:[[0,8],[5,6],[15,16],[24,10]]}),
+ m2_g:PL({r:[-3,5,-2,4],h:200,c:[{p:[[-2,1],[0,3],[3,-1],[4,0]]}],pt:[[-2,1],[0,3],[3,-1],[4,0]]}),
+ // 4.3
+ m3_g1:PL({r:[-3,3,-3,5],h:200,c:[{f:x=>2*x+1,d:[-2,1.9]}],pt:[[0,1],[1,3]]}),
+ m3_g2:PL({r:[-3,4,-4,3],h:180,ticks:false,c:[{f:x=>1.5*x-2,d:[-1,3.3]}]}),
+ m3_g3:PL({r:[-3,4,-3,4],h:180,ticks:false,c:[{f:x=>-x+2,d:[-1.8,3.8]}]}),
+ m3_g4:PL({r:[-3,3,-2,4],h:170,c:[{f:()=>2}]}),
+ // 4.4
+ m4_g1:PL({r:[-3,3,-1,5],h:210,ticks:false,c:[{f:x=>x*x,col:'var(--ink)'},{f:x=>2*x*x,col:BL},{f:x=>x*x/2,col:'#c0552b'}],lab:[[1.62,4.6,'A'],[2.25,4.55,'B'],[2.75,3.2,'C']]}),
+ m4_g2:PL({r:[-3,3,-4,1],h:190,c:[{f:x=>-x*x/2}],pt:[[2,-2],[-2,-2]]}),
+ // 4.5
+ m5_g:PL({r:[-4,2,-1,4],h:190,c:[{f:x=>(x+1)*(x+1)}],pt:[[-1,0]]}),
+ m5_qv:`<div class="ft">Quadro de variação</div>${TB(['x','−∞','−2','+∞'],['f(x)','↗','0','↘'])}`,
+ // 4.6
+ m6_g:PL({r:[-3,3,-2,5],h:200,c:[{f:x=>-x*x+4}],pt:[[0,4],[-2,0],[2,0]]}),
+ m6_qs:`<div class="ft">Quadro de sinal</div>${TB(['x','−∞','−3','','3','+∞'],['f(x)','+','0','−','0','+'])}`,
+ // 4.7
+ m7_g:PL({r:[-1,5,-2,4],h:190,c:[{f:x=>(x-2)*(x-2)-1}],pt:[[2,-1]]}),
+ m7_qs:`<div class="ft">Quadro de sinal de f(x) = 1/2 (x − 4)² − 2</div>${TB(['x','−∞','2','','6','+∞'],['f(x)','+','0','−','0','+'])}`,
+ // 4.8
+ m8_g:PL({r:[-1,8,-1,6],h:190,c:[{f:x=>(x-5)*(x-5)+2}],pt:[[5,2]]}),
+ // 4.9
+ m9_es:`<div class="ft">Esquema do sinal de f(x) = x² − 2x − 3</div>`+PL({r:[-3,5,-5,5],h:160,ticks:false,grid:false,c:[{f:x=>x*x-2*x-3}],pt:[[-1,0,0,'−1',-14,14],[3,0,0,'3',4,14]]}),
+ // 4.10
+ m10_f:PW('f(x)',[['x² + 1','se x ≤ 0'],['1','se 0 < x ≤ 2'],['2x − 3','se x > 2']]),
+ m10_g:PW('g(x)',[['2x² − 8','se x ≤ 1'],['6 − 2x','se 1 < x ≤ 4']]),
+ m10_h:PW('h(x)',[['x + 3','se x < −1'],['x²','se x ≥ −1']]),
+ m10_k:PL({r:[-3,4,-2,4],h:190,c:[{f:x=>-x,d:[-2.5,1]},{f:()=>2,d:[1,3.8]}],pt:[[1,-1,1],[1,2,0]]}),
+ m10_gf:PL({r:[-3,5,-2,6],h:220,c:[{f:x=>x*x+1,d:[-2.3,0]},{f:()=>1,d:[0,2]},{f:x=>2*x-3,d:[2,4.4]}],pt:[[0,1,0],[2,1,0]]}),
+ m10_p:PW('p(x)',[['−x','se x < 0'],['x − 1','se x ≥ 0']]),
+ // Transformações
+ m11_a:`<div class="fs">Tracejado: gráfico de f · cheio: gráfico de g</div>`+PL({r:[-4,5,-3,4],h:200,c:[{f:x=>(x-0)*(x-0)/2-1,dash:1,col:DASH},{f:x=>(x-2)*(x-2)/2-1,col:BL}],pt:[[0,-1],[2,-1]]}),
+ m11_b:`<div class="fs">Tracejado: gráfico de f · cheio: gráfico de g</div>`+PL({r:[-3,4,-3,4],h:200,c:[{f:x=>0.5*x+1,dash:1,col:DASH,d:[-3,4]},{f:x=>-(0.5*x+1),col:BL,d:[-3,4]}]}),
+ m11_c:`<div class="fs">Tracejado: gráfico de f · cheio: gráfico de g</div>`+PL({r:[-4,4,-2,5],h:200,c:[{f:x=>x*x/2-1,dash:1,col:DASH},{f:x=>x*x/2+2,col:BL}],pt:[[0,-1],[0,2]]}),
+ // Módulo
+ m12_g:PL({r:[-2,6,-1,4],h:180,c:[{f:x=>Math.abs(x-2)}],pt:[[2,0]]}),
+});
+
 
 
 const KEY='estudo10-v1';
 
 // ===================== ESTADO =====================
 let S=load(), cur=null, quiz=null, view={name:'home'}, subjCur=null;
-function blank(){return {history:[],wrong:[],saved:[],sub:{},seen:{},rec:{},time:{},tday:null,size:20,updated:0}}
+function blank(){return {history:[],wrong:[],saved:[],sub:{},seen:{},rec:{},time:{},tday:null,size:20,lvl:{},updated:0}}
 function load(){try{const r=localStorage.getItem(KEY);if(r)return Object.assign(blank(),JSON.parse(r))}catch(e){}return blank()}
 function save(){S.updated=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 const T_=()=>TESTS[cur];
@@ -1503,13 +1798,16 @@ function stratified(ids,n){const g={};shuffle(ids).forEach(i=>{const k=QS[i][1];
 function fresh(ids,n){const un=ids.filter(i=>!S.seen[i]);if(un.length>=n)return stratified(un,n);return shuffle(un.concat(stratified(ids.filter(i=>S.seen[i]),n-un.length)))}
 function cover(k){const ids=idsOf(k);const s=ids.filter(i=>S.seen[i]).length;return {s,n:ids.length,p:ids.length?Math.round(s/ids.length*100):0}}
 function build(t){
+ if(t.startsWith('lvl:')){const ids=idsOf(T_().keys[+t.split(':')[2]]);return fresh(ids,Math.min(LVN,ids.length)).sort((a,b)=>a-b)}
  if(t.startsWith('unit:')){const ks=T_().units[+t.split(':')[2]].keys,n=size();let o=[];ks.forEach((k,j)=>{const per=Math.floor(n/ks.length)+(j<n%ks.length?1:0);o=o.concat(fresh(idsOf(k),per))});return shuffle(o)}
  if(t.startsWith('sub:')){const key=t.slice(4);return fresh(QS.map((q,i)=>(q[0]+':'+q[1])===key?i:-1).filter(i=>i>=0),size())}
  if(t===SAV())return shuffle(S.saved.filter(inCur)).slice(0,size());
  if(t===ERR())return shuffle(S.wrong.filter(inCur)).slice(0,size());
  if(t===ALL()){const ks=T_().mix||T_().keys,n=size();let o=[];ks.forEach((k,j)=>{const per=Math.floor(n/ks.length)+(j<n%ks.length?1:0);o=o.concat(fresh(idsOf(k),per))});return shuffle(o)}
  return fresh(idsOf(t),size())}
-function tname(t){if(t.startsWith('unit:'))return T_().units[+t.split(':')[2]].n;if(t.startsWith('sub:'))return SUBN[t.slice(4)]||'Treino';if(t.startsWith('all:'))return 'Mistura (como no teste)';if(t.startsWith('err:'))return 'Os meus erros';if(t.startsWith('sav:'))return 'Guardadas';return TOPICS[t].n}
+const LVN=10;
+function LV(){const o=S.lvl[cur]=S.lvl[cur]||{u:0,s:[],b:[]};return o}
+function tname(t){if(t.startsWith('lvl:')){const i=+t.split(':')[2];return 'Nível '+(i+1)+' · '+TOPICS[T_().keys[i]].n}if(t.startsWith('unit:'))return T_().units[+t.split(':')[2]].n;if(t.startsWith('sub:'))return SUBN[t.slice(4)]||'Treino';if(t.startsWith('all:'))return 'Mistura (como no teste)';if(t.startsWith('err:'))return 'Os meus erros';if(t.startsWith('sav:'))return 'Guardadas';return TOPICS[t].n}
 
 function daysTo(d){if(!d)return null;const t=new Date();t.setHours(0,0,0,0);return Math.round((new Date(d+'T00:00:00')-t)/864e5)}
 function fmtDate(d){return new Date(d+'T00:00:00').toLocaleDateString('pt-PT',{day:'numeric',month:'long'})}
@@ -1552,6 +1850,7 @@ function finish(good,mark){const id=quiz.ids[quiz.i],q=QS[id];
  if(good){quiz.ok++;if(quiz.t===ERR())S.wrong=S.wrong.filter(x=>x!==id)}else{quiz.wrongs.push(id);if(!S.wrong.includes(id))S.wrong.push(id)}
  save();render();setTimeout(()=>{const f=$('#fb');if(f)f.scrollIntoView({behavior:'smooth',block:'nearest'})},40)}
 function next(){if(!quiz||quiz.answered===null)return;tick();calc.ex='';calc.rs='';quiz.i++;quiz.answered=null;quiz.opts=null;quiz.sel=[];
+ if(quiz.i>=quiz.ids.length&&quiz.t.startsWith('lvl:')){const L=LV(),i=+quiz.t.split(':')[2],full=quiz.ok===quiz.ids.length;L.s[i]=full?(L.s[i]||0)+1:0;L.b[i]=Math.max(L.b[i]||0,Math.round(quiz.ok/quiz.ids.length*100));quiz.lv={i,full,streak:L.s[i],unl:false};if(full&&L.s[i]>=2&&L.u===i&&i<T_().keys.length-1){L.u=i+1;quiz.lv.unl=true}}
  if(quiz.i>=quiz.ids.length){S.history.push({d:Date.now(),t:quiz.t,c:quiz.ok,n:quiz.ids.length});if(S.history.length>500)S.history=S.history.slice(-500);save();view={name:'result'}}
  render();window.scrollTo(0,0)}
 function toggleSave(){const id=quiz.ids[quiz.i];const k=S.saved.indexOf(id);if(k>=0)S.saved.splice(k,1);else S.saved.push(id);save();render()}
@@ -1559,8 +1858,8 @@ function resetTest(){if(!confirmReset){confirmReset=true;render();return}
  const ids=new Set(QS.map((q,i)=>inCur(i)?i:-1).filter(i=>i>=0));
  T_().keys.forEach(k=>{delete S.rec[k];Object.keys(S.sub).forEach(s=>{if(s.startsWith(k+':'))delete S.sub[s]})});
  ids.forEach(i=>delete S.seen[i]);S.wrong=S.wrong.filter(i=>!ids.has(i));S.saved=S.saved.filter(i=>!ids.has(i));
- S.history=S.history.filter(x=>!(x.t.startsWith('unit:'+cur+':')||T_().keys.includes(x.t)||[ALL(),ERR(),SAV()].includes(x.t)||(x.t.startsWith('sub:')&&T_().keys.includes(x.t.slice(4).split(':')[0]))));
- delete S.time[cur];confirmReset=false;save();go('test')}
+ S.history=S.history.filter(x=>!(x.t.startsWith('lvl:'+cur+':')||x.t.startsWith('unit:'+cur+':')||T_().keys.includes(x.t)||[ALL(),ERR(),SAV()].includes(x.t)||(x.t.startsWith('sub:')&&T_().keys.includes(x.t.slice(4).split(':')[0]))));
+ delete S.time[cur];delete S.lvl[cur];confirmReset=false;save();go('test')}
 let confirmReset=false;
 let tx=null;document.addEventListener('touchstart',e=>{if(view.name==='study')tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{if(view.name==='study'&&tx!==null){const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60)stepStudy(d<0?1:-1)}tx=null},{passive:true});
 document.addEventListener('keydown',e=>{if(view.name==='study'){if(e.key==='ArrowRight')stepStudy(1);if(e.key==='ArrowLeft')stepStudy(-1)}if(view.name!=='quiz'||!quiz)return;
@@ -1604,12 +1903,25 @@ function unit(){const T=T_(),u=T.units[unitCur],c=SUBJ.find(x=>x.k===T.subj).c,s
  <div class="row"><span class="muted small">Perguntas por ronda</span><div class="seg">${[10,20,30].map(n=>`<button class="${size()===n?'on':''}" onclick="setSize(${n})">${n}</button>`).join('')}</div></div>
  <p class="muted small" style="margin:4px 2px 0">Ou treinar só uma parte:</p><div class="list">${tl}</div>`}
 function study(){const T=T_(),u=T.units[unitCur],cards=STUDY()[unitCur+1],k=cards[studyI],n=cards.length,c=SUBJ.find(x=>x.k===T.subj).c;
- return `${header(T.keys.length?"go('unit')":"go('test')",u.n)}
+ return `${header(T.keys.length&&!T.levels?"go('unit')":"go('test')",u.n)}
  <div class="sdots">${cards.map((_,i)=>`<i class="${i===studyI?'on':i<studyI?'done':''}" style="--c:${c}"></i>`).join('')}</div>
  <div class="card scard"><span class="qchip">Cartão ${studyI+1} de ${n}</span><h2>${k.t}</h2><div class="sbody">${k.h}</div></div>
  <div class="snav"><button class="ghost" onclick="stepStudy(-1)" ${studyI?'':'disabled style="opacity:.4"'}>‹ Anterior</button>
  ${studyI<n-1?`<button class="big" onclick="stepStudy(1)">Seguinte ›</button>`:(u.keys.length?`<button class="big" onclick="start('unit:${cur}:${unitCur}')">Testar agora</button>`:unitCur<T.units.length-1?`<button class="big" onclick="unitCur++;openStudy()">Unidade seguinte ›</button>`:`<button class="big" onclick="go('test')">Terminar</button>`)}</div>`}
 
+function levels(T,s){const L=LV(),back=`subjCur='${T.subj}';go('subj')`,c=s.c;
+ const lv=T.keys.map((k,i)=>{const P=TOPICS[k],open=i<=L.u,st=L.s[i]||0,b=L.b[i],n=idsOf(k).length,dom=st>=2||i<L.u;
+  const right=!open?'bloqueado':dom?`<b>${b}%</b><br>dominado`:b!==undefined?`<b>${b}%</b><br>${st?'1 de 2 a 100%':'melhor'}`:'›';
+  return `<button class="topic ${open?'':'lock'}" style="--c:${c}" ${open?`onclick="start('lvl:${cur}:${i}')"`:'disabled'}><div><div class="n">Nível ${i+1} · ${P.n}</div><div class="s">${P.s} · ${n} perguntas</div></div><span class="best">${right}</span></button>`}).join('');
+ const nw=S.wrong.filter(inCur).length,cards=STUDY();
+ return `${header(back,s.n+' · '+T.title)}
+ <div class="testcard" style="background:${c};color:#fff"><span class="k">${T.when?'Teste a '+fmtDate(T.when):'Treino por níveis'}</span><span class="t">${T.title}</span><span class="small" style="opacity:.85">Rondas de ${LVN} perguntas. 2 rondas seguidas a 100% desbloqueiam o nível seguinte.</span></div>
+ ${cdBox(T)}
+ <h3 style="margin:6px 2px 0">Treinar</h3><div class="list">${lv}</div>
+ <div class="pill2"><button onclick="start('${ERR()}')" ${nw?'':'disabled'}>Os meus erros<span>${nw} para rever</span></button>
+ <button onclick="go('prog')">Evolução<span>${S.history.filter(x=>x.t.startsWith('lvl:'+cur+':')).length} rondas feitas</span></button></div>
+ ${cards?`<h3 style="margin:10px 2px 0">Estudar</h3><div class="list">${T.units.map((u,i)=>`<button class="topic" style="--c:${c}" onclick="unitCur=${i};openStudy()"><div><div class="n">${i+1}. ${u.n}</div><div class="s">${u.s}</div></div><span class="best">${cards[i+1].length} cartões</span></button>`).join('')}</div>`:''}
+ <button class="muted small" style="text-align:center;padding:6px" onclick="resetTest()">${confirmReset?'<b style="color:var(--bad)">Toca outra vez para apagar o progresso</b>':'Recomeçar do zero'}</button>`}
 function home(){
  return `<div class="hello"><h1>Estudo 10.º ano</h1><p class="muted">Escolhe a disciplina.</p></div>
  <div class="grid">${SUBJ.map(s=>{const on=Object.values(TESTS).some(T=>T.subj===s.k);
@@ -1619,7 +1931,7 @@ function home(){
 function subj(){const s=SUBJ.find(x=>x.k===subjCur);const L=Object.keys(TESTS).filter(t=>TESTS[t].subj===subjCur);
  return `${header("go('home')",s.n)}<div class="list">${L.map(t=>{const T=TESTS[t];return `<button class="testcard" style="background:${s.c};color:#fff" onclick="openTest('${t}')"><span class="k">${T.when?fmtDate(T.when):'Data por definir'}</span><span class="t">${T.title} · ${T.name}</span></button>`}).join('')}</div>`}
 
-function test(){const T=T_(),s=SUBJ.find(x=>x.k===T.subj);if(!T.keys.length)return studyOnly(T,s);
+function test(){const T=T_(),s=SUBJ.find(x=>x.k===T.subj);if(!T.keys.length)return studyOnly(T,s);if(T.levels)return levels(T,s);
  const back=`subjCur='${T.subj}';go('subj')`;
  const tl=T.units?T.units.map((u,i)=>{const ids=u.keys.flatMap(idsOf),sn=ids.filter(x=>S.seen[x]).length,cp=ids.length?Math.round(sn/ids.length*100):0,st=stats('unit:'+cur+':'+i);
   return `<button class="topic" style="--c:${SUBJ.find(x=>x.k===T.subj).c}" onclick="openUnit(${i})"><div><div class="n">${i+1}. ${u.n}</div><div class="s">${u.s}</div>
@@ -1666,14 +1978,16 @@ function qview(){const id=quiz.ids[quiz.i],q=QS[id],P=TOPICS[q[0]];
 
 function result(){const n=quiz.ids.length,p=Math.round(quiz.ok/n*100);
  const errs=quiz.wrongs.map(i=>QS[i]);
- return `<div class="card" style="align-items:center;text-align:center"><span class="muted small">${esc(tname(quiz.t))}</span><div class="score">${p}%</div><p class="muted" style="font-size:18px;font-weight:600">${quiz.ok}/${n} certas</p></div>
+ const lv=quiz.lv,nxt=lv?lv.i+2:0,last=lv&&lv.i===T_().keys.length-1;
+ const lvTxt=!lv?'':lv.unl?`<b>Nível ${nxt} desbloqueado.</b>`:!lv.full?(last||LV().u>lv.i?'Para dominar o nível, o objetivo são 2 rondas seguidas a 100%.':`Para desbloquear o Nível ${nxt} são precisas 2 rondas seguidas a 100%. A contagem recomeça.`):lv.streak>=2?(last?'Último nível dominado: 2 rondas seguidas a 100%.':'Nível dominado: 2 rondas seguidas a 100%.'):(last||LV().u>lv.i?'Primeira ronda a 100%. Falta mais uma seguida para dominar o nível.':`Primeira ronda a 100%. Mais uma seguida desbloqueia o Nível ${nxt}.`);
+ return `<div class="card" style="align-items:center;text-align:center"><span class="muted small">${esc(tname(quiz.t))}</span><div class="score">${p}%</div><p class="muted" style="font-size:18px;font-weight:600">${quiz.ok}/${n} certas</p>${lvTxt?`<p class="small" style="margin:4px 0 0">${lvTxt}</p>`:''}</div>
  ${errs.length?`<div class="card"><h3>Para rever (${errs.length})</h3>${errs.map(q=>`<div class="err"><span>${esc(q[2])}</span><span class="a">${esc(ansTxt(q))}</span></div>`).join('')}</div>`:''}
- <button class="big" onclick="start('${quiz.t}')">Nova ronda</button>
+ ${lv&&lv.unl?`<button class="big" onclick="start('lvl:${cur}:${lv.i+1}')">Começar o Nível ${nxt}</button><button class="ghost" onclick="start('${quiz.t}')">Repetir este nível</button>`:`<button class="big" onclick="start('${quiz.t}')">${lv?'Nova ronda deste nível':'Nova ronda'}</button>`}
  ${S.wrong.filter(inCur).length?`<button class="ghost" onclick="start('${ERR()}')">Rever os meus erros (${S.wrong.filter(inCur).length})</button>`:''}
- <button class="ghost" onclick="go(backTo)">${backTo==='unit'?'Voltar à unidade':'Voltar às matérias'}</button>`}
+ <button class="ghost" onclick="go(backTo)">${backTo==='unit'?'Voltar à unidade':T_().levels?'Voltar aos níveis':'Voltar às matérias'}</button>`}
 
 function prog(){const T=T_();const TK=[...T.keys,ALL(),ERR(),SAV()];
- const H=S.history.filter(x=>x.t.startsWith('unit:'+cur+':')||TK.includes(x.t)||(x.t.startsWith('sub:')&&T.keys.includes(x.t.slice(4).split(':')[0])));
+ const H=S.history.filter(x=>x.t.startsWith('lvl:'+cur+':')||x.t.startsWith('unit:'+cur+':')||TK.includes(x.t)||(x.t.startsWith('sub:')&&T.keys.includes(x.t.slice(4).split(':')[0])));
  if(!H.length)return `${header("go('test')",'Evolução')}<div class="card empty">Ainda não há rondas feitas neste teste.</div>`;
  const pcts=H.map(x=>Math.round(x.c/x.n*100)),avg=Math.round(pcts.reduce((a,b)=>a+b,0)/pcts.length);
  const last=H.slice(-15),W=320,Hh=150,pl=32,pr=10,pt=10,pb=22;

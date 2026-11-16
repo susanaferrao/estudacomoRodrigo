@@ -1330,7 +1330,7 @@ const QS_MA=[
 ['m1','rv','Este gráfico pode representar uma função?','Sim',['Não, porque o gráfico sobe e desce','Não, porque há retas horizontais que o cortam em três pontos','Não, porque não passa na origem'],'Qualquer reta vertical corta este gráfico no máximo uma vez. Retas horizontais a cortar várias vezes não interessam: significa só que vários objetos têm a mesma imagem.','m1_g1'],
 ['m1','rv','Este gráfico pode representar uma função de x em y?','Não',['Sim','Só se o domínio for ℝ','Só se a curva fosse mais aberta'],'Há retas verticais (por exemplo x = 2) que cortam a curva em dois pontos. Esse valor de x teria duas imagens.','m1_g2'],
 ['m1','rv','Este conjunto de pontos pode representar uma função de x em y?','Não, porque x = 4 tem duas imagens',['Sim, porque são pontos isolados','Não, porque x = 2 e x = 3 têm a mesma imagem','Sim, porque nenhum ponto está no eixo x'],'Os pontos (4, 3) e (4; 4,5) estão na mesma vertical: o objeto 4 teria duas imagens. Que 2 e 3 tenham a mesma imagem não é problema.','m1_g3'],
-['m1','rv','Esta circunferência pode ser o gráfico de uma função de x em y?','Não',['Sim','Só a metade de baixo não','Sim, se o raio for 2'],'Uma reta vertical como x = 0 corta a circunferência em dois pontos, (0, 2) e (0, −2). Logo não é gráfico de uma função.','m1_g4'],
+['m1','rv','Esta circunferência pode ser o gráfico de uma função de x em y?','Não',['Sim','Sim, se o centro for a origem','Sim, se o raio for 2'],'Uma reta vertical como x = 0 corta a circunferência em dois pontos, (0, 2) e (0, −2). Logo não é gráfico de uma função.','m1_g4'],
 // ===================== NÍVEL 2 · 4.2 Conceitos associados às funções =====================
 ['m2','voc','Se f(3) = 7, então…','3 é um objeto e 7 é a sua imagem',['7 é um objeto e 3 é a sua imagem','3 e 7 são ambos imagens','3 é um zero de f'],'Em f(3) = 7, o 3 é o valor que entra (objeto, variável independente) e o 7 é o que sai (imagem, variável dependente).'],
 ['m2','voc','Numa função y = f(x), qual é a variável independente?','x',['y','f','f(x)'],'O x escolhe-se livremente dentro do domínio, por isso é a variável independente. O y = f(x) depende do x escolhido: é a variável dependente.'],
@@ -1341,10 +1341,10 @@ const QS_MA=[
 ['m2','sag','Observa o diagrama. Qual é o conjunto de chegada de f?','{−4, −1, 0, 2, 5, 6}',['{−4, 0, 2, 6}','{−2, 0, 1, 3}','{−1, 5}'],'O conjunto de chegada é B, com todos os seus elementos, mesmo os que não recebem nenhuma seta.','m2_s1'],
 ['m2','sag','Observa o diagrama. Qual é o objeto cuja imagem é 6?','3',['6','12','2'],'Procura-se a seta que chega ao 6: parte do 3. Confirma: f(3) = 2 × 3 = 6.','m2_s1'],
 ['m2','conj','Seja f(x) = x², com domínio {−2, −1, 0, 1, 2}. Qual é o contradomínio de f?','{0, 1, 4}',['{−4, −1, 0, 1, 4}','{−2, −1, 0, 1, 2}','{0, 1, 2, 4}'],'Calcula as imagens: (−2)² = 4, (−1)² = 1, 0² = 0, 1² = 1, 2² = 4. Sem repetir: {0, 1, 4}. O quadrado nunca é negativo.'],
-['m2','temp','Observa o gráfico. Qual é o domínio da função T?','[0, 24]',['[6, 16]','[5, 15]','[0, 16]'],'O domínio é o conjunto dos objetos, que aqui são as horas: de 0 a 24, lidas no eixo horizontal.','m2_temp'],
+['m2','temp','Observa o gráfico. Qual é o domínio da função T?','[0, 24]',['[6, 16]','[6, 15]','[0, 16]'],'O domínio é o conjunto dos objetos, que aqui são as horas: de 0 a 24, lidas no eixo horizontal.','m2_temp'],
 ['m2','temp','Observa o gráfico. Qual é o contradomínio da função T?','[6, 16]',['[0, 24]','[8, 10]','[0, 16]'],'O contradomínio lê-se no eixo vertical: a temperatura vai do mínimo 6 °C ao máximo 16 °C e passa por todos os valores intermédios.','m2_temp'],
-['m2','temp','Observa o gráfico. A temperatura máxima foi atingida a que horas?','Às 15 h',['Às 16 h','Às 24 h','Às 5 h'],'O ponto mais alto do gráfico é (15, 16): às 15 h (objeto) a temperatura era de 16 °C (imagem). Não confundir a hora com a temperatura.','m2_temp'],
-['m2','temp','Observa o gráfico. Em que intervalo de tempo a temperatura esteve a aumentar?','[5, 15]',['[0, 15]','[6, 16]','[15, 24]'],'Entre as 5 h (mínimo) e as 15 h (máximo) o gráfico sobe: a função é crescente em [5, 15]. Os intervalos de monotonia indicam-se com valores de x (horas).','m2_temp'],
+['m2','temp','Observa o gráfico. A temperatura máxima foi atingida a que horas?','Às 15 h',['Às 16 h','Às 24 h','Às 6 h'],'O ponto mais alto do gráfico é (15, 16): às 15 h (objeto) a temperatura era de 16 °C (imagem). Não confundir a hora com a temperatura.','m2_temp'],
+['m2','temp','Observa o gráfico. Em que intervalo de tempo a temperatura esteve a aumentar?','[6, 15]',['[0, 15]','[6, 16]','[15, 24]'],'Entre as 6 h (mínimo) e as 15 h (máximo) o gráfico sobe: a função é crescente em [6, 15]. Os intervalos de monotonia indicam-se com valores de x (horas).','m2_temp'],
 ['m2','temp','Na situação do gráfico, qual é a variável dependente?','A temperatura T',['A hora h','O dia','O gráfico'],'A temperatura depende da hora a que se mede. A hora é a variável independente; a temperatura é a dependente.','m2_temp'],
 ['m2','graf','Observa o gráfico da função f. Qual é o domínio de f?','[−2, 4]',['[−1, 3]','[−3, 5]','[0, 4]'],'O domínio vê-se no eixo x: o gráfico começa em x = −2 e acaba em x = 4.','m2_g'],
 ['m2','graf','Observa o gráfico da função f. Qual é o contradomínio de f?','[−1, 3]',['[−2, 4]','[0, 3]','[1, 3]'],'O contradomínio vê-se no eixo y: o ponto mais baixo tem y = −1 e o mais alto y = 3.','m2_g'],
@@ -1378,7 +1378,7 @@ const QS_MA=[
 ['m4','car','Qual é o contradomínio de f(x) = −x²/2?',']−∞, 0]',['[0, +∞[','ℝ',']−∞, −1/2]'],'Com a < 0 a parábola abre para baixo e o ponto mais alto é o vértice (0, 0). As imagens são todas ≤ 0: D′ = ]−∞, 0] = ℝ₀⁻.'],
 ['m4','car','Qual é o extremo da função f(x) = 4x²?','Mínimo 0',['Máximo 0','Mínimo 4','Não tem extremos'],'Com a = 4 > 0, a concavidade é para cima e o vértice (0, 0) é o ponto mais baixo: mínimo 0, atingido em x = 0.'],
 ['m4','mon','Qual é a monotonia de f(x) = −x²?','Crescente em ]−∞, 0] e decrescente em [0, +∞[',['Decrescente em ]−∞, 0] e crescente em [0, +∞[','Sempre decrescente','Crescente em ℝ'],'Com a < 0 a parábola é um “monte”: sobe até ao vértice (x = 0) e depois desce.'],
-['m4','sin','Qual é o sinal de f(x) = 3x²?','Positiva em ℝ \\ {0}',['Positiva em ℝ','Negativa em ℝ \\ {0}','Positiva em ]0, +∞['],'x² é positivo para qualquer x ≠ 0, e multiplicar por 3 não muda o sinal. Em x = 0 a função vale 0, por isso não é positiva aí.'],
+['m4','sin','Qual é o conjunto de todos os valores de x para os quais f(x) = 3x² é positiva?','ℝ \\ {0}',['ℝ',']0, +∞[','∅'],'x² é positivo para qualquer x ≠ 0, e multiplicar por 3 não muda o sinal. Em x = 0 a função vale 0, por isso não é positiva aí.'],
 ['m4','calc','Seja f(x) = 3x². Qual é o valor de f(−2)?','12',['−12','36','−36'],'f(−2) = 3 × (−2)² = 3 × 4 = 12. Primeiro a potência, depois a multiplicação. (−2)² = 4 é positivo.'],
 ['m4','graf','Na figura estão os gráficos de y = x², y = 2x² e y = x²/2. Qual das curvas é o gráfico de y = 2x²?','A curva A',['A curva B','A curva C','Não é possível saber'],'Quanto maior |a|, mais “fechada” é a parábola. Para x = 1: x² dá 1, 2x² dá 2 e x²/2 dá 0,5. A curva mais fechada, A, é a de y = 2x².','m4_g1'],
 ['m4','graf','Qual pode ser a expressão da função representada?','y = −x²/2',['y = x²/2','y = −x²/2 + 1','y = −2x²'],'Vértice na origem e concavidade para baixo: y = ax² com a < 0. Passa em (2, −2): a × 4 = −2, logo a = −1/2.','m4_g2'],
@@ -1733,7 +1733,7 @@ Object.assign(FIGS,{
  m1_t3:TB(['x','1','2','3','4'],['y','4','4','4','4']),
  // 4.2
  m2_s1:`<div class="ft">f : A → B, x ↦ 2x</div>`+SAG(['−2','0','1','3'],['−4','−1','0','2','5','6'],[[0,0],[1,2],[2,3],[3,5]]),
- m2_temp:`<div class="ft">Temperatura T (°C) ao longo de um dia, em função da hora h</div>`+PL({r:[-1,25,-1,18],h:240,tx:4,ty:2,grid:false,c:[{f:cosI([[0,8],[5,6],[15,16],[24,10]]),d:[0,24]}],xl:'h',yl:'T',pt:[[0,8],[5,6],[15,16],[24,10]]}),
+ m2_temp:`<div class="ft">Temperatura T (°C) ao longo de um dia, em função da hora h</div>`+PL({r:[-1,25,-1,18],h:260,tx:3,ty:2,c:[{f:cosI([[0,8],[6,6],[15,16],[24,10]]),d:[0,24]}],xl:'h',yl:'T',pt:[[0,8],[6,6],[15,16],[24,10]]}),
  m2_g:PL({r:[-3,5,-2,4],h:200,c:[{p:[[-2,1],[0,3],[3,-1],[4,0]]}],pt:[[-2,1],[0,3],[3,-1],[4,0]]}),
  // 4.3
  m3_g1:PL({r:[-3,3,-3,5],h:200,c:[{f:x=>2*x+1,d:[-2,1.9]}],pt:[[0,1],[1,3]]}),
@@ -1741,7 +1741,7 @@ Object.assign(FIGS,{
  m3_g3:PL({r:[-3,4,-3,4],h:180,ticks:false,c:[{f:x=>-x+2,d:[-1.8,3.8]}]}),
  m3_g4:PL({r:[-3,3,-2,4],h:170,c:[{f:()=>2}]}),
  // 4.4
- m4_g1:PL({r:[-3,3,-1,5],h:210,ticks:false,c:[{f:x=>x*x,col:'var(--ink)'},{f:x=>2*x*x,col:BL},{f:x=>x*x/2,col:'#c0552b'}],lab:[[1.62,4.6,'A'],[2.25,4.55,'B'],[2.75,3.2,'C']]}),
+ m4_g1:PL({r:[-3,3,-1,5],h:210,ticks:false,c:[{f:x=>x*x,col:'var(--ink)'},{f:x=>2*x*x,col:BL},{f:x=>x*x/2,col:'#c0552b'}],pt:[[1,2,0,'A',10,4],[-2,4,0,'B',-18,4],[2,2,0,'C',8,14]]}),
  m4_g2:PL({r:[-3,3,-4,1],h:190,c:[{f:x=>-x*x/2}],pt:[[2,-2],[-2,-2]]}),
  // 4.5
  m5_g:PL({r:[-4,2,-1,4],h:190,c:[{f:x=>(x+1)*(x+1)}],pt:[[-1,0]]}),

@@ -1307,8 +1307,6 @@ const STUDY_MA={
 ],
 6:[
  {t:'Funções definidas por ramos',h:`<p>Uma expressão diferente para cada parte do domínio.</p><div class="formula" style="text-align:left">f(x) = { x + 3 &nbsp;se x &lt; −1<br><span style="padding-left:46px">x² &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;se x ≥ −1</span></div><div class="fig">${PL({r:[-4,3,-2,5],h:200,c:[{f:x=>x+3,d:[-4,-1]},{f:x=>x*x,d:[-1,2.3]}],pt:[[-1,2,1,'não pertence',-58,-6],[-1,1,0,'pertence',6,10]]})}</div><ul class="dots"><li>Para calcular f(a): ver em que ramo cai a. <b>f(−1) = (−1)² = 1</b></li><li>● bola cheia: o ponto pertence · ○ bola vazia: não pertence.</li><li><b>Zeros:</b> resolver em cada ramo e confirmar se a solução está nesse ramo.</li></ul>`},
- {t:'Função módulo',h:`<p><b>|x| = distância de x a 0.</b> Nunca é negativa.</p><div class="formula" style="text-align:left">|x| = { x &nbsp;&nbsp;se x ≥ 0<br><span style="padding-left:34px">−x se x &lt; 0</span></div><div class="fig">${PL({r:[-3,5,-1,3.5],h:170,c:[{f:Math.abs},{f:x=>Math.abs(x-2),col:'#3b82d6'}],lab:[[-2.9,3.1,'y = |x|'],[3.2,2.6,'y = |x − 2|']]})}</div><p>Gráfico em V, vértice na origem; D′ = [0, +∞[.</p><p>|x − 2| = distância de x a 2: o V anda 2 para a direita.</p><p class="note">|5| = 5 · |−5| = 5 · |0| = 0</p>`},
- {t:'Equações e inequações com módulo',h:`<p class="note">Para k &gt; 0 (ex.: k = 3):</p><table class="st"><tr><td><b>|x| = 3</b></td><td>x = 3 ∨ x = −3</td></tr><tr><td><b>|x| &lt; 3</b> → "entre"</td><td>−3 &lt; x &lt; 3</td></tr><tr><td><b>|x| &gt; 3</b> → "fora"</td><td>x &lt; −3 ∨ x &gt; 3</td></tr><tr><td><b>|x| = 0</b></td><td>⇔ x = 0</td></tr><tr><td><b>|x| = −2</b></td><td>impossível</td></tr></table><div class="box"><b>Funciona igual com expressões</b><p>|x − 2| &lt; 3 ⇔ −3 &lt; x − 2 &lt; 3 ⇔ −1 &lt; x &lt; 5</p></div>`},
  {t:'Os 6 erros que mais custam pontos',h:`<ol class="num"><li>f(x + 2) anda para a <b>esquerda</b>, não para a direita.</li><li>Contradomínio ≠ conjunto de chegada.</li><li>Máximo é um <b>y</b>; maximizante é um <b>x</b>.</li><li>(x − 3)² tem vértice em x = 3, não em −3.</li><li>Esquecer de passar tudo para um lado antes de resolver uma inequação.</li><li>Nos ramos: esquecer de ver se a solução pertence ao ramo.</li></ol><p class="note">Pode também aparecer, conforme a escola e o professor: paridade (funções pares e ímpares), polinómios (divisão, regra de Ruffini) e taxa média de variação. Confirma no manual.</p>`},
 ],
 };
@@ -1969,7 +1967,7 @@ const TESTS={
   {n:'Função afim e função quadrática',s:'Retas e parábolas: o que significa cada parâmetro',keys:[]},
   {n:'Equações e inequações do 2.º grau',s:'Fórmula resolvente, discriminante, inequações',keys:[]},
   {n:'Transformações de gráficos',s:'a·f(x), f(bx), f(x + c) e f(x) + d',keys:[]},
-  {n:'Funções por ramos e módulo',s:'Ramos, distância a zero e os 6 erros mais comuns',keys:[]}],levels:true,keys:['m1','m2','m3','m4','m5','m6','m7','m8','m9','m10','m11','m12']},
+  {n:'Funções por ramos',s:'Funções definidas por ramos e os erros mais comuns',keys:[]}],levels:true,keys:['m1','m2','m3','m4','m5','m6','m7','m8','m9','m10','m11']},
  ec1:{subj:'ec',title:'1.º Teste',name:'Temas 1 e 2 · Atividade económica, necessidades e consumo',when:'2026-10-28',keys:['e1','e2','e3','e4','e5','e6','e7','e8','e0','e0b'],mix:['e1','e2','e3','e4','e5','e6','e7'],extraFrom:'e8'},
 };
 const QS=[...QS_PT,...QS_EC,...QS_NEW,...QS_FI,...QS_EF,...QS_MA,...QS_GE,...QS_PT2];
@@ -2388,12 +2386,12 @@ function study(){const T=T_(),u=T.units[unitCur],cards=STUDY()[unitCur+1],k=card
  ${studyI<n-1?`<button class="big" onclick="stepStudy(1)">Seguinte ›</button>`:(u.keys.length?`<button class="big" onclick="start('unit:${cur}:${unitCur}')">Testar agora</button>`:unitCur<T.units.length-1?`<button class="big" onclick="unitCur++;openStudy()">Unidade seguinte ›</button>`:`<button class="big" onclick="go('test')">Terminar</button>`)}</div>`}
 
 function levels(T,s){const L=LV(),back=`subjCur='${T.subj}';go('subj')`,c=s.c;
- const lv=T.keys.map((k,i)=>{const P=TOPICS[k],open=i<=L.u,st=L.s[i]||0,b=L.b[i],n=idsOf(k).length,dom=st>=2||i<L.u;
-  const right=!open?'bloqueado':dom?`<b>${b}%</b><br>dominado`:b!==undefined?`<b>${b}%</b><br>${st?'1 de 2 a 100%':'melhor'}`:'›';
+ const lv=T.keys.map((k,i)=>{const P=TOPICS[k],open=true,st=L.s[i]||0,b=L.b[i],n=idsOf(k).length,dom=st>=2;
+  const right=dom?`<b>${b}%</b><br>dominado`:b!==undefined?`<b>${b}%</b><br>${st?'1 de 2 a 100%':'melhor'}`:'›';
   return `<button class="topic ${open?'':'lock'}" style="--c:${c}" ${open?`onclick="start('lvl:${cur}:${i}')"`:'disabled'}><div><div class="n">Nível ${i+1} · ${P.n}</div><div class="s">${P.s} · ${n} perguntas</div></div><span class="best">${right}</span></button>`}).join('');
  const nw=S.wrong.filter(inCur).length,cards=STUDY();
  return `${header(back,s.n+' · '+T.title)}
- <div class="testcard" style="background:${c};color:#fff"><span class="k">${T.when?'Teste a '+fmtDate(T.when):'Treino por níveis'}</span><span class="t">${T.title}</span><span class="small" style="opacity:.85">Rondas de ${LVN} perguntas. 2 rondas seguidas a 100% desbloqueiam o nível seguinte.</span></div>
+ <div class="testcard" style="background:${c};color:#fff"><span class="k">${T.when?'Teste a '+fmtDate(T.when):'Treino por níveis'}</span><span class="t">${T.title}</span><span class="small" style="opacity:.85">Rondas de ${LVN} perguntas. Um nível fica dominado com 2 rondas seguidas a 100%.</span></div>
  ${cdBox(T)}
  <h3 style="margin:6px 2px 0">Treinar</h3><div class="list">${lv}</div>
  <div class="pill2"><button onclick="start('${ERR()}')" ${nw?'':'disabled'}>Os meus erros<span>${nw} para rever</span></button>
@@ -2482,10 +2480,10 @@ function qview(){const id=quiz.ids[quiz.i],q=QS[id],P=TOPICS[q[0]];
 function result(){const n=quiz.ids.length,p=Math.round(quiz.ok/n*100);
  const errs=quiz.wrongs.map(i=>QS[i]);
  const lv=quiz.lv,nxt=lv?lv.i+2:0,last=lv&&lv.i===T_().keys.length-1;
- const lvTxt=!lv?'':lv.unl?`<b>Nível ${nxt} desbloqueado.</b>`:!lv.full?(last||LV().u>lv.i?'Para dominar o nível, o objetivo são 2 rondas seguidas a 100%.':`Para desbloquear o Nível ${nxt} são precisas 2 rondas seguidas a 100%. A contagem recomeça.`):lv.streak>=2?(last?'Último nível dominado: 2 rondas seguidas a 100%.':'Nível dominado: 2 rondas seguidas a 100%.'):(last||LV().u>lv.i?'Primeira ronda a 100%. Falta mais uma seguida para dominar o nível.':`Primeira ronda a 100%. Mais uma seguida desbloqueia o Nível ${nxt}.`);
+ const lvTxt=!lv?'':lv.full?(lv.streak>=2?'Nível dominado: 2 rondas seguidas a 100%.':'Primeira ronda a 100%. Mais uma seguida e o nível fica dominado.'):'Para dominar o nível são precisas 2 rondas seguidas a 100%. A contagem recomeça.';
  return `<div class="card" style="align-items:center;text-align:center"><span class="muted small">${esc(tname(quiz.t))}</span><div class="score">${p}%</div><p class="muted" style="font-size:18px;font-weight:600">${quiz.ok}/${n} certas</p>${lvTxt?`<p class="small" style="margin:4px 0 0">${lvTxt}</p>`:''}</div>
  ${errs.length?`<div class="card"><h3>Para rever (${errs.length})</h3>${errs.map(q=>`<div class="err"><span>${esc(q[2])}</span><span class="a">${esc(ansTxt(q))}</span></div>`).join('')}</div>`:''}
- ${lv&&lv.unl?`<button class="big" onclick="start('lvl:${cur}:${lv.i+1}')">Começar o Nível ${nxt}</button><button class="ghost" onclick="start('${quiz.t}')">Repetir este nível</button>`:`<button class="big" onclick="start('${quiz.t}')">${lv?'Nova ronda deste nível':'Nova ronda'}</button>`}
+ <button class="big" onclick="start('${quiz.t}')">${lv?'Nova ronda deste nível':'Nova ronda'}</button>${lv&&!last?`<button class="ghost" onclick="start('lvl:${cur}:${lv.i+1}')">Passar ao Nível ${nxt}</button>`:''}
  ${S.wrong.filter(inCur).length?`<button class="ghost" onclick="start('${ERR()}')">Rever os meus erros (${S.wrong.filter(inCur).length})</button>`:''}
  <button class="ghost" onclick="go(backTo)">${backTo==='unit'?'Voltar à unidade':T_().levels?'Voltar aos níveis':'Voltar às matérias'}</button>`}
 
